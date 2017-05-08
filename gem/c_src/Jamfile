@@ -1,0 +1,23 @@
+import python ;
+
+# Adjust the following if Boost.Python isn't installed in a default location
+lib boost_numpy
+  :
+  : <search>/usr/local/lib
+    <include>/usr/local/include
+    ;
+
+project tutorial
+  : requirements
+    <include>/usr/local/include
+    <library>boost_numpy
+    <location>.
+    <location>.
+    ;
+    
+python-extension graphFac_ext : graphFac.cpp ;
+
+run-test grahFac : graphFac_ext graphFacLoad.py ;
+
+alias test : grahFac ;
+explicit test ;
