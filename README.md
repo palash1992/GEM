@@ -52,4 +52,12 @@ Run Graph Factorization on Karate graph and evaluate it on graph reconstruction:
     # Evaluate on graph reconstruction
     MAP, prec_curv = gr.evaluateStaticGraphReconstruction(graph, em, Y, None)
 
+## Cite
+    @article{goyalgem,
+      title={Graph Embedding Techniques, Applications, and Performance: A Survey},
+      author={Goyal, Palash and Ferrara, Emilio},
+      journal={arXiv preprint arXiv:1705.02801},
+      year={2017}
+    }
+
 
