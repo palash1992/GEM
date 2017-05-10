@@ -1,8 +1,17 @@
 # GEM: Graph Embedding Methods
 GEM is a Python module that implements many graph (a.k.a. network) embedding algorithms. GEM is distributed under BSD license.
 
-The module was developed and is maintained by Palash Goyal. The details of the methods implemented in this module are given in [Graph Embedding Techniques, Applications, and Performance: A Survey](https://arxiv.org/abs/1705.02801).
+The module was developed and is maintained by Palash Goyal.
 
+## Implemented Methods
+GEM implements the following graph embedding techniques:
+* [Laplacian Eigenmaps](http://yeolab.weebly.com/uploads/2/5/5/0/25509700/belkin_laplacian_2003.pdf)
+* [Locally Linear Embedding](http://www.robots.ox.ac.uk/~az/lectures/ml/lle.pdf)
+* [Graph Factorization](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/40839.pdf)
+* [Higher-Prder Proximity preserved Embedding (HOPE)](http://www.kdd.org/kdd2016/papers/files/rfp0184-ouA.pdf)
+* [Structural Deep Network Embedding (SDNE)](http://www.kdd.org/kdd2016/papers/files/rfp0191-wangAemb.pdf)
+* [node2vec](http://www.kdd.org/kdd2016/papers/files/rfp0218-groverA.pdf)
+A survey of these methods can be found in [Graph Embedding Techniques, Applications, and Performance: A Survey](https://arxiv.org/abs/1705.02801).
 
 ## Graph Format
 We store all graphs using the [DiGraph](http://networkx.readthedocs.io/en/networkx-1.11/reference/classes.digraph.html) as **directed weighted graph** in python package networkx. The weight of an edge is stored as attribute "weight". We save each edge in undirected graph as two directed edges.
