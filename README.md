@@ -11,6 +11,7 @@ GEM implements the following graph embedding techniques:
 * [Higher-Prder Proximity preserved Embedding (HOPE)](http://www.kdd.org/kdd2016/papers/files/rfp0184-ouA.pdf)
 * [Structural Deep Network Embedding (SDNE)](http://www.kdd.org/kdd2016/papers/files/rfp0191-wangAemb.pdf)
 * [node2vec](http://www.kdd.org/kdd2016/papers/files/rfp0218-groverA.pdf)
+
 A survey of these methods can be found in [Graph Embedding Techniques, Applications, and Performance: A Survey](https://arxiv.org/abs/1705.02801).
 
 ## Graph Format
