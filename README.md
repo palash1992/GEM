@@ -1,7 +1,7 @@
 # GEM: Graph Embedding Methods
 GEM is a Python module that implements many graph (a.k.a. network) embedding algorithms. GEM is distributed under BSD license.
 
-The module was developed and is maintained by Palash Goyal.
+The module was developed and is maintained by Palash Goyal. The details of the methods implemented in this module are given in [Graph Embedding Techniques, Applications, and Performance: A Survey](https://arxiv.org/abs/1705.02801).
 
 
 ## Graph Format
