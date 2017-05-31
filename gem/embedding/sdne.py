@@ -136,13 +136,13 @@ class SDNE(StaticGraphEmbedding):
 				y_true: Contains [b, deg]
 			'''			
 			return KBack.sum(KBack.square(y_pred * y_true[:,0:self._node_num]), axis=-1)/y_true[:,self._node_num]
-		def weighted_mse_y(y_true, y_pred):
-			''' Hack: This fn doesn't accept additional arguments. We use y_true to pass them.
-				y_pred: Contains y2 - y1
-				y_true: Contains s12
-			'''			
-			min_batch_size = y_true.shape[0]
-			return KBack.sum(KBack.square(y_pred), axis=-1).reshape([min_batch_size, 1]) * y_true
+        def weighted_mse_y(y_true, y_pred):
+            ''' Hack: This fn doesn't accept additional arguments. We use y_true to pass them.
+                y_pred: Contains y2 - y1
+                y_true: Contains s12
+            '''
+            min_batch_size = KBack.shape(y_true)[0]        
+            return KBack.reshape(KBack.sum(KBack.square(y_pred), axis=-1),[min_batch_size, 1]) * y_true
 		
 		# Model
 		self._model = Model(input=x_in, output=[x_diff1, x_diff2, y_diff])
