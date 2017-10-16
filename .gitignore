@@ -1,3 +1,6 @@
+# THIS FILE IS GENERATED FROM GEM SETUP.PY
+gem/version.py
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

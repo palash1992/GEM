@@ -36,12 +36,16 @@ To run SDNE, GEM requires Theano >= 0.9.0 and Keras = 2.0.2.
 
 ## Install
 The package uses setuptools, which is a common way of installing python modules. To install in your home directory, use:
-
+```bash
     python setup.py install --user
+```
 
 To install for all users on Unix/Linux:
-    
+```bash 
     sudo python setup.py install
+```
+
+You also can use `python3` instead of `python`
 
 ## Usage
 Run Graph Factorization on Karate graph and evaluate it on graph reconstruction:
