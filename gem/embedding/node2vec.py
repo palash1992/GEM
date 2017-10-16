@@ -1,6 +1,6 @@
 disp_avlbl = True
-from os import environ
-if 'DISPLAY' not in environ:
+import os
+if 'DISPLAY' not in os.environ:
     disp_avlbl = False
     import matplotlib
     matplotlib.use('Agg')
@@ -16,6 +16,8 @@ from time import time
 
 import sys
 sys.path.append('./')
+sys.path.append(os.path.realpath(__file__))
+
 from subprocess import call
 
 from static_graph_embedding import StaticGraphEmbedding
@@ -96,11 +98,11 @@ if __name__ == '__main__':
 	G = graph_util.loadGraphFromEdgeListTxt(edge_f, directed=False)
 	G = G.to_directed()
 	res_pre = 'results/testKarate'
-	print 'Num nodes: %d, num edges: %d' % (G.number_of_nodes(), G.number_of_edges())
+	print('Num nodes: %d, num edges: %d' % (G.number_of_nodes(), G.number_of_edges()))
 	t1 = time()
 	embedding = node2vec(2, 1, 80, 10, 10, 1, 1)
 	embedding.learn_embedding(graph=G, edge_f=None, is_weighted=True, no_python=True)
-	print 'node2vec:\n\tTraining time: %f' % (time() - t1)
+	print('node2vec:\n\tTraining time: %f' % (time() - t1))
 
 	viz.plot_embedding2D(embedding.get_embedding(), di_graph=G, node_colors=None)
 	plt.show()

@@ -23,8 +23,8 @@ def getEdgeListFromAdjMtx(adj, threshold=0.0, is_undirected=True, edge_pairs=Non
             if adj[st, ed] >= threshold:
                 result.append((st, ed, adj[st, ed]))
     else:
-        for i in xrange(node_num):
-            for j in xrange(node_num):
+        for i in range(node_num):
+            for j in range(node_num):
                 if(j == i):
                     continue
                 if(is_undirected and i >= j):

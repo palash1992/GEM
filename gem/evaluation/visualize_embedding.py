@@ -5,7 +5,7 @@ from sklearn.manifold import TSNE
 def plot_embedding2D(node_pos, node_colors=None, di_graph=None):
     node_num, embedding_dimension = node_pos.shape
     if(embedding_dimension > 2):
-        print "Embedding dimensiion greater than 2, use tSNE to reduce it to 2"
+        print("Embedding dimensiion greater than 2, use tSNE to reduce it to 2")
         model = TSNE(n_components=2)
         node_pos = model.fit_transform(node_pos)
 
@@ -15,7 +15,7 @@ def plot_embedding2D(node_pos, node_colors=None, di_graph=None):
     else:
         # plot using networkx with edge structure
         pos = {}
-        for i in xrange(node_num):
+        for i in range(node_num):
             pos[i] = node_pos[i, :]
         if node_colors:
             nx.draw_networkx_nodes(di_graph, pos, node_color=node_colors, width=0.1, node_size=100, arrows=False, alpha=0.8, font_size=5)

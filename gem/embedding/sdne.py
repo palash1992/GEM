@@ -1,6 +1,6 @@
 disp_avlbl = True
-from os import environ
-if 'DISPLAY' not in environ:
+import os
+if 'DISPLAY' not in os.environ:
     disp_avlbl = False
     import matplotlib
     matplotlib.use('Agg')
@@ -11,6 +11,7 @@ import scipy.io as sio
 
 import sys
 sys.path.append('./')
+sys.path.append(os.path.realpath(__file__))
 
 from static_graph_embedding import StaticGraphEmbedding
 from gem.utils import graph_util, plot_util
@@ -95,7 +96,7 @@ class SDNE(StaticGraphEmbedding):
 		else:
 			S = graph_util.transform_DiGraph_to_adj(graph)
 		if not np.allclose(S.T, S):
-			print "SDNE only works for symmetric graphs! Making the graph symmetric"
+			print("SDNE only works for symmetric graphs! Making the graph symmetric")
 		t1 = time()
 		S = (S + S.T)/2					# enforce S is symmetric
 		S -= np.diag(np.diag(S))		# enforce diagonal = 0
@@ -159,7 +160,7 @@ class SDNE(StaticGraphEmbedding):
 		OutData = np.zeros((data_chunk_size, 2*self._node_num + 3))
 		# Train the model
 		for epoch_num in range(self._num_iter):			
-			print 'EPOCH %d/%d' % (epoch_num, self._num_iter)
+			print('EPOCH %d/%d' % (epoch_num, self._num_iter))
 			e = 0
 			k = 0
 			for i in range(self._node_num):
@@ -254,11 +255,11 @@ if __name__ == '__main__':
 	G = graph_util.loadGraphFromEdgeListTxt(edge_f, directed=False)
 	G = G.to_directed()
 	res_pre = 'results/testKarate'
-	print 'Num nodes: %d, num edges: %d' % (G.number_of_nodes(), G.number_of_edges())
+	print('Num nodes: %d, num edges: %d' % (G.number_of_nodes(), G.number_of_edges()))
 	t1 = time()
 	embedding = SDNE(d=2, beta=5, alpha=1e-5, nu1=1e-6, nu2=1e-6, K=3, n_units=[50, 15,], rho=0.3, n_iter=50, xeta=0.01, n_batch=500, modelfile=['./intermediate/enc_model.json', './intermediate/dec_model.json'], weightfile=['./intermediate/enc_weights.hdf5', './intermediate/dec_weights.hdf5'])
 	embedding.learn_embedding(graph=G, edge_f=None, is_weighted=True, no_python=True)
-	print 'SDNE:\n\tTraining time: %f' % (time() - t1)
+	print('SDNE:\n\tTraining time: %f' % (time() - t1))
 
 	viz.plot_embedding2D(embedding.get_embedding(), di_graph=G, node_colors=None)
 	plt.show()

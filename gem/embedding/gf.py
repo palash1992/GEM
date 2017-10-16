@@ -1,6 +1,6 @@
 disp_avlbl = True
-from os import environ
-if 'DISPLAY' not in environ:
+import os
+if 'DISPLAY' not in os.environ:
     disp_avlbl = False
     import matplotlib
     matplotlib.use('Agg')
@@ -12,8 +12,9 @@ import scipy.io as sio
 
 import sys
 sys.path.append('./')
+sys.path.append(os.path.realpath(__file__))
 
-from static_graph_embedding import StaticGraphEmbedding
+from .static_graph_embedding import StaticGraphEmbedding
 from gem.utils import graph_util, plot_util
 from gem.evaluation import visualize_embedding as viz
 from time import time
@@ -43,7 +44,7 @@ class GraphFactorization(StaticGraphEmbedding):
 
 	def _get_f_value(self, graph):
 		f1 = 0
-		for i, j, w in graph.edges_iter(data='weight', default=1):
+		for i, j, w in graph.edges(data='weight', default=1):
 			f1 += (w - np.dot(self._X[i, :], self._X[j, :]))**2
 		f2 = self._regu*(np.linalg.norm(self._X)**2)
 		return [f1, f2, f1+f2]
@@ -56,7 +57,7 @@ class GraphFactorization(StaticGraphEmbedding):
 			try:
 				from c_ext import graphFac_ext
 			except:
-				print 'Could not import C++ module for Graph Factorization. Reverting to python implementation. Please recompile graphFac_ext from graphFac.cpp using bjam'
+				print('Could not import C++ module for Graph Factorization. Reverting to python implementation. Please recompile graphFac_ext from graphFac.cpp using bjam')
 				c_flag = False
 			if c_flag:
 				if edge_f:
@@ -78,9 +79,9 @@ class GraphFactorization(StaticGraphEmbedding):
 		for iter_id in range(self._max_iter):
 			if not iter_id%100:
 				[f1, f2, f] = self._get_f_value(graph)
-				print '\t\tIter id: %d, Objective value: %g, f1: %g, f2: %g' % (iter_id, f, f1, f2)
+				print('\t\tIter id: %d, Objective value: %g, f1: %g, f2: %g' % (iter_id, f, f1, f2))
 			tempFlag = False
-			for i, j, w in graph.edges_iter(data='weight', default=1):
+			for i, j, w in graph.edges(data='weight', default=1):
 				if j <= i:
 					continue
 				delPhi = -(w - np.dot(self._X[i, :], self._X[j, :]))*self._X[j, :] + self._regu*self._X[i, :]
@@ -114,11 +115,11 @@ if __name__ == '__main__':
 	G = graph_util.loadGraphFromEdgeListTxt(edge_f, directed=False)
 	G = G.to_directed()
 	res_pre = 'results/testKarate'
-	print 'Num nodes: %d, num edges: %d' % (G.number_of_nodes(), G.number_of_edges())
+	print ('Num nodes: %d, num edges: %d' % (G.number_of_nodes(), G.number_of_edges()))
 	t1 = time()
 	embedding = GraphFactorization(2, 100000, 1*10**-4, 1.0)
 	embedding.learn_embedding(graph=G, edge_f=None, is_weighted=True, no_python=True)
-	print 'Graph Factorization:\n\tTraining time: %f' % (time() - t1)
+	print ('Graph Factorization:\n\tTraining time: %f' % (time() - t1))
 
 	viz.plot_embedding2D(embedding.get_embedding(), di_graph=G, node_colors=None)
 	plt.show()

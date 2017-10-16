@@ -1,4 +1,5 @@
-import cPickle as pickle
+try: import cPickle as pickle
+except: import pickle
 import numpy as np
 import networkx as nx
 import random
@@ -88,7 +89,7 @@ def addNodeAnomalies(di_graphs, p, k):
         # pdb.set_trace()
         di_graphs[t].add_edges_from(itertools.product(list(anomalous_nodes), range(n_nodes)))
         di_graphs[t].add_edges_from(itertools.product(range(n_nodes), list(anomalous_nodes)))
-        print 'Nodes: %d, Edges: %d' % (di_graphs[t].number_of_nodes(), di_graphs[t].number_of_edges())
+        print('Nodes: %d, Edges: %d' % (di_graphs[t].number_of_nodes(), di_graphs[t].number_of_edges()))
     return anomaly_time_steps
 
 def saveGraphToEdgeListTxt(graph, file_name):
