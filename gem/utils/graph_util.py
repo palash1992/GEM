@@ -10,7 +10,7 @@ import pdb
 def transform_DiGraph_to_adj(di_graph):
     n = di_graph.number_of_nodes()
     adj = np.zeros((n ,n))
-    for st, ed, w in di_graph.edges_iter(data='weight', default=1):
+    for st, ed, w in di_graph.edges(data='weight', default=1):
         adj[st, ed] = w
     return adj
 
@@ -32,7 +32,7 @@ def sample_graph(di_graph, n_sampled_nodes=None):
         node_l_inv = {v: k for k, v in enumerate(node_l)}
         sampled_graph = nx.DiGraph()
         sampled_graph.add_nodes_from(range(n_sampled_nodes))
-        for st, ed, w in di_graph.edges_iter(data='weight', default=1):
+        for st, ed, w in di_graph.edges(data='weight', default=1):
             try:
                 v_i = node_l_inv[st]
                 v_j = node_l_inv[ed]
@@ -96,12 +96,12 @@ def saveGraphToEdgeListTxt(graph, file_name):
     with open(file_name, 'w') as f:
         f.write('%d\n' % graph.number_of_nodes())
         f.write('%d\n' % graph.number_of_edges())
-        for i, j, w in graph.edges_iter(data='weight', default=1):
+        for i, j, w in graph.edges(data='weight', default=1):
             f.write('%d %d %f\n' % (i, j, w))
 
 def saveGraphToEdgeListTxtn2v(graph, file_name):
     with open(file_name, 'w') as f:
-        for i, j, w in graph.edges_iter(data='weight', default=1):
+        for i, j, w in graph.edges(data='weight', default=1):
             f.write('%d %d %f\n' % (i, j, w))
 
 

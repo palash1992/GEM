@@ -28,11 +28,13 @@ The graphs are saved using `nx.write_gpickle` in the networkx format and can be 
 * **gem/c_ext**: Python interface for source files in c_src using [Boost.Python](http://www.boost.org/doc/libs/1_64_0/libs/python/doc/html/index.html)
 
 ## Dependencies
-GEM is tested to work on Python 2.7.
+GEM is tested to work on Python 2.7 and Python 3.6
 
 The required dependencies are: Numpy >= 1.12.0, SciPy >= 0.19.0, Networkx >= 1.11, Scikit-learn >= 0.18.1.
 
 To run SDNE, GEM requires Theano >= 0.9.0 and Keras = 2.0.2.
+
+In case of Python 3, make sure it was compiled with `./configure --enable-shared`, and that you have `/usr/local/bin/python` in your `LD_LIBRARY_PATH`
 
 ## Install
 The package uses setuptools, which is a common way of installing python modules. To install in your home directory, use:

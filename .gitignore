@@ -1,3 +1,6 @@
+py2test/
+py3test/
+
 # THIS FILE IS GENERATED FROM GEM SETUP.PY
 gem/version.py
 

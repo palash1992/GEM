@@ -13,10 +13,10 @@ import sys
 sys.path.append('./')
 sys.path.append(os.path.realpath(__file__))
 
-from static_graph_embedding import StaticGraphEmbedding
+from .static_graph_embedding import StaticGraphEmbedding
 from gem.utils import graph_util, plot_util
 from gem.evaluation import visualize_embedding as viz
-from sdne_utils import *
+from .sdne_utils import *
 
 from keras.layers import Input, Dense, Lambda, merge
 from keras.models import Model, model_from_json
@@ -126,9 +126,13 @@ class SDNE(StaticGraphEmbedding):
 		[x_hat1, y1] = self._autoencoder(x1)
 		[x_hat2, y2] = self._autoencoder(x2)
 		# Outputs
-		x_diff1 = merge([x_hat1, x1], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
-		x_diff2 = merge([x_hat2, x2], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
-		y_diff = merge([y2, y1], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
+		#x_diff1 = merge([x_hat1, x1], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
+		#x_diff2 = merge([x_hat2, x2], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
+		#y_diff = merge([y2, y1], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
+
+		x_diff1 = merge([x_hat1, x1], mode=lambda ab: ab[0] - ab[1], output_shape=lambda L: L[1])
+		x_diff2 = merge([x_hat2, x2], mode=lambda ab: ab[0] - ab[1], output_shape=lambda L: L[1])
+		y_diff = merge([y2, y1], mode=lambda ab: ab[0] - ab[1], output_shape=lambda L: L[1])
 
 		# Objectives
 		def weighted_mse_x(y_true, y_pred):

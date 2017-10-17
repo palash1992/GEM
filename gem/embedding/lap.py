@@ -18,7 +18,7 @@ import sys
 sys.path.append('./')
 sys.path.append(os.path.realpath(__file__))
 
-from static_graph_embedding import StaticGraphEmbedding
+from .static_graph_embedding import StaticGraphEmbedding
 from gem.utils import graph_util, plot_util
 from gem.evaluation import visualize_embedding as viz
 
