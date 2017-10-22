@@ -52,7 +52,7 @@ class HOPE(StaticGraphEmbedding):
 		M_l = self._beta*A
 		S = np.dot(np.linalg.inv(M_g), M_l)
 
-		u, s, vt = lg.svds(S, k=self._d/2)
+		u, s, vt = lg.svds(S, k=self._d//2) 
 		X1 = np.dot(u, np.diag(np.sqrt(s)))
 		X2 = np.dot(vt.T, np.diag(np.sqrt(s)))
 		t2 = time()
@@ -71,7 +71,7 @@ class HOPE(StaticGraphEmbedding):
 		return self._X
 
 	def get_edge_weight(self, i, j):
-		return np.dot(self._X[i, :self._d/2], self._X[j, self._d/2:])
+		return np.dot(self._X[i, :self._d//2], self._X[j, self._d//2:])
 
 	def get_reconstructed_adj(self, X=None, node_l=None):
 		if X is not None:

@@ -160,6 +160,7 @@ class SDNE(StaticGraphEmbedding):
 		# InData format: [x1, x2]
 		# OutData format: [b1, b2, s12, deg1, deg2]
 		data_chunk_size = 100000
+		print("\nnode num: {}\n".format(self._node_num))
 		InData = np.zeros((data_chunk_size, 2*self._node_num))
 		OutData = np.zeros((data_chunk_size, 2*self._node_num + 3))
 		# Train the model
@@ -206,7 +207,7 @@ class SDNE(StaticGraphEmbedding):
 		return self._Y, (t2-t1)
 
 
-	def get_embedding(self, filesuffix):
+	def get_embedding(self, filesuffix=None):
 		return self._Y if filesuffix is None else np.loadtxt('embedding_'+filesuffix+'.txt')
 
 

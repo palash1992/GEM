@@ -16,7 +16,7 @@ from time import time
 
 import sys
 sys.path.append('./')
-sys.path.append(os.path.realpath(__file__))
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
 from subprocess import call
 
@@ -45,7 +45,7 @@ class node2vec(StaticGraphEmbedding):
 		return '%s_%d' % (self._method_name, self._d)
 
 	def learn_embedding(self, graph=None, edge_f=None, is_weighted=False, no_python=False):
-		args = ["./c_exe/node2vec"]
+		args = ["gem/c_exe/node2vec"]
 		if not graph and not edge_f:
 			raise Exception('graph/edge_f needed')
 		if edge_f:
@@ -66,7 +66,8 @@ class node2vec(StaticGraphEmbedding):
 		t1 = time()
 		try:
 			call(args)
-		except:
+		except Exception as e:
+			print(str(e))
 			raise Exception('./node2vec not found. Please compile snap, place node2vec in the path and grant executable permission')
 		self._X = graph_util.loadEmbedding('tempGraph.emb')
 		t2 = time()

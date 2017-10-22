@@ -8,7 +8,7 @@ GEM implements the following graph embedding techniques:
 * [Laplacian Eigenmaps](http://yeolab.weebly.com/uploads/2/5/5/0/25509700/belkin_laplacian_2003.pdf)
 * [Locally Linear Embedding](http://www.robots.ox.ac.uk/~az/lectures/ml/lle.pdf)
 * [Graph Factorization](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/40839.pdf)
-* [Higher-Prder Proximity preserved Embedding (HOPE)](http://www.kdd.org/kdd2016/papers/files/rfp0184-ouA.pdf)
+* [Higher-Order Proximity preserved Embedding (HOPE)](http://www.kdd.org/kdd2016/papers/files/rfp0184-ouA.pdf)
 * [Structural Deep Network Embedding (SDNE)](http://www.kdd.org/kdd2016/papers/files/rfp0191-wangAemb.pdf)
 * [node2vec](http://www.kdd.org/kdd2016/papers/files/rfp0218-groverA.pdf)
 
@@ -50,23 +50,57 @@ To install for all users on Unix/Linux:
 You also can use `python3` instead of `python`
 
 ## Usage
-Run Graph Factorization on Karate graph and evaluate it on graph reconstruction:
+Run the methods on Karate graph and evaluate them on graph reconstruction:
 
-    from gem.embedding.gf import GraphFactorization as gf
-    from gem.evaluation import evaluate_graph_reconstruction as gr
-    from gem.utils import graph_util
+```python
+import matplotlib.pyplot as plt
 
-    # Instatiate the embedding method with hyperparameters
-    em = gf(2, 100000, 1*10**-4, 1.0)
+from gem.utils import graph_util, plot_util
+from gem.evaluation import visualize_embedding as viz
+from gem.evaluation import evaluate_graph_reconstruction as gr
+from time import time
 
-    # Load graph
-    graph = graph_util.loadGraphFromEdgeListTxt('gem/data/karate.edgelist')
+from gem.embedding.gf       import GraphFactorization
+from gem.embedding.hope     import HOPE
+from gem.embedding.lap      import LaplacianEigenmaps
+from gem.embedding.lle      import LocallyLinearEmbedding
+from gem.embedding.node2vec import node2vec
+from gem.embedding.sdne     import SDNE
 
+# File that contains the edges. Format: source target
+# Optionally, you can add weights as third column: source target weight
+edge_f = 'gem/data/karate.edgelist'
+# Specify whether the edges are directed
+isDirected = True
+
+# Load graph
+G = graph_util.loadGraphFromEdgeListTxt(edge_f, directed=isDirected)
+G = G.to_directed()
+
+models = []
+# You can comment out the methods you don't want to run
+models.append(GraphFactorization(2, 100000, 1*10**-4, 1.0))
+models.append(HOPE(4, 0.01))
+models.append(LaplacianEigenmaps(2))
+models.append(LocallyLinearEmbedding(2))
+models.append(node2vec(2, 1, 80, 10, 10, 1, 1))
+models.append(SDNE(d=2, beta=5, alpha=1e-5, nu1=1e-6, nu2=1e-6, K=3,n_units=[50, 15,], rho=0.3, n_iter=50, xeta=0.01,n_batch=500,
+                modelfile=['./intermediate/enc_model.json', './intermediate/dec_model.json'],
+                weightfile=['./intermediate/enc_weights.hdf5', './intermediate/dec_weights.hdf5']))
+
+for embedding in models:
+    print ('Num nodes: %d, num edges: %d' % (G.number_of_nodes(), G.number_of_edges()))
+    t1 = time()
     # Learn embedding - accepts a networkx graph or file with edge list
-    Y, t = em.learn_embedding(graph, edge_f=None, is_weighted=True, no_python=True)
-    
+    Y, t = embedding.learn_embedding(graph=G, edge_f=None, is_weighted=True, no_python=True)
+    print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
     # Evaluate on graph reconstruction
-    MAP, prec_curv = gr.evaluateStaticGraphReconstruction(graph, em, Y, None)
+    MAP, prec_curv = gr.evaluateStaticGraphReconstruction(G, embedding, Y, None)
+    # Visualize
+    viz.plot_embedding2D(embedding.get_embedding(), di_graph=G, node_colors=None)
+    plt.show()
+```
+
 
 ## Cite
     @article{goyal2017graph,

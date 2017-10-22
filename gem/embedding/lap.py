@@ -100,7 +100,7 @@ if __name__ == '__main__':
 	t1 = time()
 	embedding = LaplacianEigenmaps(2)
 	embedding.learn_embedding(graph=G, edge_f=None, is_weighted=True, no_python=True)
-	print('Laplacian Eigenmaps:\n\tTraining time: %f' % (time() - t1))1
+	print('Laplacian Eigenmaps:\n\tTraining time: %f' % (time() - t1))
 
 	viz.plot_embedding2D(embedding.get_embedding(), di_graph=G, node_colors=None)
 	plt.show()

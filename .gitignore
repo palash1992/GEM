@@ -1,3 +1,8 @@
+intermediate/
+.idea
+marvel_*
+tempGraph.*
+ES_EVENT_LOG_v11.*
 py2test/
 py3test/
 

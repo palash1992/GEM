@@ -21,7 +21,7 @@ from time import time
 		
 class GraphFactorization(StaticGraphEmbedding):
 
-	def __init__(self, d, max_iter, eta, regu):
+	def __init__(self, d, max_iter, eta, regu, print_step=10000):
 		''' Initialize the GraphFactorization class
 
 		Args:
@@ -29,12 +29,14 @@ class GraphFactorization(StaticGraphEmbedding):
 			eta: learning rate of sgd
 			regu: regularization coefficient of magnitude of weights
 			max_iter: max iterations in sgd
+                        print_step: #iterations to log the prgoress (step%print_step)
 		'''
 		self._d = d
 		self._eta = eta
 		self._regu = regu
 		self._max_iter = max_iter
 		self._method_name = 'graph_factor_sgd'
+		self._print_step = print_step
 
 	def get_method_name(self):
 		return self._method_name
@@ -77,7 +79,7 @@ class GraphFactorization(StaticGraphEmbedding):
 		self._node_num = graph.number_of_nodes()
 		self._X = 0.01*np.random.randn(self._node_num, self._d)
 		for iter_id in range(self._max_iter):
-			if not iter_id%100:
+			if not iter_id%self._print_step:
 				[f1, f2, f] = self._get_f_value(graph)
 				print('\t\tIter id: %d, Objective value: %g, f1: %g, f2: %g' % (iter_id, f, f1, f2))
 			tempFlag = False
