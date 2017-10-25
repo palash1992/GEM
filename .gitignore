@@ -1,3 +1,16 @@
+*.edgelist
+*.idx2node
+intermediate/
+.idea
+marvel_*
+tempGraph.*
+ES_EVENT_LOG_v11.*
+py2test/
+py3test/
+
+# THIS FILE IS GENERATED FROM GEM SETUP.PY
+gem/version.py
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

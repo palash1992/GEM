@@ -1,6 +1,6 @@
 disp_avlbl = True
-from os import environ
-if 'DISPLAY' not in environ:
+import os
+if 'DISPLAY' not in os.environ:
     disp_avlbl = False
     import matplotlib
     matplotlib.use('Agg')
@@ -11,11 +11,12 @@ import scipy.io as sio
 
 import sys
 sys.path.append('./')
+sys.path.append(os.path.realpath(__file__))
 
-from static_graph_embedding import StaticGraphEmbedding
+from .static_graph_embedding import StaticGraphEmbedding
 from gem.utils import graph_util, plot_util
 from gem.evaluation import visualize_embedding as viz
-from sdne_utils import *
+from .sdne_utils import *
 
 from keras.layers import Input, Dense, Lambda, merge
 from keras.models import Model, model_from_json
@@ -95,7 +96,7 @@ class SDNE(StaticGraphEmbedding):
 		else:
 			S = graph_util.transform_DiGraph_to_adj(graph)
 		if not np.allclose(S.T, S):
-			print "SDNE only works for symmetric graphs! Making the graph symmetric"
+			print("SDNE only works for symmetric graphs! Making the graph symmetric")
 		t1 = time()
 		S = (S + S.T)/2					# enforce S is symmetric
 		S -= np.diag(np.diag(S))		# enforce diagonal = 0
@@ -125,9 +126,13 @@ class SDNE(StaticGraphEmbedding):
 		[x_hat1, y1] = self._autoencoder(x1)
 		[x_hat2, y2] = self._autoencoder(x2)
 		# Outputs
-		x_diff1 = merge([x_hat1, x1], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
-		x_diff2 = merge([x_hat2, x2], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
-		y_diff = merge([y2, y1], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
+		#x_diff1 = merge([x_hat1, x1], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
+		#x_diff2 = merge([x_hat2, x2], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
+		#y_diff = merge([y2, y1], mode=lambda (a,b): a - b, output_shape=lambda L: L[1])
+
+		x_diff1 = merge([x_hat1, x1], mode=lambda ab: ab[0] - ab[1], output_shape=lambda L: L[1])
+		x_diff2 = merge([x_hat2, x2], mode=lambda ab: ab[0] - ab[1], output_shape=lambda L: L[1])
+		y_diff = merge([y2, y1], mode=lambda ab: ab[0] - ab[1], output_shape=lambda L: L[1])
 
 		# Objectives
 		def weighted_mse_x(y_true, y_pred):
@@ -155,11 +160,12 @@ class SDNE(StaticGraphEmbedding):
 		# InData format: [x1, x2]
 		# OutData format: [b1, b2, s12, deg1, deg2]
 		data_chunk_size = 100000
+		print("\nnode num: {}\n".format(self._node_num))
 		InData = np.zeros((data_chunk_size, 2*self._node_num))
 		OutData = np.zeros((data_chunk_size, 2*self._node_num + 3))
 		# Train the model
 		for epoch_num in range(self._num_iter):			
-			print 'EPOCH %d/%d' % (epoch_num, self._num_iter)
+			print('EPOCH %d/%d' % (epoch_num, self._num_iter))
 			e = 0
 			k = 0
 			for i in range(self._node_num):
@@ -201,7 +207,7 @@ class SDNE(StaticGraphEmbedding):
 		return self._Y, (t2-t1)
 
 
-	def get_embedding(self, filesuffix):
+	def get_embedding(self, filesuffix=None):
 		return self._Y if filesuffix is None else np.loadtxt('embedding_'+filesuffix+'.txt')
 
 
@@ -254,11 +260,11 @@ if __name__ == '__main__':
 	G = graph_util.loadGraphFromEdgeListTxt(edge_f, directed=False)
 	G = G.to_directed()
 	res_pre = 'results/testKarate'
-	print 'Num nodes: %d, num edges: %d' % (G.number_of_nodes(), G.number_of_edges())
+	print('Num nodes: %d, num edges: %d' % (G.number_of_nodes(), G.number_of_edges()))
 	t1 = time()
 	embedding = SDNE(d=2, beta=5, alpha=1e-5, nu1=1e-6, nu2=1e-6, K=3, n_units=[50, 15,], rho=0.3, n_iter=50, xeta=0.01, n_batch=500, modelfile=['./intermediate/enc_model.json', './intermediate/dec_model.json'], weightfile=['./intermediate/enc_weights.hdf5', './intermediate/dec_weights.hdf5'])
 	embedding.learn_embedding(graph=G, edge_f=None, is_weighted=True, no_python=True)
-	print 'SDNE:\n\tTraining time: %f' % (time() - t1)
+	print('SDNE:\n\tTraining time: %f' % (time() - t1))
 
 	viz.plot_embedding2D(embedding.get_embedding(), di_graph=G, node_colors=None)
 	plt.show()
