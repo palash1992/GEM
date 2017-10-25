@@ -14,7 +14,7 @@ def evaluateStaticGraphReconstruction(digraph, graph_embedding,
         estimated_adj = graph_embedding.get_reconstructed_adj(X_stat, node_l)
     else:
         estimated_adj = graph_embedding.get_reconstructed_adj(X_stat, file_suffix, node_l)
-
+    
     predicted_edge_list = evaluation_util.getEdgeListFromAdjMtx(estimated_adj, 
         is_undirected=is_undirected, edge_pairs=eval_edge_pairs)
     MAP = metrics.computeMAP(predicted_edge_list, digraph)

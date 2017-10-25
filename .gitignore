@@ -1,3 +1,5 @@
+*.edgelist
+*.idx2node
 intermediate/
 .idea
 marvel_*

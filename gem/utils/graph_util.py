@@ -107,8 +107,8 @@ def saveGraphToEdgeListTxtn2v(graph, file_name):
 
 def loadGraphFromEdgeListTxt(file_name, directed=True):
     with open(file_name, 'r') as f:
-        n_nodes = f.readline()
-        f.readline() # Discard the number of edges
+        #n_nodes = f.readline()
+        #f.readline() # Discard the number of edges
         if directed:
             G = nx.DiGraph()
         else:

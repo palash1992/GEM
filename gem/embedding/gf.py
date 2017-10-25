@@ -68,7 +68,7 @@ class GraphFactorization(StaticGraphEmbedding):
 				is_weighted = True
 				edge_f = 'tempGraph.graph'
 				t1 = time()
-				graphFac_ext.learn_embedding(edge_f, "tempGraphGF.emb", True, is_weighted, self._d, self._eta, self._regu, self._max_iter)	
+				graphFac_ext.learn_embedding(edge_f, "tempGraphGF.emb", True, is_weighted, self._d, self._eta, self._regu, self._max_iter)
 				self._X = graph_util.loadEmbedding('tempGraphGF.emb')
 				t2 = time()
 				return self._X, (t2-t1)
