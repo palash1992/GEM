@@ -107,6 +107,13 @@ ENV/
 # intermediate
 gem/intermediate/*
 
+# results
+gem/results/*
+
+# data
+gem/data/*
+gem/data/*
+
 # neural network weights
 *.hdf5
 

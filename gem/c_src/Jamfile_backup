@@ -15,9 +15,9 @@ project tutorial
     <location>.
     ;
     
-python-extension digraphFac_ext : digraphFac.cpp ;
+python-extension graphFac_ext : graphFac.cpp ;
 
-run-test digrahFac : digraphFac_ext digraphFacLoad.py ;
+run-test grahFac : graphFac_ext graphFacLoad.py ;
 
-alias test : digraphFac ;
+alias test : grahFac ;
 explicit test ;
