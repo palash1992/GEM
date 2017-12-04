@@ -79,11 +79,11 @@ G = G.to_directed()
 
 models = []
 # You can comment out the methods you don't want to run
-models.append(GraphFactorization(2, 100000, 1*10**-4, 1.0))
-models.append(HOPE(4, 0.01))
-models.append(LaplacianEigenmaps(2))
-models.append(LocallyLinearEmbedding(2))
-models.append(node2vec(2, 1, 80, 10, 10, 1, 1))
+models.append(GraphFactorization(d=2, max_iter=100000, eta=1*10**-4, regu=1.0))
+models.append(HOPE(d=4, beta=0.01))
+models.append(LaplacianEigenmaps(d=2))
+models.append(LocallyLinearEmbedding(d=2))
+models.append(node2vec(d=2, max_iter=1, walk_len=80, num_walks=10, con_size=10, ret_p=1, inout_p=1))
 models.append(SDNE(d=2, beta=5, alpha=1e-5, nu1=1e-6, nu2=1e-6, K=3,n_units=[50, 15,], rho=0.3, n_iter=50, xeta=0.01,n_batch=500,
                 modelfile=['./intermediate/enc_model.json', './intermediate/dec_model.json'],
                 weightfile=['./intermediate/enc_weights.hdf5', './intermediate/dec_weights.hdf5']))
