@@ -95,7 +95,7 @@ for embedding in models:
     Y, t = embedding.learn_embedding(graph=G, edge_f=None, is_weighted=True, no_python=True)
     print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
     # Evaluate on graph reconstruction
-    MAP, prec_curv = gr.evaluateStaticGraphReconstruction(G, embedding, Y, None)
+    MAP, prec_curv, err, err_baseline = gr.evaluateStaticGraphReconstruction(G, embedding, Y, None)
     # Visualize
     viz.plot_embedding2D(embedding.get_embedding(), di_graph=G, node_colors=None)
     plt.show()
