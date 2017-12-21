@@ -63,7 +63,7 @@ class LaplacianEigenmaps(StaticGraphEmbedding):
 
         p_d_p_t = np.dot(v, np.dot(np.diag(w), v.T))
         eig_err = np.linalg.norm(p_d_p_t - L_sym)
-        print 'Laplacian matrix recon. error (low rank): %f' % eig_err
+        print('Laplacian matrix recon. error (low rank): %f' % eig_err)
         return self._X, (t2 - t1)
 
     def get_embedding(self):
