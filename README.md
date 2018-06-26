@@ -104,10 +104,14 @@ for embedding in models:
 
 ## Cite
     @article{goyal2017graph,
-      title={Graph Embedding Techniques, Applications, and Performance: A Survey},
-      author={Goyal, Palash and Ferrara, Emilio},
-      journal={arXiv preprint arXiv:1705.02801},
-      year={2017}
+        title = "Graph embedding techniques, applications, and performance: A survey",
+        journal = "Knowledge-Based Systems",
+        year = "2018",
+        issn = "0950-7051",
+        doi = "https://doi.org/10.1016/j.knosys.2018.03.022",
+        url = "http://www.sciencedirect.com/science/article/pii/S0950705118301540",
+        author = "Palash Goyal and Emilio Ferrara",
+        keywords = "Graph embedding techniques, Graph embedding applications, Python graph embedding methods GEM library"
     }
 
 
