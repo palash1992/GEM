@@ -13,7 +13,7 @@ authors:
     orcid: 0000-0003-2455-2160
     affiliation: 1
   - name: Emilio Ferrara
-    orcid: 0000-0000-0000-0000
+    orcid: 0000-0002-1942-2831
     affiliation: 1
 affiliations:
  - name: USC Information Sciences Institute
