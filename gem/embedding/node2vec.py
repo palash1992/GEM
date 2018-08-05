@@ -57,7 +57,7 @@ class node2vec(StaticGraphEmbedding):
 
     def learn_embedding(self, graph=None, edge_f=None,
                         is_weighted=False, no_python=False):
-        args = ["gem/c_exe/node2vec"]
+        args = ["node2vec"]
         if not graph and not edge_f:
             raise Exception('graph/edge_f needed')
         if edge_f:
@@ -80,7 +80,7 @@ class node2vec(StaticGraphEmbedding):
             call(args)
         except Exception as e:
             print(str(e))
-            raise Exception('./node2vec not found. Please compile snap, place node2vec in the path and grant executable permission')
+            raise Exception('./node2vec not found. Please compile snap, place node2vec in the system path and grant executable permission')
         self._X = graph_util.loadEmbedding('tempGraph.emb')
         t2 = time()
         return self._X, (t2 - t1)

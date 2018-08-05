@@ -34,7 +34,7 @@ The required dependencies are: Numpy >= 1.12.0, SciPy >= 0.19.0, Networkx >= 1.1
 
 To run SDNE, GEM requires Theano >= 0.9.0 and Keras = 2.0.2.
 
-In case of Python 3, make sure it was compiled with `./configure --enable-shared`, and that you have `/usr/local/bin/python` in your `LD_LIBRARY_PATH`
+In case of Python 3, make sure it was compiled with `./configure --enable-shared`, and that you have `/usr/local/bin/python` in your `LD_LIBRARY_PATH`.
 
 ## Install
 The package uses setuptools, which is a common way of installing python modules. To install in your home directory, use:
@@ -47,7 +47,10 @@ To install for all users on Unix/Linux:
     sudo python setup.py install
 ```
 
-You also can use `python3` instead of `python`
+You also can use `python3` instead of `python`.
+
+To install node2vec as part of the package, recompile from https://github.com/snap-stanford/snap and add node2vec executable to system path.
+To grant executable permission, run: chmod +x node2vec
 
 ## Usage
 Run the methods on Karate graph and evaluate them on graph reconstruction:
@@ -69,7 +72,8 @@ from gem.embedding.sdne     import SDNE
 
 # File that contains the edges. Format: source target
 # Optionally, you can add weights as third column: source target weight
-edge_f = 'gem/data/karate.edgelist'
+# Copy the gem/data/karate.edgelist to the working directory
+edge_f = 'karate.edgelist'
 # Specify whether the edges are directed
 isDirected = True
 

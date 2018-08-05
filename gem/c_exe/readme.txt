@@ -1,3 +1,3 @@
-1. Recompile from https://github.com/snap-stanford/snap and copy node2vec executable to this folder
+1. Recompile from https://github.com/snap-stanford/snap and add node2vec to system path.
 2. To grant executable permission, run: chmod +x ./c_exe/node2vec
 
