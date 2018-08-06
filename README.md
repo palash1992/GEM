@@ -53,7 +53,7 @@ To install node2vec as part of the package, recompile from https://github.com/sn
 To grant executable permission, run: chmod +x node2vec
 
 ## Usage
-Run the methods on Karate graph and evaluate them on graph reconstruction:
+Run the methods on Karate graph and evaluate them on graph reconstruction and visualization:
 
 ```python
 import matplotlib.pyplot as plt

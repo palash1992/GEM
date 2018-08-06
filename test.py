@@ -1,3 +1,7 @@
+'''
+Run the graph embedding methods on Karate graph and evaluate them on 
+graph reconstruction and visualization.
+'''
 import matplotlib.pyplot as plt
 from time import time
 
@@ -15,7 +19,7 @@ from gem.embedding.sdne     import SDNE
 
 # File that contains the edges. Format: source target
 # Optionally, you can add weights as third column: source target weight
-edge_f = 'gem/data/TEST_50M.edgelist'
+edge_f = 'karate.edgelist'
 # Specify whether the edges are directed
 isDirected = True
 
@@ -24,7 +28,7 @@ G = graph_util.loadGraphFromEdgeListTxt(edge_f, directed=isDirected)
 G = G.to_directed()
 
 models = []
-# You can comment out the methods you don't want to run
+# Load the models you want to run
 models.append(GraphFactorization(d=2, max_iter=50000, eta=1 * 10**-4, regu=1.0))
 models.append(HOPE(d=4, beta=0.01))
 models.append(LaplacianEigenmaps(d=2))
@@ -34,7 +38,7 @@ models.append(SDNE(d=2, beta=5, alpha=1e-5, nu1=1e-6, nu2=1e-6, K=3,n_units=[50,
                 modelfile=['./intermediate/enc_model.json', './intermediate/dec_model.json'],
                 weightfile=['./intermediate/enc_weights.hdf5', './intermediate/dec_weights.hdf5']))
 
-
+# For each model, learn the embedding and evaluate on graph reconstruction and visualization
 for embedding in models:
     print ('Num nodes: %d, num edges: %d' % (G.number_of_nodes(), G.number_of_edges()))
     t1 = time()
