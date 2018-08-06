@@ -19,6 +19,7 @@ from gem.embedding.sdne     import SDNE
 
 # File that contains the edges. Format: source target
 # Optionally, you can add weights as third column: source target weight
+# Copy the gem/data/karate.edgelist to the working directory
 edge_f = 'karate.edgelist'
 # Specify whether the edges are directed
 isDirected = True
