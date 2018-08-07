@@ -1,6 +1,7 @@
 '''
 Run the graph embedding methods on Karate graph and evaluate them on 
-graph reconstruction and visualization.
+graph reconstruction and visualization. Please copy the 
+gem/data/karate.edgelist to the working directory
 '''
 import matplotlib.pyplot as plt
 from time import time
@@ -19,7 +20,7 @@ from gem.embedding.sdne     import SDNE
 
 # File that contains the edges. Format: source target
 # Optionally, you can add weights as third column: source target weight
-# Copy the gem/data/karate.edgelist to the working directory
+# Copy the gem/data/karate.edgelist to the working directory or specify the path to the file
 edge_f = 'karate.edgelist'
 # Specify whether the edges are directed
 isDirected = True
@@ -47,7 +48,7 @@ for embedding in models:
     Y, t = embedding.learn_embedding(graph=G, edge_f=None, is_weighted=True, no_python=True)
     print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
     # Evaluate on graph reconstruction
-    MAP, prec_curv = gr.evaluateStaticGraphReconstruction(G, embedding, Y, None)
+    MAP, prec_curv, err, err_baseline = gr.evaluateStaticGraphReconstruction(G, embedding, Y, None)
     #---------------------------------------------------------------------------------
     print(("\tMAP: {} \t preccision curve: {}\n\n\n\n"+'-'*100).format(MAP,prec_curv))
     #---------------------------------------------------------------------------------
