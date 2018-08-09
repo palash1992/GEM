@@ -128,33 +128,28 @@ The output of the above execution is:
 ```
 #### Visualization of Karate graph using Graph Factorization
 <p align="center">
-  <img width="600" height="400" src="images/karate_graph_factor_sgd.png">
+  <img width="420" height="300" src="images/karate_graph_factor_sgd.png">
 </p>
 
 #### Visualization of Karate graph using HOPE
 <p align="center">
-<img width="600" height="400" src="images/karate_hope_gsvd.png">
-</p>
+<img width="420" height="300" src="images/karate_hope_gsvd.png">
 
 #### Visualization of Karate graph using Laplacian Eigenmaps
 <p align="center">
-<img width="600" height="400" src="images/karate_lap_eigmap_svd.png">
-</p>
+<img width="420" height="300" src="images/karate_lap_eigmap_svd.png">
 
 #### Visualization of Karate graph using Locally Linear Embedding
 <p align="center">
-<img width="600" height="400" src="images/karate_lle_svd.png">
-</p>
+<img width="420" height="300" src="images/karate_lle_svd.png">
 
 #### Visualization of Karate graph using node2vec
 <p align="center">
-<img width="600" height="400" src="images/karate_node2vec_rw.png">
-</p>
+<img width="420" height="300" src="images/karate_node2vec_rw.png">
 
 #### Visualization of Karate graph using SDNE
 <p align="center">
-<img width="600" height="400" src="images/karate_sdne.png">
-</p>
+<img width="420" height="300" src="images/karate_sdne.png">
 
 ### Example 2
 Run the graph embedding methods on Stochastic Block Model graph and evaluate them on graph reconstruction and visualization. Please copy the gem/data/sbm.gpickle and gem/data/sbm_node_labels.pickle to the working directory:
@@ -246,33 +241,27 @@ The output of the above execution is:
 ```
 #### Visualization of SBM using Graph Factorization
 <p align="center">
-<img width="600" height="400" src="images/sbm_graph_factor_sgd.png">
-</p>
+<img width="300" height="300" src="images/sbm_graph_factor_sgd.png">
 
 #### Visualization of SBM using HOPE
 <p align="center">
-<img width="600" height="400" src="images/sbm_hope_gsvd.png">
-</p>
+<img width="300" height="300" src="images/sbm_hope_gsvd.png">
 
 #### Visualization of SBM using Laplacian Eigenmaps
 <p align="center">
-<img width="600" height="400" src="images/sbm_lap_eigmap_svd.png">
-</p>
+<img width="300" height="300" src="images/sbm_lap_eigmap_svd.png">
 
 #### Visualization of SBM using Locally Linear Embedding
 <p align="center">
-<img width="600" height="400" src="images/sbm_lle_svd.png">
-</p>
+<img width="300" height="300" src="images/sbm_lle_svd.png">
 
 #### Visualization of SBM using node2vec
 <p align="center">
-<img width="600" height="400" src="images/sbm_node2vec_rw.png">
-</p>
+<img width="300" height="300" src="images/sbm_node2vec_rw.png">
 
 #### Visualization of SBM using SDNE
 <p align="center">
-<img width="600" height="400" src="images/sbm_sdne.png">
-</p>
+<img width="300" height="300" src="images/sbm_sdne.png">
 
 ## Cite
     @article{goyal2017graph,
