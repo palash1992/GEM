@@ -127,22 +127,22 @@ The output of the above execution is:
     Training time: 13.969912 MAP: 0.635860976597 preccision curve: [0.0, 0.0, 0.0, 0.25, 0.4]
 ```
 #### Visualization of Karate using Graph Factorization
-![graphexp](https://github.com/palash1992/GEM/tree/master/images/karate_graph_factor_sgd.png "Visualization of Karate using Graph Factorization")
+![graphexp](images/karate_graph_factor_sgd.png "Visualization of Karate using Graph Factorization")
 
 #### Visualization of Karate using HOPE
-![graphexp](https://github.com/palash1992/GEM/tree/master/images/karate_hope_gsvd.png "Visualization of Karate using HOPE")
+![graphexp](images/karate_hope_gsvd.png "Visualization of Karate using HOPE")
 
 #### Visualization of Karate using Laplacian Eigenmaps
-![graphexp](https://github.com/palash1992/GEM/tree/master/images/karate_lap_eigmap_svd.png "Visualization of Karate using Laplacian Eigenmaps")
+![graphexp](images/karate_lap_eigmap_svd.png "Visualization of Karate using Laplacian Eigenmaps")
 
 #### Visualization of Karate using Locally Linear Embedding
-![graphexp](https://github.com/palash1992/GEM/tree/master/images/karate_lle_svd.png "Visualization of Karate using Locally Linear Embedding")
+![graphexp](images/karate_lle_svd.png "Visualization of Karate using Locally Linear Embedding")
 
 #### Visualization of Karate using node2vec
-![graphexp](https://github.com/palash1992/GEM/tree/master/images/karate_node2vec_rw.png "Visualization of Karate using node2vec")
+![graphexp](images/karate_node2vec_rw.png "Visualization of Karate using node2vec")
 
 #### Visualization of Karate using SDNE
-![graphexp](https://github.com/palash1992/GEM/tree/master/images/karate_sdne.png "Visualization of Karate using SDNE")
+![graphexp](images/karate_sdne.png "Visualization of Karate using SDNE")
 
 ### Example 2
 Run the graph embedding methods on Stochastic Block Model graph and evaluate them on graph reconstruction and visualization. Please copy the gem/data/sbm.gpickle and gem/data/sbm_node_labels.pickle to the working directory:
