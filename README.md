@@ -127,22 +127,22 @@ The output of the above execution is:
     Training time: 13.969912 MAP: 0.635860976597 preccision curve: [0.0, 0.0, 0.0, 0.25, 0.4]
 ```
 #### Visualization of Karate using Graph Factorization
-![graphexp](images/karate_graph_factor_sgd.png "Visualization of Karate using Graph Factorization")
+![karate_graph_factor_sgd](images/karate_graph_factor_sgd.png "Visualization of Karate using Graph Factorization")
 
 #### Visualization of Karate using HOPE
-![graphexp](images/karate_hope_gsvd.png "Visualization of Karate using HOPE")
+![karate_hope_gsvd](images/karate_hope_gsvd.png "Visualization of Karate using HOPE")
 
 #### Visualization of Karate using Laplacian Eigenmaps
-![graphexp](images/karate_lap_eigmap_svd.png "Visualization of Karate using Laplacian Eigenmaps")
+![karate_lap_eigmap_svd](images/karate_lap_eigmap_svd.png "Visualization of Karate using Laplacian Eigenmaps")
 
 #### Visualization of Karate using Locally Linear Embedding
-![graphexp](images/karate_lle_svd.png "Visualization of Karate using Locally Linear Embedding")
+![karate_lle_svd](images/karate_lle_svd.png "Visualization of Karate using Locally Linear Embedding")
 
 #### Visualization of Karate using node2vec
-![graphexp](images/karate_node2vec_rw.png "Visualization of Karate using node2vec")
+![karate_node2vec_rw](images/karate_node2vec_rw.png "Visualization of Karate using node2vec")
 
 #### Visualization of Karate using SDNE
-![graphexp](images/karate_sdne.png "Visualization of Karate using SDNE")
+![karate_sdne](images/karate_sdne.png "Visualization of Karate using SDNE")
 
 ### Example 2
 Run the graph embedding methods on Stochastic Block Model graph and evaluate them on graph reconstruction and visualization. Please copy the gem/data/sbm.gpickle and gem/data/sbm_node_labels.pickle to the working directory:
@@ -233,22 +233,22 @@ The output of the above execution is:
     Training time: 667.998180 MAP: 0.9912109375 preccision curve: [1.0, 1.0, 1.0, 1.0, 1.0]
 ```
 #### Visualization of SBM using Graph Factorization
-![graphexp](https://github.com/palash1992/GEM/tree/master/images/sbm_graph_factor_sgd.pdf "Visualization of SBM using Graph Factorization")
+![sbm_graph_factor_sgd](images/sbm_graph_factor_sgd.png "Visualization of SBM using Graph Factorization")
 
 #### Visualization of SBM using HOPE
-![graphexp](https://github.com/palash1992/GEM/tree/master/images/sbm_hope_gsvd.pdf "Visualization of SBM using HOPE")
+![sbm_hope_gsvd](images/sbm_hope_gsvd.png "Visualization of SBM using HOPE")
 
 #### Visualization of SBM using Laplacian Eigenmaps
-![graphexp](https://github.com/palash1992/GEM/tree/master/images/sbm_lap_eigmap_svd.pdf "Visualization of SBM using Laplacian Eigenmaps")
+![sbm_lap_eigmap_svd](images/sbm_lap_eigmap_svd.png "Visualization of SBM using Laplacian Eigenmaps")
 
 #### Visualization of SBM using Locally Linear Embedding
-![graphexp](https://github.com/palash1992/GEM/tree/master/images/sbm_lle_svd.pdf "Visualization of SBM using Locally Linear Embedding")
+![sbm_lle_svd](images/sbm_lle_svd.png "Visualization of SBM using Locally Linear Embedding")
 
 #### Visualization of SBM using node2vec
-![graphexp](https://github.com/palash1992/GEM/tree/master/images/sbm_node2vec_rw.pdf "Visualization of SBM using node2vec")
+![sbm_node2vec_rw](images/sbm_node2vec_rw.png "Visualization of SBM using node2vec")
 
 #### Visualization of SBM using SDNE
-![graphexp](https://github.com/palash1992/GEM/tree/master/images/sbm_sdne.pdf "Visualization of SBM using SDNE")
+![sbm_sdne](images/sbm_sdne.png "Visualization of SBM using SDNE")
 
 ## Cite
     @article{goyal2017graph,
