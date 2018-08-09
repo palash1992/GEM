@@ -127,7 +127,7 @@ The output of the above execution is:
     Training time: 13.969912 MAP: 0.635860976597 preccision curve: [0.0, 0.0, 0.0, 0.25, 0.4]
 ```
 #### Visualization of Karate using Graph Factorization
-![karate_graph_factor_sgd](images/karate_graph_factor_sgd.png "Visualization of Karate using Graph Factorization"){:height="50%" width="50%"}
+![karate_graph_factor_sgd](images/karate_graph_factor_sgd.png "Visualization of Karate using Graph Factorization")
 
 #### Visualization of Karate using HOPE
 ![karate_hope_gsvd](images/karate_hope_gsvd.png "Visualization of Karate using HOPE")
