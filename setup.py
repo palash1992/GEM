@@ -21,7 +21,7 @@ ISRELEASED = True
 INSTALL_REQUIRES = (
     'numpy>=1.12.0',
     'scipy>=0.19.0',
-    'networkx>=1.11',
+    'networkx==1.11',
     'matplotlib>=2.0.0',
     # 'sklearn>=0.18.1',
     'theano>=0.9.0',
