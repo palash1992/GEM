@@ -241,27 +241,27 @@ The output of the above execution is:
 ```
 #### Visualization of SBM using Graph Factorization
 <p align="center">
-<img width="300" height="300" src="images/sbm_graph_factor_sgd.png">
+<img width="420" height="300" src="images/sbm_graph_factor_sgd.png">
 
 #### Visualization of SBM using HOPE
 <p align="center">
-<img width="300" height="300" src="images/sbm_hope_gsvd.png">
+<img width="420" height="300" src="images/sbm_hope_gsvd.png">
 
 #### Visualization of SBM using Laplacian Eigenmaps
 <p align="center">
-<img width="300" height="300" src="images/sbm_lap_eigmap_svd.png">
+<img width="420" height="300" src="images/sbm_lap_eigmap_svd.png">
 
 #### Visualization of SBM using Locally Linear Embedding
 <p align="center">
-<img width="300" height="300" src="images/sbm_lle_svd.png">
+<img width="420" height="300" src="images/sbm_lle_svd.png">
 
 #### Visualization of SBM using node2vec
 <p align="center">
-<img width="300" height="300" src="images/sbm_node2vec_rw.png">
+<img width="420" height="300" src="images/sbm_node2vec_rw.png">
 
 #### Visualization of SBM using SDNE
 <p align="center">
-<img width="300" height="300" src="images/sbm_sdne.png">
+<img width="420" height="300" src="images/sbm_sdne.png">
 
 ## Cite
     @article{goyal2017graph,
