@@ -53,7 +53,8 @@ To install node2vec as part of the package, recompile from https://github.com/sn
 To grant executable permission, run: chmod +x node2vec
 
 ## Usage
-Run the methods on Karate graph and evaluate them on graph reconstruction and visualization:
+### Example 1
+Run the methods on Karate graph and evaluate them on graph reconstruction and visualization. Please copy the gem/data/karate.edgelist to the working directory:
 
 ```python
 import matplotlib.pyplot as plt
@@ -105,6 +106,149 @@ for embedding in models:
     plt.show()
 ```
 
+The output of the above execution is:
+```
+---------graph_factor_sgd:
+    Training time: 0.459782 MAP: 0.418189831501 preccision curve: [1.0, 0.5, 0.6666666666666666, 0.5, 0.4]
+
+---------hope_gsvd:
+    Training time: 0.002792 MAP: 0.834648134445 preccision curve: [1.0, 1.0, 1.0, 1.0, 1.0]
+
+---------lap_eigmap_svd:
+    Training time: 0.015966 MAP: 0.511774195685 preccision curve: [1.0, 1.0, 0.6666666666666666, 0.5, 0.4]
+
+---------lle_svd:
+    Training time: 0.017661 MAP: 0.625323321278 preccision curve: [1.0, 1.0, 0.6666666666666666, 0.5, 0.4]
+
+---------node2vec_rw:
+    Training time: 0.335455 MAP: 0.402896048616 preccision curve: [0.0, 0.5, 0.3333333333333333, 0.25, 0.2]
+
+---------sdne:
+    Training time: 13.969912 MAP: 0.635860976597 preccision curve: [0.0, 0.0, 0.0, 0.25, 0.4]
+```
+#### Visualization of Karate using Graph Factorization
+![graphexp](https://github.com/palash1992/GEM/images/karate_graph_factor_sgd.pdf "Visualization of Karate using Graph Factorization")
+
+#### Visualization of Karate using HOPE
+![graphexp](https://github.com/palash1992/GEM/images/karate_hope_gsvd.pdf "Visualization of Karate using HOPE")
+
+#### Visualization of Karate using Laplacian Eigenmaps
+![graphexp](https://github.com/palash1992/GEM/images/karate_lap_eigmap_svd.pdf "Visualization of Karate using Laplacian Eigenmaps")
+
+#### Visualization of Karate using Locally Linear Embedding
+![graphexp](https://github.com/palash1992/GEM/images/karate_lle_svd.pdf "Visualization of Karate using Locally Linear Embedding")
+
+#### Visualization of Karate using node2vec
+![graphexp](https://github.com/palash1992/GEM/images/karate_node2vec_rw.pdf "Visualization of Karate using node2vec")
+
+#### Visualization of Karate using SDNE
+![graphexp](https://github.com/palash1992/GEM/images/karate_sdne.pdf "Visualization of Karate using SDNE")
+
+### Example 2
+Run the graph embedding methods on Stochastic Block Model graph and evaluate them on graph reconstruction and visualization. Please copy the gem/data/sbm.gpickle and gem/data/sbm_node_labels.pickle to the working directory:
+
+```python
+import matplotlib.pyplot as plt
+from time import time
+import networkx as nx
+try: import cPickle as pickle
+except: import pickle
+import numpy as np
+
+from gem.utils      import graph_util, plot_util
+from gem.evaluation import visualize_embedding as viz
+from gem.evaluation import evaluate_graph_reconstruction as gr
+
+from gem.embedding.gf       import GraphFactorization
+from gem.embedding.hope     import HOPE
+from gem.embedding.lap      import LaplacianEigenmaps
+from gem.embedding.lle      import LocallyLinearEmbedding
+from gem.embedding.node2vec import node2vec
+from gem.embedding.sdne     import SDNE
+
+
+# File that contains the edges. Format: source target
+# Optionally, you can add weights as third column: source target weight
+# Copy the gem/data/sbm.gpickle and gem/data/sbm_node_labels.pickle 
+# to the working directory or specify the path to the file
+file_prefix = 'sbm.gpickle'
+# Specify whether the edges are directed
+isDirected = True
+
+# Load graph
+G = nx.read_gpickle(file_prefix)
+node_colors = pickle.load(
+    open('sbm_node_labels.pickle', 'rb')
+)
+node_colors_arr = [None] * node_colors.shape[0]
+for idx in range(node_colors.shape[0]):
+    node_colors_arr[idx] = np.where(node_colors[idx, :].toarray() == 1)[1][0]
+
+models = []
+# Load the models you want to run
+models.append(GraphFactorization(d=128, max_iter=1000, eta=1 * 10**-4, regu=1.0, data_set='sbm'))
+models.append(HOPE(d=256, beta=0.01))
+models.append(LaplacianEigenmaps(d=128))
+models.append(LocallyLinearEmbedding(d=128))
+models.append(node2vec(d=182, max_iter=1, walk_len=80, num_walks=10, con_size=10, ret_p=1, inout_p=1, data_set='sbm'))
+models.append(SDNE(d=128, beta=5, alpha=1e-5, nu1=1e-6, nu2=1e-6, K=3,n_units=[500, 300,], rho=0.3, n_iter=30, xeta=0.001,n_batch=500,
+                modelfile=['enc_model.json', 'dec_model.json'],
+                weightfile=['enc_weights.hdf5', 'dec_weights.hdf5']))
+# For each model, learn the embedding and evaluate on graph reconstruction and visualization
+for embedding in models:
+    print ('Num nodes: %d, num edges: %d' % (G.number_of_nodes(), G.number_of_edges()))
+    t1 = time()
+    # Learn embedding - accepts a networkx graph or file with edge list
+    Y, t = embedding.learn_embedding(graph=G, edge_f=None, is_weighted=True, no_python=True)
+    print (embedding._method_name+':\n\tTraining time: %f' % (time() - t1))
+    # Evaluate on graph reconstruction
+    MAP, prec_curv, err, err_baseline = gr.evaluateStaticGraphReconstruction(G, embedding, Y, None)
+    #---------------------------------------------------------------------------------
+    print(("\tMAP: {} \t preccision curve: {}\n\n\n\n"+'-'*100).format(MAP,prec_curv[:5]))
+    #---------------------------------------------------------------------------------
+    # Visualize
+    viz.plot_embedding2D(embedding.get_embedding(), di_graph=G, node_colors=node_colors_arr)
+    plt.show()
+    plt.clf()
+```
+
+The output of the above execution is:
+```
+---------graph_factor_sgd:
+    Training time: 29.737146 MAP: 0.277151904249 preccision curve: [0.0, 0.0, 0.0, 0.25, 0.4]
+
+---------hope_gsvd:
+    Training time: 0.958994 MAP: 0.890902438959 preccision curve: [1.0, 1.0, 1.0, 1.0, 1.0]
+
+---------lap_eigmap_svd:
+    Training time: 1.503408 MAP: 0.800184495989 preccision curve: [1.0, 1.0, 1.0, 1.0, 1.0]
+
+---------lle_svd:
+    Training time: 1.129614 MAP: 0.798619223648 preccision curve: [1.0, 1.0, 1.0, 1.0, 1.0]
+
+---------node2vec_rw:
+    Training time: 10.524429 MAP: 0.134420246906 preccision curve: [0.0, 0.0, 0.0, 0.0, 0.0]
+
+---------sdne:
+    Training time: 667.998180 MAP: 0.9912109375 preccision curve: [1.0, 1.0, 1.0, 1.0, 1.0]
+```
+#### Visualization of SBM using Graph Factorization
+![graphexp](https://github.com/palash1992/GEM/images/sbm_graph_factor_sgd.pdf "Visualization of SBM using Graph Factorization")
+
+#### Visualization of SBM using HOPE
+![graphexp](https://github.com/palash1992/GEM/images/sbm_hope_gsvd.pdf "Visualization of SBM using HOPE")
+
+#### Visualization of SBM using Laplacian Eigenmaps
+![graphexp](https://github.com/palash1992/GEM/images/sbm_lap_eigmap_svd.pdf "Visualization of SBM using Laplacian Eigenmaps")
+
+#### Visualization of SBM using Locally Linear Embedding
+![graphexp](https://github.com/palash1992/GEM/images/sbm_lle_svd.pdf "Visualization of SBM using Locally Linear Embedding")
+
+#### Visualization of SBM using node2vec
+![graphexp](https://github.com/palash1992/GEM/images/sbm_node2vec_rw.pdf "Visualization of SBM using node2vec")
+
+#### Visualization of SBM using SDNE
+![graphexp](https://github.com/palash1992/GEM/images/sbm_sdne.pdf "Visualization of SBM using SDNE")
 
 ## Cite
     @article{goyal2017graph,
