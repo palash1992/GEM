@@ -120,5 +120,3 @@ gem/data/*
 # keras models
 *.json
 
-# images
-*.png
