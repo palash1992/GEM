@@ -126,23 +126,23 @@ The output of the above execution is:
 ---------sdne:
     Training time: 13.969912 MAP: 0.635860976597 preccision curve: [0.0, 0.0, 0.0, 0.25, 0.4]
 ```
-#### Visualization of Karate using Graph Factorization
-![karate_graph_factor_sgd](images/karate_graph_factor_sgd.png "Visualization of Karate using Graph Factorization")
+#### Visualization of Karate graph using Graph Factorization
+![karate_graph_factor_sgd](images/karate_graph_factor_sgd.png "Visualization of Karate graph using Graph Factorization")
 
-#### Visualization of Karate using HOPE
-![karate_hope_gsvd](images/karate_hope_gsvd.png "Visualization of Karate using HOPE")
+#### Visualization of Karate graph using HOPE
+![karate_hope_gsvd](images/karate_hope_gsvd.png "Visualization of Karate graph using HOPE")
 
-#### Visualization of Karate using Laplacian Eigenmaps
-![karate_lap_eigmap_svd](images/karate_lap_eigmap_svd.png "Visualization of Karate using Laplacian Eigenmaps")
+#### Visualization of Karate graph using Laplacian Eigenmaps
+![karate_lap_eigmap_svd](images/karate_lap_eigmap_svd.png "Visualization of Karate graph using Laplacian Eigenmaps")
 
-#### Visualization of Karate using Locally Linear Embedding
-![karate_lle_svd](images/karate_lle_svd.png "Visualization of Karate using Locally Linear Embedding")
+#### Visualization of Karate graph using Locally Linear Embedding
+![karate_lle_svd](images/karate_lle_svd.png "Visualization of Karate graph using Locally Linear Embedding")
 
-#### Visualization of Karate using node2vec
-![karate_node2vec_rw](images/karate_node2vec_rw.png "Visualization of Karate using node2vec")
+#### Visualization of Karate graph using node2vec
+![karate_node2vec_rw](images/karate_node2vec_rw.png "Visualization of Karate graph using node2vec")
 
-#### Visualization of Karate using SDNE
-![karate_sdne](images/karate_sdne.png "Visualization of Karate using SDNE")
+#### Visualization of Karate graph using SDNE
+![karate_sdne](images/karate_sdne.png "Visualization of Karate graph using SDNE")
 
 ### Example 2
 Run the graph embedding methods on Stochastic Block Model graph and evaluate them on graph reconstruction and visualization. Please copy the gem/data/sbm.gpickle and gem/data/sbm_node_labels.pickle to the working directory:
