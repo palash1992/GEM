@@ -153,7 +153,7 @@ The output of the above execution is:
 
 #### Visualization of Karate graph using SDNE
 <p align="center">
-<img width="300" height="300" src="images/karate_sdne.png">
+<img width="600" height="400" src="images/karate_sdne.png">
 </p>
 
 ### Example 2
