@@ -54,7 +54,7 @@ To grant executable permission, run: chmod +x node2vec
 
 ## Usage
 ### Example 1
-Run the methods on Karate graph and evaluate them on graph reconstruction and visualization. Please copy the gem/data/karate.edgelist to the working directory:
+Run the methods on Karate graph and evaluate them on graph reconstruction and visualization. The data is located in tests/data:
 
 ```python
 import matplotlib.pyplot as plt
@@ -73,7 +73,6 @@ from gem.embedding.sdne     import SDNE
 
 # File that contains the edges. Format: source target
 # Optionally, you can add weights as third column: source target weight
-# Copy the gem/data/karate.edgelist to the working directory
 edge_f = 'karate.edgelist'
 # Specify whether the edges are directed
 isDirected = True
@@ -163,7 +162,7 @@ We observe that HOPE, LLE and SDNE achieve high MAP values. Furthermore, HOPE ca
 <img width="420" height="300" src="images/karate_sdne.png">
 
 ### Example 2
-Run the graph embedding methods on Stochastic Block Model graph and evaluate them on graph reconstruction and visualization. Please copy the gem/data/sbm.gpickle and gem/data/sbm_node_labels.pickle to the working directory:
+Run the graph embedding methods on Stochastic Block Model graph and evaluate them on graph reconstruction and visualization. The data is located in tests/data:
 
 ```python
 import matplotlib.pyplot as plt
@@ -187,8 +186,6 @@ from gem.embedding.sdne     import SDNE
 
 # File that contains the edges. Format: source target
 # Optionally, you can add weights as third column: source target weight
-# Copy the gem/data/sbm.gpickle and gem/data/sbm_node_labels.pickle 
-# to the working directory or specify the path to the file
 file_prefix = 'sbm.gpickle'
 # Specify whether the edges are directed
 isDirected = True

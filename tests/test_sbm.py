@@ -24,8 +24,6 @@ from gem.embedding.sdne     import SDNE
 
 # File that contains the edges. Format: source target
 # Optionally, you can add weights as third column: source target weight
-# Copy the gem/data/sbm.gpickle and gem/data/sbm_node_labels.pickle 
-# to the working directory or specify the path to the file
 file_prefix = 'data/sbm.gpickle'
 # Specify whether the edges are directed
 isDirected = True
