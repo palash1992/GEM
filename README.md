@@ -127,7 +127,8 @@ The output of the above execution is:
     Training time: 13.969912 MAP: 0.635860976597 preccision curve: [0.0, 0.0, 0.0, 0.25, 0.4]
 ```
 #### Visualization of Karate graph using Graph Factorization
-![karate_graph_factor_sgd](images/karate_graph_factor_sgd.png "Visualization of Karate graph using Graph Factorization")
+<img align="left" width="100" height="100" src="images/karate_graph_factor_sgd.png">
+<!-- ![karate_graph_factor_sgd](images/karate_graph_factor_sgd.png "Visualization of Karate graph using Graph Factorization") -->
 
 #### Visualization of Karate graph using HOPE
 ![karate_hope_gsvd](images/karate_hope_gsvd.png "Visualization of Karate graph using HOPE")
@@ -233,7 +234,8 @@ The output of the above execution is:
     Training time: 667.998180 MAP: 0.9912109375 preccision curve: [1.0, 1.0, 1.0, 1.0, 1.0]
 ```
 #### Visualization of SBM using Graph Factorization
-![sbm_graph_factor_sgd](images/sbm_graph_factor_sgd.png "Visualization of SBM using Graph Factorization")
+<img align="left" width="100" height="100" src="images/sbm_graph_factor_sgd.png">
+<!-- ![sbm_graph_factor_sgd](images/sbm_graph_factor_sgd.png "Visualization of SBM using Graph Factorization") -->
 
 #### Visualization of SBM using HOPE
 ![sbm_hope_gsvd](images/sbm_hope_gsvd.png "Visualization of SBM using HOPE")
