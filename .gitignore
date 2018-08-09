@@ -1,4 +1,3 @@
-*.edgelist
 *.idx2node
 intermediate/
 .idea
