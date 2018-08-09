@@ -49,7 +49,7 @@ for embedding in models:
     # Evaluate on graph reconstruction
     MAP, prec_curv, err, err_baseline = gr.evaluateStaticGraphReconstruction(G, embedding, Y, None)
     #---------------------------------------------------------------------------------
-    print(("\tMAP: {} \t preccision curve: {}\n\n\n\n"+'-'*100).format(MAP,prec_curv))
+    print(("\tMAP: {} \t preccision curve: {}\n\n\n\n"+'-'*100).format(MAP,prec_curv[:5]))
     #---------------------------------------------------------------------------------
     # Visualize
     viz.plot_embedding2D(embedding.get_embedding(), di_graph=G, node_colors=None)
