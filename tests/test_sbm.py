@@ -30,9 +30,14 @@ isDirected = True
 
 # Load graph
 G = nx.read_gpickle(file_prefix)
-node_colors = pickle.load(
-    open('data/sbm_node_labels.pickle', 'rb')
-)
+try:
+    node_colors = pickle.load(
+        open('data/sbm_node_labels.pickle', 'rb')
+    )
+except UnicodeDecodeError:
+    node_colors = pickle.load(
+        open('data/sbm_node_labels.pickle', 'rb'), encoding='latin1'
+    )
 node_colors_arr = [None] * node_colors.shape[0]
 for idx in range(node_colors.shape[0]):
     node_colors_arr[idx] = np.where(node_colors[idx, :].toarray() == 1)[1][0]
