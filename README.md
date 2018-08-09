@@ -128,27 +128,27 @@ The output of the above execution is:
 ```
 #### Visualization of Karate graph using Graph Factorization
 <p align="center">
-  <img width="300" height="300" src="images/karate_graph_factor_sgd.png">
+  <img width="600" height="400" src="images/karate_graph_factor_sgd.png">
 </p>
 
 #### Visualization of Karate graph using HOPE
 <p align="center">
-<img width="300" height="300" src="images/karate_hope_gsvd.png">
+<img width="600" height="400" src="images/karate_hope_gsvd.png">
 </p>
 
 #### Visualization of Karate graph using Laplacian Eigenmaps
 <p align="center">
-<img width="300" height="300" src="images/karate_lap_eigmap_svd.png">
+<img width="600" height="400" src="images/karate_lap_eigmap_svd.png">
 </p>
 
 #### Visualization of Karate graph using Locally Linear Embedding
 <p align="center">
-<img width="300" height="300" src="images/karate_lle_svd.png">
+<img width="600" height="400" src="images/karate_lle_svd.png">
 </p>
 
 #### Visualization of Karate graph using node2vec
 <p align="center">
-<img width="300" height="300" src="images/karate_node2vec_rw.png">
+<img width="600" height="400" src="images/karate_node2vec_rw.png">
 </p>
 
 #### Visualization of Karate graph using SDNE
@@ -246,32 +246,32 @@ The output of the above execution is:
 ```
 #### Visualization of SBM using Graph Factorization
 <p align="center">
-<img width="300" height="300" src="images/sbm_graph_factor_sgd.png">
+<img width="600" height="400" src="images/sbm_graph_factor_sgd.png">
 </p>
 
 #### Visualization of SBM using HOPE
 <p align="center">
-<img width="300" height="300" src="images/sbm_hope_gsvd.png">
+<img width="600" height="400" src="images/sbm_hope_gsvd.png">
 </p>
 
 #### Visualization of SBM using Laplacian Eigenmaps
 <p align="center">
-<img width="300" height="300" src="images/sbm_lap_eigmap_svd.png">
+<img width="600" height="400" src="images/sbm_lap_eigmap_svd.png">
 </p>
 
 #### Visualization of SBM using Locally Linear Embedding
 <p align="center">
-<img width="300" height="300" src="images/sbm_lle_svd.png">
+<img width="600" height="400" src="images/sbm_lle_svd.png">
 </p>
 
 #### Visualization of SBM using node2vec
 <p align="center">
-<img width="300" height="300" src="images/sbm_node2vec_rw.png">
+<img width="600" height="400" src="images/sbm_node2vec_rw.png">
 </p>
 
 #### Visualization of SBM using SDNE
 <p align="center">
-<img width="300" height="300" src="images/sbm_sdne.png">
+<img width="600" height="400" src="images/sbm_sdne.png">
 </p>
 
 ## Cite
