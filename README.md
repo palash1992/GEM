@@ -54,7 +54,7 @@ To grant executable permission, run: chmod +x node2vec
 
 ## Usage
 ### Example 1
-Run the methods on Karate graph and evaluate them on graph reconstruction and visualization. The data is located in tests/data:
+Run the methods on Karate graph and evaluate them on graph reconstruction and visualization. The data is located in examples/data. The example can be run from examples folder as python test_karate.py -node2vec 0 (use -node2vec 1 to also run node2vec model):
 
 ```python
 import matplotlib.pyplot as plt
@@ -161,8 +161,10 @@ We observe that HOPE, LLE and SDNE achieve high MAP values. Furthermore, HOPE ca
 <p align="center">
 <img width="420" height="300" src="images/karate_sdne.png">
 
+We observe from the visualizations that Locally Linear Embedding and Laplacian Eigenmaps  attempt  to  preserve  the  community  structure  of  the graph and cluster nodes with high intra-cluster edges together. Graph Factorization embeds communities very closely and keeps leaf nodes far away from other nodes.  HOPE embeds  nodes  with low  Katz  similarity  in  the  original graph farthest apart (considering dot product similarity). node2vec and SDNE ((c) and (e)) preserve a mix of  community  structure  and  structural  property  of  the  nodes. In SDNE, nodes 32 and 33, which are both high degree hubs and central in  their  communities,  are  embedded  together  and  away  from low  degree  nodes.   Also,  they  are  closer  to  nodes  which  belong to their communities. SDNE embeds node 0, which acts as a bridge between communities, far away from other nodes. Note that, unlike for other methods, it does not imply that node 0 is disconnected from the rest of the nodes.  The implication here is that SDNE identifies node 0 as a separate type of node and encodes its connection to other nodes in encoder and decoder. Note that different runs of the algorithms may give different embeddings and visualizations but the properties preserved by the embeddings for a method are similar.
+
 ### Example 2
-Run the graph embedding methods on Stochastic Block Model graph and evaluate them on graph reconstruction and visualization. The data is located in tests/data:
+Run the graph embedding methods on Stochastic Block Model graph and evaluate them on graph reconstruction and visualization. The data is located in examples/data.  The example can be run from examples folder as python test_sbm.py -node2vec 0 (use -node2vec 1 to also run node2vec model):
 
 ```python
 import matplotlib.pyplot as plt
