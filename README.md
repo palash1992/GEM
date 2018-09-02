@@ -1,7 +1,7 @@
 # GEM: Graph Embedding Methods
 Many physical systems in the world involve interactions between different entities and can be represented as graphs. Understanding the structure and analyzing properties of graphs are hence paramount to developing insights into the physical systems. Graph embedding, which aims to represent a graph in a low dimensional vector space, takes a step in this direction. The embeddings can be used for various tasks on graphs such as visualization, clustering, classification and prediction.
 
-``GEM`` is a Python package which offers a general framework for graph embedding methods. It implements many state-of-the-art embedding techniques including [Locally Linear Embedding](http://www.robots.ox.ac.uk/~az/lectures/ml/lle.pdf), [Laplacian Eigenmaps](http://yeolab.weebly.com/uploads/2/5/5/0/25509700/belkin_laplacian_2003.pdf), [Graph Factorization](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/40839.pdf), [Higher-Order Proximity preserved Embedding (HOPE)](http://www.kdd.org/kdd2016/papers/files/rfp0184-ouA.pdf), [Structural Deep Network Embedding (SDNE)](http://www.kdd.org/kdd2016/papers/files/rfp0191-wangAemb.pdf) and [node2vec](http://www.kdd.org/kdd2016/papers/files/rfp0218-groverA.pdf). It is formatted such that new methods can be easily added for comparison. Furthermore, the framework implements several functions to evaluate the quality of obtained embedding including graph reconstruction, link prediction, visualization and node classification. It supports many edge reconstruction metrics including cosine similarity, euclidean distance and decoder based. For node classification, it defaults to one-vs-rest logistic regression classifier and supports other classifiers. For faster execution, C++ backend is integrated using Boost for supported methods. A paper showcasing the results using ``GEM`` on various real world datasets can be accessed through [Graph Embedding Techniques, Applications, and Performance: A Survey](https://arxiv.org/abs/1705.02801).
+``GEM`` is a Python package which offers a general framework for graph embedding methods. It implements many state-of-the-art embedding techniques including [Locally Linear Embedding](http://www.robots.ox.ac.uk/~az/lectures/ml/lle.pdf), [Laplacian Eigenmaps](http://yeolab.weebly.com/uploads/2/5/5/0/25509700/belkin_laplacian_2003.pdf), [Graph Factorization](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/40839.pdf), [Higher-Order Proximity preserved Embedding (HOPE)](http://www.kdd.org/kdd2016/papers/files/rfp0184-ouA.pdf), [Structural Deep Network Embedding (SDNE)](http://www.kdd.org/kdd2016/papers/files/rfp0191-wangAemb.pdf) and [node2vec](http://www.kdd.org/kdd2016/papers/files/rfp0218-groverA.pdf). It is formatted such that new methods can be easily added for comparison. Furthermore, the framework implements several functions to evaluate the quality of obtained embedding including graph reconstruction, link prediction, visualization and node classification. It supports many edge reconstruction metrics including cosine similarity, euclidean distance and decoder based. For node classification, it defaults to one-vs-rest logistic regression classifier and supports other classifiers. For faster execution, C++ backend is integrated using Boost for supported methods. A paper showcasing the results using ``GEM`` on various real world datasets can be accessed through [Graph Embedding Techniques, Applications, and Performance: A Survey](https://arxiv.org/abs/1705.02801). The library is also published as [GEM: A Python package for graph embedding methods](https://doi.org/10.21105/joss.00876).
 
 The module was developed and is maintained by Palash Goyal.
 
@@ -285,6 +285,15 @@ We observe that SDNE can reconstruct SBM network with high MAP and precision. Am
         issn = "0950-7051",
         doi = "https://doi.org/10.1016/j.knosys.2018.03.022",
         url = "http://www.sciencedirect.com/science/article/pii/S0950705118301540",
+        author = "Palash Goyal and Emilio Ferrara",
+        keywords = "Graph embedding techniques, Graph embedding applications, Python graph embedding methods GEM library"
+    }
+    @article{goyal2018graph,
+        title = "GEM: A Python package for graph embedding methods",
+        journal = "Journal of Open Source Software",
+        year = "2018",
+        doi = "https://doi.org/10.21105/joss.00876",
+        url = "https://doi.org/10.21105/joss.00876",
         author = "Palash Goyal and Emilio Ferrara",
         keywords = "Graph embedding techniques, Graph embedding applications, Python graph embedding methods GEM library"
     }
