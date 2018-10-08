@@ -7,7 +7,7 @@ sys.path.insert(0, './')
 from gem.utils import plot_util
 
 
-def plot_embedding2D(node_pos, node_colors=None, di_graph=None):
+def plot_embedding2D(node_pos, node_colors=None, di_graph=None, labels=None):
     node_num, embedding_dimension = node_pos.shape
     if(embedding_dimension > 2):
         print("Embedding dimension greater than 2, use tSNE to reduce it to 2")
@@ -27,11 +27,11 @@ def plot_embedding2D(node_pos, node_colors=None, di_graph=None):
                                    node_color=node_colors,
                                    width=0.1, node_size=100,
                                    arrows=False, alpha=0.8,
-                                   font_size=5)
+                                   font_size=5, labels=labels)
         else:
             nx.draw_networkx(di_graph, pos, node_color=node_colors,
                              width=0.1, node_size=300, arrows=False,
-                             alpha=0.8, font_size=12)
+                             alpha=0.8, font_size=12, labels=labels)
 
 
 def expVis(X, res_pre, m_summ, node_labels=None, di_graph=None):
