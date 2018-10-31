@@ -1,7 +1,6 @@
 import matplotlib
 import matplotlib.pyplot as plt
 import random
-import pandas as pd
 
 def get_node_color(node_community):
     cnames = [item[0] for item in matplotlib.colors.cnames.iteritems()]
