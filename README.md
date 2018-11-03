@@ -288,14 +288,12 @@ We observe that SDNE can reconstruct SBM network with high MAP and precision. Am
         author = "Palash Goyal and Emilio Ferrara",
         keywords = "Graph embedding techniques, Graph embedding applications, Python graph embedding methods GEM library"
     }
-    @article{goyal2018graph,
-        title = "GEM: A Python package for graph embedding methods",
-        journal = "Journal of Open Source Software",
-        year = "2018",
-        doi = "https://doi.org/10.21105/joss.00876",
-        url = "https://doi.org/10.21105/joss.00876",
-        author = "Palash Goyal and Emilio Ferrara",
-        keywords = "Graph embedding techniques, Graph embedding applications, Python graph embedding methods GEM library"
+    @article{goyal3gem,
+      title={GEM: A Python package for graph embedding methods},
+      author={Goyal, Palash and Ferrara, Emilio},
+      journal={Journal of Open Source Software},
+      volume={3},
+      number={29},
+      pages={876}
     }
-
 
