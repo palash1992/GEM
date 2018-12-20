@@ -20,8 +20,8 @@ def transform_adj_to_DiGraph(adj):
     n = adj.shape[0]
     di_graph = nx.DiGraph()
     di_graph.add_nodes_from(range(n))
-    for i in xrange(n):
-        for j in xrange(n):
+    for i in range(n):
+        for j in range(n):
             if(i != j):
                 if(adj[i, j] > 0):
                     di_graph.add_edge(i, j, weight=adj[i, j])
@@ -196,8 +196,8 @@ def saveRealGraphSeries(G, file_prefix='graphs/day_'):
 
 
 def loadDynamicSBmGraph(file_perfix, length):
-    graph_files = ['%s_%d_graph.gpickle' % (file_perfix, i) for i in xrange(length)]
-    info_files = ['%s_%d_node.pkl' % (file_perfix, i) for i in xrange(length)]
+    graph_files = ['%s_%d_graph.gpickle' % (file_perfix, i) for i in range(length)]
+    info_files = ['%s_%d_node.pkl' % (file_perfix, i) for i in range(length)]
 
     graphs = [nx.read_gpickle(graph_file) for graph_file in graph_files]
 
@@ -214,8 +214,8 @@ def loadDynamicSBmGraph(file_perfix, length):
 
 def saveDynamicSBmGraph(file_perfix, dynamic_graphs):
     length = len(dynamic_graphs)
-    graph_files = ['%s_%d_graph.gpickle' % (file_perfix, i) for i in xrange(length)]
-    info_files = ['%s_%d_node.pkl' % (file_perfix, i) for i in xrange(length)]
+    graph_files = ['%s_%d_graph.gpickle' % (file_perfix, i) for i in range(length)]
+    info_files = ['%s_%d_node.pkl' % (file_perfix, i) for i in range(length)]
 
     for i in xrange(length):
         # save graph
