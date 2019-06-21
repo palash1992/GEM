@@ -101,11 +101,14 @@ def write_version_py(filename='gem/version.py'):
     if not ISRELEASED:
         FULLVERSION += '.dev0+' + GIT_REVISION[:7]
 
-    with open(filename, 'w') as f_:
-        f.write(cnt % {'version': VERSION,
+    a = open(filename, 'w')
+    try:
+        a.write(cnt % {'version': VERSION,
                        'full_version': FULLVERSION,
                        'git_revision': GIT_REVISION,
                        'isrelease': str(ISRELEASED)})
+    finally:
+        a.close()
 
 def setup_package():
     write_version_py()
