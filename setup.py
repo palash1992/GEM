@@ -23,7 +23,7 @@ INSTALL_REQUIRES = (
     'scipy>=0.19.0',
     'networkx==1.11',
     'matplotlib>=2.0.0',
-    # 'sklearn>=0.18.1',
+    'sklearn>=0.21.2',
     'theano>=0.9.0',
     'keras==2.0.2'
 )
@@ -101,16 +101,11 @@ def write_version_py(filename='gem/version.py'):
     if not ISRELEASED:
         FULLVERSION += '.dev0+' + GIT_REVISION[:7]
 
-    a = open(filename, 'w')
-    try:
-        a.write(cnt % {'version': VERSION,
+    with open(filename, 'w') as f_:
+        f.write(cnt % {'version': VERSION,
                        'full_version': FULLVERSION,
                        'git_revision': GIT_REVISION,
                        'isrelease': str(ISRELEASED)})
-    finally:
-        a.close()
-
-
 
 def setup_package():
     write_version_py()
