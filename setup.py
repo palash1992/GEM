@@ -78,15 +78,15 @@ def git_version():
 def write_version_py(filename='gem/version.py'):
     # Copied from numpy setup.py
     cnt = """
-    # THIS FILE IS GENERATED FROM GEM SETUP.PY
-    short_version = '%(version)s'
-    version = '%(version)s'
-    full_version = '%(full_version)s'
-    git_revision = '%(git_revision)s'
-    release = %(isrelease)s
-    if not release:
-        version = full_version
-        short_version += ".dev"
+# THIS FILE IS GENERATED FROM GEM SETUP.PY
+short_version = '%(version)s'
+version = '%(version)s'
+full_version = '%(full_version)s'
+git_revision = '%(git_revision)s'
+release = '%(isrelease)s'
+if not release:
+    version = full_version
+    short_version += ".dev"
     """
     FULLVERSION = VERSION
     if os.path.exists('.git'):
@@ -103,13 +103,16 @@ def write_version_py(filename='gem/version.py'):
 
     a = open(filename, 'w')
     try:
-        a.write(cnt % {'version': VERSION,
-                       'full_version': FULLVERSION,
-                       'git_revision': GIT_REVISION,
-                       'isrelease': str(ISRELEASED)})
+        a.write(
+            cnt % {
+                'version': VERSION,
+                'full_version': FULLVERSION,
+                'git_revision': GIT_REVISION,
+                'isrelease': str(ISRELEASED)
+            }
+        )
     finally:
         a.close()
-
 
 
 def setup_package():
