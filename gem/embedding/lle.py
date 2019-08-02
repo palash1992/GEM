@@ -65,7 +65,7 @@ class LocallyLinearEmbedding(StaticGraphEmbedding):
         t2 = time()
         self._X = vt.T
         self._X = self._X[:, 1:]
-        return self._X, (t2 - t1)
+        return self._X.real, (t2 - t1)
 
     def get_embedding(self):
         return self._X
