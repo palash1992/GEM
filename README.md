@@ -143,7 +143,6 @@ We observe that HOPE, LLE and SDNE achieve high MAP values. Furthermore, HOPE ca
 #### Visualization of Karate graph using Graph Factorization
 <p align="center">
   <img width="420" height="300" src="images/karate_graph_factor_sgd.png">
-</p>
 
 #### Visualization of Karate graph using HOPE
 <p align="center">
