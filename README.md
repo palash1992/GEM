@@ -143,26 +143,32 @@ We observe that HOPE, LLE and SDNE achieve high MAP values. Furthermore, HOPE ca
 #### Visualization of Karate graph using Graph Factorization
 <p align="center">
   <img width="420" height="300" src="images/karate_graph_factor_sgd.png">
+</p>
 
 #### Visualization of Karate graph using HOPE
 <p align="center">
 <img width="420" height="300" src="images/karate_hope_gsvd.png">
+</p>
 
 #### Visualization of Karate graph using Laplacian Eigenmaps
 <p align="center">
 <img width="420" height="300" src="images/karate_lap_eigmap_svd.png">
+</p>
 
 #### Visualization of Karate graph using Locally Linear Embedding
 <p align="center">
 <img width="420" height="300" src="images/karate_lle_svd.png">
+</p>
 
 #### Visualization of Karate graph using node2vec
 <p align="center">
 <img width="420" height="300" src="images/karate_node2vec_rw.png">
+</p>
 
 #### Visualization of Karate graph using SDNE
 <p align="center">
 <img width="420" height="300" src="images/karate_sdne.png">
+</p>
 
 We observe from the visualizations that Locally Linear Embedding and Laplacian Eigenmaps  attempt  to  preserve  the  community  structure  of  the graph and cluster nodes with high intra-cluster edges together. Graph Factorization embeds communities very closely and keeps leaf nodes far away from other nodes.  HOPE embeds  nodes  with low  Katz  similarity  in  the  original graph farthest apart (considering dot product similarity). node2vec and SDNE preserve a mix of  community  structure  and  structural  property  of  the  nodes. In SDNE, nodes 32 and 33, which are both high degree hubs and central in  their  communities,  are  embedded  together  and  away  from low  degree  nodes.   Also,  they  are  closer  to  nodes  which  belong to their communities. SDNE embeds node 0, which acts as a bridge between communities, far away from other nodes. Note that, unlike for other methods, it does not imply that node 0 is disconnected from the rest of the nodes.  The implication here is that SDNE identifies node 0 as a separate type of node and encodes its connection to other nodes in encoder and decoder. Note that different runs of the algorithms may give different embeddings and visualizations but the properties preserved by the embeddings for a method are similar.
 
