@@ -263,26 +263,32 @@ We observe that SDNE can reconstruct SBM network with high MAP and precision. Am
 #### Visualization of SBM using Graph Factorization
 <p align="center">
 <img width="420" height="300" src="images/sbm_graph_factor_sgd.png">
+</p>
 
 #### Visualization of SBM using HOPE
 <p align="center">
 <img width="420" height="300" src="images/sbm_hope_gsvd.png">
+</p>
 
 #### Visualization of SBM using Laplacian Eigenmaps
 <p align="center">
 <img width="420" height="300" src="images/sbm_lap_eigmap_svd.png">
+</p>
 
 #### Visualization of SBM using Locally Linear Embedding
 <p align="center">
 <img width="420" height="300" src="images/sbm_lle_svd.png">
+</p>
 
 #### Visualization of SBM using node2vec
 <p align="center">
 <img width="420" height="300" src="images/sbm_node2vec_rw.png">
+</p>
 
 #### Visualization of SBM using SDNE
 <p align="center">
 <img width="420" height="300" src="images/sbm_sdne.png">
+</p>
 
 ## Cite
     @article{goyal2017graph,
