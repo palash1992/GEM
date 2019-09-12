@@ -23,7 +23,7 @@ INSTALL_REQUIRES = (
     'scipy>=0.19.0',
     'networkx==1.11',
     'matplotlib>=2.0.0',
-    # 'sklearn>=0.18.1',
+    'scikit-learn>=0.21.2',
     'theano>=0.9.0',
     'keras==2.0.2'
 )
@@ -113,7 +113,6 @@ def write_version_py(filename='gem/version.py'):
         )
     finally:
         a.close()
-
 
 def setup_package():
     write_version_py()

@@ -53,6 +53,12 @@ To install for all users on Unix/Linux:
     sudo python setup.py install
 ```
 
+Or installing via pipwith git: 
+```bash 
+    pip install git+https://github.com/palash1992/GEM.git
+```
+
+
 You also can use `python3` instead of `python`.
 
 To install node2vec as part of the package, recompile from https://github.com/snap-stanford/snap and add node2vec executable to system path.
