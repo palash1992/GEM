@@ -83,7 +83,7 @@ def write_version_py(filename='gem/version.py'):
     version = '%(version)s'
     full_version = '%(full_version)s'
     git_revision = '%(git_revision)s'
-    release = %(isrelease)s
+    release = '%(isrelease)s'
     if not release:
         version = full_version
         short_version += ".dev"
@@ -103,10 +103,14 @@ def write_version_py(filename='gem/version.py'):
 
     a = open(filename, 'w')
     try:
-        a.write(cnt % {'version': VERSION,
-                       'full_version': FULLVERSION,
-                       'git_revision': GIT_REVISION,
-                       'isrelease': str(ISRELEASED)})
+        a.write(
+            cnt % {
+                'version': VERSION,
+                'full_version': FULLVERSION,
+                'git_revision': GIT_REVISION,
+                'isrelease': str(ISRELEASED)
+            }
+        )
     finally:
         a.close()
 

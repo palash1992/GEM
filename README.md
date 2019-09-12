@@ -3,7 +3,9 @@ Many physical systems in the world involve interactions between different entiti
 
 ``GEM`` is a Python package which offers a general framework for graph embedding methods. It implements many state-of-the-art embedding techniques including [Locally Linear Embedding](http://www.robots.ox.ac.uk/~az/lectures/ml/lle.pdf), [Laplacian Eigenmaps](http://yeolab.weebly.com/uploads/2/5/5/0/25509700/belkin_laplacian_2003.pdf), [Graph Factorization](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/40839.pdf), [Higher-Order Proximity preserved Embedding (HOPE)](http://www.kdd.org/kdd2016/papers/files/rfp0184-ouA.pdf), [Structural Deep Network Embedding (SDNE)](http://www.kdd.org/kdd2016/papers/files/rfp0191-wangAemb.pdf) and [node2vec](http://www.kdd.org/kdd2016/papers/files/rfp0218-groverA.pdf). It is formatted such that new methods can be easily added for comparison. Furthermore, the framework implements several functions to evaluate the quality of obtained embedding including graph reconstruction, link prediction, visualization and node classification. It supports many edge reconstruction metrics including cosine similarity, euclidean distance and decoder based. For node classification, it defaults to one-vs-rest logistic regression classifier and supports other classifiers. For faster execution, C++ backend is integrated using Boost for supported methods. A paper showcasing the results using ``GEM`` on various real world datasets can be accessed through [Graph Embedding Techniques, Applications, and Performance: A Survey](https://arxiv.org/abs/1705.02801). The library is also published as [GEM: A Python package for graph embedding methods](https://doi.org/10.21105/joss.00876).
 
-**Update**: Note that this is a library for static graph embedding methods. For evolving graph embedding methods, please refer [DynamicGEM](https://github.com/palash1992/DynamicGEM).
+Please refer [https://palash1992.github.io/GEM/](https://palash1992.github.io/GEM/) to access the readme as a webpage.
+
+**Update**: Note that this is a library for static graph embedding methods. For evolving graph embedding methods, please refer [DynamicGEM](https://github.com/palash1992/DynamicGEM). We also recently released Youtube dynamic graph data set which can be found at [YoutubeGraph-Dyn](https://github.com/palash1992/YoutubeGraph-Dyn).
 
 The module was developed and is maintained by Palash Goyal.
 
@@ -154,22 +156,27 @@ We observe that HOPE, LLE and SDNE achieve high MAP values. Furthermore, HOPE ca
 #### Visualization of Karate graph using HOPE
 <p align="center">
 <img width="420" height="300" src="images/karate_hope_gsvd.png">
+</p>
 
 #### Visualization of Karate graph using Laplacian Eigenmaps
 <p align="center">
 <img width="420" height="300" src="images/karate_lap_eigmap_svd.png">
+</p>
 
 #### Visualization of Karate graph using Locally Linear Embedding
 <p align="center">
 <img width="420" height="300" src="images/karate_lle_svd.png">
+</p>
 
 #### Visualization of Karate graph using node2vec
 <p align="center">
 <img width="420" height="300" src="images/karate_node2vec_rw.png">
+</p>
 
 #### Visualization of Karate graph using SDNE
 <p align="center">
 <img width="420" height="300" src="images/karate_sdne.png">
+</p>
 
 We observe from the visualizations that Locally Linear Embedding and Laplacian Eigenmaps  attempt  to  preserve  the  community  structure  of  the graph and cluster nodes with high intra-cluster edges together. Graph Factorization embeds communities very closely and keeps leaf nodes far away from other nodes.  HOPE embeds  nodes  with low  Katz  similarity  in  the  original graph farthest apart (considering dot product similarity). node2vec and SDNE preserve a mix of  community  structure  and  structural  property  of  the  nodes. In SDNE, nodes 32 and 33, which are both high degree hubs and central in  their  communities,  are  embedded  together  and  away  from low  degree  nodes.   Also,  they  are  closer  to  nodes  which  belong to their communities. SDNE embeds node 0, which acts as a bridge between communities, far away from other nodes. Note that, unlike for other methods, it does not imply that node 0 is disconnected from the rest of the nodes.  The implication here is that SDNE identifies node 0 as a separate type of node and encodes its connection to other nodes in encoder and decoder. Note that different runs of the algorithms may give different embeddings and visualizations but the properties preserved by the embeddings for a method are similar.
 
@@ -264,26 +271,32 @@ We observe that SDNE can reconstruct SBM network with high MAP and precision. Am
 #### Visualization of SBM using Graph Factorization
 <p align="center">
 <img width="420" height="300" src="images/sbm_graph_factor_sgd.png">
+</p>
 
 #### Visualization of SBM using HOPE
 <p align="center">
 <img width="420" height="300" src="images/sbm_hope_gsvd.png">
+</p>
 
 #### Visualization of SBM using Laplacian Eigenmaps
 <p align="center">
 <img width="420" height="300" src="images/sbm_lap_eigmap_svd.png">
+</p>
 
 #### Visualization of SBM using Locally Linear Embedding
 <p align="center">
 <img width="420" height="300" src="images/sbm_lle_svd.png">
+</p>
 
 #### Visualization of SBM using node2vec
 <p align="center">
 <img width="420" height="300" src="images/sbm_node2vec_rw.png">
+</p>
 
 #### Visualization of SBM using SDNE
 <p align="center">
 <img width="420" height="300" src="images/sbm_sdne.png">
+</p>
 
 ## Cite
     @article{goyal2017graph,
