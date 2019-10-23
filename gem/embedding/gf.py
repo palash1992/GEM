@@ -15,6 +15,8 @@ import sys
 sys.path.append('./')
 sys.path.append(os.path.realpath(__file__))
 
+from subprocess import call
+
 from .static_graph_embedding import StaticGraphEmbedding
 from gem.utils import graph_util, plot_util
 from gem.evaluation import visualize_embedding as viz
@@ -23,9 +25,34 @@ from time import time
 
 class GraphFactorization(StaticGraphEmbedding):
 
+    """`Graph Factorization`_.
+    Graph Factorization factorizes the adjacency matrix with regularization.
+    
+    Args:
+        hyper_dict (object): Hyper parameters.
+        kwargs (dict): keyword arguments, form updating the parameters
+    
+    Examples:
+        >>> from gemben.embedding.gf import GraphFactorization
+        >>> edge_f = 'data/karate.edgelist'
+        >>> G = graph_util.loadGraphFromEdgeListTxt(edge_f, directed=False)
+        >>> G = G.to_directed()
+        >>> res_pre = 'results/testKarate'
+        >>> graph_util.print_graph_stats(G)
+        >>> t1 = time()
+        >>> embedding = GraphFactorization(2, 100000, 1 * 10**-4, 1.0)
+        >>> embedding.learn_embedding(graph=G, edge_f=None,
+                                  is_weighted=True, no_python=True)
+        >>> print ('Graph Factorization:Training time: %f' % (time() - t1))
+        >>> viz.plot_embedding2D(embedding.get_embedding(),
+                             di_graph=G, node_colors=None)
+        >>> plt.show()
+    .. _Graph Factorization:
+        https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/40839.pdf
+    """
+
     def __init__(self, *hyper_dict, **kwargs):
         ''' Initialize the GraphFactorization class
-
         Args:
             d: dimension of the embedding
             eta: learning rate of sgd
@@ -58,35 +85,52 @@ class GraphFactorization(StaticGraphEmbedding):
         return [f1, f2, f1 + f2]
 
     def learn_embedding(self, graph=None, edge_f=None,
-                        is_weighted=False, no_python=False):
+                        is_weighted=False, no_python=True):
         c_flag = True
         if not graph and not edge_f:
             raise Exception('graph/edge_f needed')
         if no_python:
+            if sys.platform[0] == "w":
+                args = ["gem/c_exe/gf.exe"]
+            else:
+                args = ["gem/c_exe/gf"]
+            if not graph and not edge_f:
+                raise Exception('graph/edge_f needed')
+            if edge_f:
+                graph = graph_util.loadGraphFromEdgeListTxt(edge_f)
+            graphFileName = 'gem/intermediate/%s_gf.graph' % self._data_set
+            embFileName = 'gem/intermediate/%s_%d_gf.emb' % (self._data_set, self._d)
+            # try:
+                # f = open(graphFileName, 'r')
+                # f.close()
+            # except IOError:
+            graph_util.saveGraphToEdgeListTxt(graph, graphFileName)
+            args.append(graphFileName)
+            args.append(embFileName)
+            args.append("1")  # Verbose
+            args.append("1")  # Weighted
+            args.append("%d" % self._d)
+            args.append("%f" % self._eta)
+            args.append("%f" % self._regu)
+            args.append("%d" % self._max_iter)
+            args.append("%d" % self._print_step)
+            t1 = time()
             try:
-                from c_ext import graphFac_ext
-            except ImportError:
-                print('Could not import C++ module for Graph Factorization. Reverting to python implementation. Please recompile graphFac_ext from graphFac.cpp using bjam')
+                call(args)
+            except Exception as e:
+                print(str(e))
                 c_flag = False
+                print('./gf not found. Reverting to Python implementation. Please compile gf, place node2vec in the path and grant executable permission')
             if c_flag:
-                if edge_f:
-                    graph = graph_util.loadGraphFromEdgeListTxt(edge_f)
-                graph_util.saveGraphToEdgeListTxt(graph, 'tempGraph.graph')
-                is_weighted = True
-                edge_f = 'tempGraph.graph'
-                t1 = time()
-                graphFac_ext.learn_embedding(
-                    edge_f,
-                    "tempGraphGF.emb",
-                    True,
-                    is_weighted,
-                    self._d,
-                    self._eta,
-                    self._regu,
-                    self._max_iter
-                )
-                self._X = graph_util.loadEmbedding('tempGraphGF.emb')
+                try:
+                    self._X = graph_util.loadEmbedding(embFileName)
+                except FileNotFoundError:
+                    self._X = np.random.randn(graph.number_of_nodes(), self._d)
                 t2 = time()
+                try:
+                    call(["rm", embFileName])
+                except:
+                    pass
                 return self._X, (t2 - t1)
         if not graph:
             graph = graph_util.loadGraphFromEdgeListTxt(edge_f)
