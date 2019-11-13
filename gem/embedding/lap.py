@@ -58,6 +58,9 @@ class LaplacianEigenmaps(StaticGraphEmbedding):
         L_sym = nx.normalized_laplacian_matrix(graph)
 
         w, v = lg.eigs(L_sym, k=self._d + 1, which='SM')
+        idx = np.argsort(w) # sort eigenvalues
+        w = w[idx]
+        v = v[:, idx]
         t2 = time()
         self._X = v[:, 1:]
 
