@@ -44,7 +44,7 @@ if __name__ == '__main__':
 
     models = []
     # Load the models you want to run
-    models.append(GraphFactorization(d=2, max_iter=50000, eta=1 * 10**-4, regu=1.0))
+    models.append(GraphFactorization(d=2, max_iter=50000, eta=1 * 10**-4, regu=1.0, data_set='karate'))
     models.append(HOPE(d=4, beta=0.01))
     models.append(LaplacianEigenmaps(d=2))
     models.append(LocallyLinearEmbedding(d=2))
