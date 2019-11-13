@@ -96,7 +96,7 @@ G = G.to_directed()
 models = []
 # You can comment out the methods you don't want to run
 # GF takes embedding dimension (d), maximum iterations (max_iter), learning rate (eta), regularization coefficient (regu) as inputs
-models.append(GraphFactorization(d=2, max_iter=100000, eta=1*10**-4, regu=1.0))
+models.append(GraphFactorization(d=2, max_iter=100000, eta=1*10**-4, regu=1.0, data_set='karate'))
 # HOPE takes embedding dimension (d) and decay factor (beta) as inputs
 models.append(HOPE(d=4, beta=0.01))
 # LE takes embedding dimension (d) as input
