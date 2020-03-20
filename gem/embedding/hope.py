@@ -61,7 +61,7 @@ class HOPE(StaticGraphEmbedding):
         # M_g = I - self._beta*A
         # M_l = self._beta*A
         A = nx.to_numpy_matrix(graph)
-        M_g = np.eye(graph.number_of_nodes()) - self._beta * A
+        M_g = np.eye(len(graph.nodes)) - self._beta * A
         M_l = self._beta * A
         S = np.dot(np.linalg.inv(M_g), M_l)
 

@@ -80,7 +80,7 @@ class SDNE(StaticGraphEmbedding):
         S = nx.to_scipy_sparse_matrix(graph)
         t1 = time()
         S = (S + S.T) / 2
-        self._node_num = graph.number_of_nodes()
+        self._node_num = len(graph.nodes)
 
         # Generate encoder, decoder and autoencoder
         self._num_iter = self._n_iter

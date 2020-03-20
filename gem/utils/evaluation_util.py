@@ -36,7 +36,7 @@ def getEdgeListFromAdjMtx(adj, threshold=0.0, is_undirected=True, edge_pairs=Non
 def splitDiGraphToTrainTest(di_graph, train_ratio, is_undirected=True):
     train_digraph = di_graph.copy()
     test_digraph = di_graph.copy()
-    node_num = di_graph.number_of_nodes()
+    node_num = len(di_graph.nodes)
     for (st, ed, w) in di_graph.edges_iter(data='weight', default=1):
         if(is_undirected and st >= ed):
             continue

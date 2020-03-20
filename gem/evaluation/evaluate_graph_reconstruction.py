@@ -10,7 +10,7 @@ def evaluateStaticGraphReconstruction(digraph, graph_embedding,
                                       X_stat, node_l=None, file_suffix=None,
                                       sample_ratio_e=None, is_undirected=True,
                                       is_weighted=False):
-    node_num = digraph.number_of_nodes()
+    node_num = len(digraph.nodes)
     # evaluation
     if sample_ratio_e:
         eval_edge_pairs = evaluation_util.getRandomEdgePairs(
@@ -54,7 +54,7 @@ def expGR(digraph, graph_embedding,
     print('\tGraph Reconstruction')
     summ_file = open('%s_%s.grsumm' % (res_pre, m_summ), 'w')
     summ_file.write('Method\t%s\n' % metrics.getMetricsHeader())
-    if digraph.number_of_nodes() <= n_sampled_nodes:
+    if len(digraph.nodes) <= n_sampled_nodes:
         rounds = 1
     MAP = [None] * rounds
     prec_curv = [None] * rounds
@@ -67,8 +67,8 @@ def expGR(digraph, graph_embedding,
             digraph,
             n_sampled_nodes=n_sampled_nodes
         )
-        n_nodes[round_id] = sampled_digraph.number_of_nodes()
-        n_edges[round_id] = sampled_digraph.number_of_edges()
+        n_nodes[round_id] = len(sampled_digraph.nodes)
+        n_edges[round_id] = len(sampled_digraph.edges)
         print('\t\tRound: %d, n_nodes: %d, n_edges:%d\n' % (round_id,
                                                             n_nodes[round_id],
                                                             n_edges[round_id]))

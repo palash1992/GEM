@@ -125,7 +125,7 @@ class GraphFactorization(StaticGraphEmbedding):
                 try:
                     self._X = graph_util.loadEmbedding(embFileName)
                 except FileNotFoundError:
-                    self._X = np.random.randn(graph.number_of_nodes(), self._d)
+                    self._X = np.random.randn(len(graph.nodes), self._d)
                 t2 = time()
                 try:
                     call(["rm", embFileName])
@@ -135,7 +135,7 @@ class GraphFactorization(StaticGraphEmbedding):
         if not graph:
             graph = graph_util.loadGraphFromEdgeListTxt(edge_f)
         t1 = time()
-        self._node_num = graph.number_of_nodes()
+        self._node_num = len(graph.nodes)
         self._X = 0.01 * np.random.randn(self._node_num, self._d)
         for iter_id in range(self._max_iter):
             if not iter_id % self._print_step:

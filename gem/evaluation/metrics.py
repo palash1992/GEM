@@ -23,7 +23,7 @@ def computePrecisionCurve(predicted_edge_list, true_digraph, max_k=-1):
     return precision_scores, delta_factors
 
 def computeMAP(predicted_edge_list, true_digraph, max_k=-1):
-    node_num = true_digraph.number_of_nodes()
+    node_num = len(true_digraph.nodes)
     node_edges = []
     for i in range(node_num):
         node_edges.append([])
