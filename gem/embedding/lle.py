@@ -59,7 +59,7 @@ class LocallyLinearEmbedding(StaticGraphEmbedding):
         t1 = time()
         A = nx.to_scipy_sparse_matrix(graph)
         normalize(A, norm='l1', axis=1, copy=False)
-        I_n = sp.eye(graph.number_of_nodes())
+        I_n = sp.eye(len(graph.nodes))
         I_min_A = I_n - A
         u, s, vt = lg.svds(I_min_A, k=self._d + 1, which='SM')
         t2 = time()

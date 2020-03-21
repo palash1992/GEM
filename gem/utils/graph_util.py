@@ -9,7 +9,7 @@ import pdb
 
 
 def transform_DiGraph_to_adj(di_graph):
-    n = di_graph.number_of_nodes()
+    n = len(di_graph.nodes)
     adj = np.zeros((n, n))
     for st, ed, w in di_graph.edges(data='weight', default=1):
         adj[st, ed] = w
@@ -30,19 +30,19 @@ def transform_adj_to_DiGraph(adj):
 
 def get_lcc(di_graph):
     di_graph = max(nx.weakly_connected_component_subgraphs(di_graph), key=len)
-    tdl_nodes = di_graph.nodes()
+    tdl_nodes = list(di_graph.nodes())
     nodeListMap = dict(zip(tdl_nodes, range(len(tdl_nodes))))
     nx.relabel_nodes(di_graph, nodeListMap, copy=False)
     return di_graph, nodeListMap
 
 
 def print_graph_stats(G):
-    print('# of nodes: %d, # of edges: %d' % (G.number_of_nodes(),
-                                              G.number_of_edges()))
+    print('# of nodes: %d, # of edges: %d' % (len(G.nodes),
+                                              len(G.edges)))
 
 
 def sample_graph(di_graph, n_sampled_nodes=None):
-    node_num = di_graph.number_of_nodes()
+    node_num = len(di_graph.nodes)
     if n_sampled_nodes and node_num > n_sampled_nodes:
         node_l = np.random.choice(node_num, n_sampled_nodes, replace=False)
         node_l_inv = {v: k for k, v in enumerate(node_l)}
@@ -57,13 +57,13 @@ def sample_graph(di_graph, n_sampled_nodes=None):
                 continue
         return sampled_graph, node_l
     else:
-        return di_graph, np.arange(di_graph.number_of_nodes())
+        return di_graph, np.arange(len(di_graph.nodes))
 
 
 def randwalk_DiGraph_to_adj(di_graph, node_frac=0.1,
                             n_walks_per_node=5, len_rw=2):
     t0 = time.time()
-    n = di_graph.number_of_nodes()
+    n = len(di_graph.nodes)
     adj = np.zeros((n, n))
     rw_node_num = int(node_frac * n)
     rw_node_list = np.random.choice(n, size=[rw_node_num],
@@ -97,8 +97,8 @@ def randwalk_DiGraph_to_adj(di_graph, node_frac=0.1,
 def addChaos(di_graphs, k):
     anomaly_time_steps = sorted(random.sample(range(len(di_graphs)), k))
     for t in anomaly_time_steps:
-        n = di_graphs[t].number_of_nodes()
-        e = di_graphs[t].number_of_edges()
+        n = len(di_graphs[t].nodes)
+        e = len(di_graphs[t].edges)
         di_graphs[t] = nx.fast_gnp_random_graph(n, e / float(n * (n - 1)),
                                                 seed=None, directed=False)
         di_graphs[t] = di_graphs[t].to_directed()
@@ -108,11 +108,11 @@ def addChaos(di_graphs, k):
 def addNodeAnomalies(di_graphs, p, k):
     anomaly_time_steps = sorted(random.sample(range(len(di_graphs)), k))
     for t in anomaly_time_steps:
-        n_nodes = di_graphs[t].number_of_nodes()
+        n_nodes = len(di_graphs[t].nodes)
         anomalous_nodes_idx = np.random.choice([0, 1],
                                                size=(n_nodes, 1),
                                                p=(1 - p, p))
-        node_list = np.array(di_graphs[t].nodes())
+        node_list = np.array(list(di_graphs[t].nodes()))
         node_list = node_list.reshape((n_nodes, 1))
         anomalous_nodes = np.multiply(anomalous_nodes_idx, node_list)
         anomalous_nodes = anomalous_nodes[anomalous_nodes > 0]
@@ -123,15 +123,15 @@ def addNodeAnomalies(di_graphs, p, k):
         di_graphs[t].add_edges_from(
             itertools.product(range(n_nodes), list(anomalous_nodes))
         )
-        print('Nodes: %d, Edges: %d' % (di_graphs[t].number_of_nodes(),
-                                        di_graphs[t].number_of_edges()))
+        print('Nodes: %d, Edges: %d' % (len(di_graphs[t].nodes),
+                                        len(di_graphs[t].edges)))
     return anomaly_time_steps
 
 
 def saveGraphToEdgeListTxt(graph, file_name):
     with open(file_name, 'w') as f:
-        f.write('%d\n' % graph.number_of_nodes())
-        f.write('%d\n' % graph.number_of_edges())
+        f.write('%d\n' % len(graph.nodes))
+        f.write('%d\n' % len(graph.edges))
         for i, j, w in graph.edges(data='weight', default=1):
             f.write('%d %d %f\n' % (i, j, w))
 

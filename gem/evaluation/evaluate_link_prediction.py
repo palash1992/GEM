@@ -16,7 +16,7 @@ def evaluateStaticLinkPrediction(digraph, graph_embedding,
                                  sample_ratio_e=None,
                                  no_python=False,
                                  is_undirected=True):
-    node_num = digraph.number_of_nodes()
+    node_num = len(digraph.nodes)
     # seperate train and test graph
     train_digraph, test_digraph = evaluation_util.splitDiGraphToTrainTest(
         digraph,
@@ -28,7 +28,7 @@ def evaluateStaticLinkPrediction(digraph, graph_embedding,
             nx.weakly_connected_component_subgraphs(train_digraph),
             key=len
         )
-        tdl_nodes = train_digraph.nodes()
+        tdl_nodes = list(train_digraph.nodes())
         nodeListMap = dict(zip(tdl_nodes, range(len(tdl_nodes))))
         nx.relabel_nodes(train_digraph, nodeListMap, copy=False)
         test_digraph = test_digraph.subgraph(tdl_nodes)
@@ -63,7 +63,7 @@ def evaluateStaticLinkPrediction(digraph, graph_embedding,
         edge_pairs=eval_edge_pairs
     )
     if node_l is None:
-        node_l = list(range(train_digraph.number_of_nodes()))
+        node_l = list(range(len(train_digraph.nodes)))
     filtered_edge_list = [e for e in predicted_edge_list if not train_digraph.has_edge(node_l(e[0]), node_l(e[1]))]
 
     MAP = metrics.computeMAP(filtered_edge_list, test_digraph)
