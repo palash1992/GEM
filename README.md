@@ -36,7 +36,7 @@ The graphs are saved using `nx.write_gpickle` in the networkx format and can be 
 ## Dependencies
 GEM is tested to work on Python 2.7 and Python 3.6
 
-The required dependencies are: Numpy >= 1.12.0, SciPy >= 0.19.0, Networkx == 1.11, Scikit-learn >= 0.18.1.
+The required dependencies are: Numpy >= 1.12.0, SciPy >= 0.19.0, Networkx == 2.4, Scikit-learn >= 0.18.1.
 
 To run SDNE, GEM requires Theano >= 0.9.0 and Keras = 2.0.2.
 
