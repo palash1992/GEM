@@ -37,7 +37,7 @@ def splitDiGraphToTrainTest(di_graph, train_ratio, is_undirected=True):
     train_digraph = di_graph.copy()
     test_digraph = di_graph.copy()
     node_num = len(di_graph.nodes)
-    for (st, ed, w) in di_graph.edges_iter(data='weight', default=1):
+    for (st, ed, w) in list(di_graph.edges(data='weight', default=1)):
         if(is_undirected and st >= ed):
             continue
         if(np.random.uniform() <= train_ratio):
