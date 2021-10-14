@@ -33,7 +33,7 @@ def evaluateStaticGraphReconstruction(digraph, graph_embedding,
         is_undirected=is_undirected,
         edge_pairs=eval_edge_pairs
     )
-    MAP = metrics.computeMAP(predicted_edge_list, digraph)
+    MAP = metrics.computeMAP(predicted_edge_list, digraph, is_undirected=is_undirected)
     prec_curv, _ = metrics.computePrecisionCurve(predicted_edge_list, digraph)
     # If weighted, compute the error in reconstructed weights of observed edges
     if is_weighted:

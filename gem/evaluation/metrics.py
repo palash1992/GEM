@@ -22,7 +22,7 @@ def computePrecisionCurve(predicted_edge_list, true_digraph, max_k=-1):
         precision_scores.append(1.0 * correct_edge / (i + 1))
     return precision_scores, delta_factors
 
-def computeMAP(predicted_edge_list, true_digraph, max_k=-1):
+def computeMAP(predicted_edge_list, true_digraph, max_k=-1, is_undirected=False):
     node_num = len(true_digraph.nodes)
     node_edges = []
     for i in range(node_num):
@@ -32,7 +32,7 @@ def computeMAP(predicted_edge_list, true_digraph, max_k=-1):
     node_AP = [0.0] * node_num
     count = 0
     for i in range(node_num):
-        if true_digraph.out_degree(i) == 0:
+        if not is_undirected and true_digraph.out_degree(i) == 0:
             continue
         count += 1
         precision_scores, delta_factors = computePrecisionCurve(node_edges[i], true_digraph, max_k)
