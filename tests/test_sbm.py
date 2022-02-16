@@ -59,7 +59,7 @@ class SBMTest(unittest.TestCase):
 
     def test_GraphFactorization(self):
         model = GraphFactorization(d=128, max_iter=1000, eta=1 * 10**-4, regu=1.0, data_set='sbm')
-        target = np.loadtxt('smb_res/GraphFactorization.txt')
+        target = np.loadtxt(os.path.join(self.source_dir, 'smb_res/GraphFactorization.txt'))
         self.internal_model_test(model, target)
 
     def test_HOPE(self):
