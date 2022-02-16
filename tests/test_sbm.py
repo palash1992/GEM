@@ -93,10 +93,10 @@ class SBMTest(unittest.TestCase):
     #    target = np.loadtxt('smb_res/SDNE.txt')
     #    self.internal_model_test(model, target)
 
-    def internal_model_test(self, model, target, verbose: bool = False):
+    def internal_model_test(self, model, target, verbose: bool = False, mae_close: bool = False):
         MAP, prec_curv, err, err_baseline = fit_model(self.G, model)
         # ---------------------------------------------------------------------------------
         if verbose:
             print(("\tMAP: {} \t preccision curve: {}\n\n\n\n" + '-' * 100).format(MAP, prec_curv[:5]))
 
-        self.assertTrue(np.array_equal(model.get_embedding(), target))
+        self.assertTrue(abs(np.mean(target - model.get_embedding())) < 1e-3)

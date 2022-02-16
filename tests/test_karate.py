@@ -78,7 +78,7 @@ class KarateTest(unittest.TestCase):
             print(("\tMAP: {} \t preccision curve: {}\n\n\n\n" + '-' * 100).format(MAP, prec_curv[:5]))
         # ---------------------------------------------------------------------------------
         if not mae_close:
-            self.assertTrue(np.array_equal(model.get_embedding(), target))
+            self.assertTrue(np.allclose(model.get_embedding(), target))
         else:
             self.assertTrue(np.mean(target-model.get_embedding()) < .3)
 
