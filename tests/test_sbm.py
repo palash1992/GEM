@@ -89,12 +89,12 @@ class SBMTest(unittest.TestCase):
                      modelfile=['enc_model.json', 'dec_model.json'],
                      weightfile=['enc_weights.hdf5', 'dec_weights.hdf5'])
         target = np.loadtxt(os.path.join(self.source_dir, 'smb_res/SDNE.txt'))
-        self.internal_model_test(model, target)
+        self.internal_model_test(model, target, delta=1e-1)
 
-    def internal_model_test(self, model, target, verbose: bool = False, mae_close: bool = False):
+    def internal_model_test(self, model, target, verbose: bool = False, delta: float = 1e-3):
         MAP, prec_curv, err, err_baseline = fit_model(self.G, model)
         # ---------------------------------------------------------------------------------
         if verbose:
             print(("\tMAP: {} \t preccision curve: {}\n\n\n\n" + '-' * 100).format(MAP, prec_curv[:5]))
 
-        self.assertTrue(abs(np.mean(target - model.get_embedding())) < 1e-3)
+        self.assertTrue(abs(np.mean(target - model.get_embedding())) < delta)
