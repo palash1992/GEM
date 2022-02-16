@@ -57,11 +57,10 @@ class SBMTest(unittest.TestCase):
         self.node_colors_arr = node_colors_arr
         self.G = G
 
-    # todo: currently failing
-    # def test_GraphFactorization(self):
-    #    model = GraphFactorization(d=128, max_iter=1000, eta=1 * 10**-4, regu=1.0, data_set='sbm')
-    #    target = np.loadtxt('smb_res/GraphFactorization.txt')
-    #    self.internal_model_test(model, target)
+    def test_GraphFactorization(self):
+        model = GraphFactorization(d=128, max_iter=1000, eta=1 * 10**-4, regu=1.0, data_set='sbm')
+        target = np.loadtxt('smb_res/GraphFactorization.txt')
+        self.internal_model_test(model, target)
 
     def test_HOPE(self):
         model = HOPE(d=256, beta=0.01)
@@ -84,14 +83,13 @@ class SBMTest(unittest.TestCase):
     #    target = np.loadtxt('smb_res/node2vec.txt')
     #    self.internal_model_test(model, target)
 
-    # todo: currently failing
-    # def test_SDNE(self):
-    #    model = SDNE(d=128, beta=5, alpha=1e-5, nu1=1e-6, nu2=1e-6, K=3, n_units=[500, 300, ], rho=0.3, n_iter=30, xeta=0.001,
-    #                 n_batch=500,
-    #                 modelfile=['enc_model.json', 'dec_model.json'],
-    #                 weightfile=['enc_weights.hdf5', 'dec_weights.hdf5'])
-    #    target = np.loadtxt('smb_res/SDNE.txt')
-    #    self.internal_model_test(model, target)
+    def test_SDNE(self):
+        model = SDNE(d=128, beta=5, alpha=1e-5, nu1=1e-6, nu2=1e-6, K=3, n_units=[500, 300, ], rho=0.3, n_iter=30, xeta=0.001,
+                     n_batch=500,
+                     modelfile=['enc_model.json', 'dec_model.json'],
+                     weightfile=['enc_weights.hdf5', 'dec_weights.hdf5'])
+        target = np.loadtxt('smb_res/SDNE.txt')
+        self.internal_model_test(model, target)
 
     def internal_model_test(self, model, target, verbose: bool = False, mae_close: bool = False):
         MAP, prec_curv, err, err_baseline = fit_model(self.G, model)

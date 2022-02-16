@@ -36,11 +36,10 @@ class KarateTest(unittest.TestCase):
         G = graph_util.loadGraphFromEdgeListTxt(edge_f, directed=isDirected)
         self.G = G.to_directed()
 
-    # todo: fix
-    #def test_GraphFactorization(self):
-        #model = GraphFactorization(d=2, max_iter=50000, eta=1 * 10**-4, regu=1.0)
-        #self.tmp_init(model)
-        #self.internal_model_test(model)
+    def test_GraphFactorization(self):
+        model = GraphFactorization(d=2, max_iter=50000, eta=1 * 10**-4, regu=1.0, data_set='karate')
+        target = np.loadtxt(os.path.join(self.source_dir, 'karate_res/GraphFactorization.txt'))
+        self.internal_model_test(model, target)
 
     def test_HOPE(self):
         model = HOPE(d=4, beta=0.01)
@@ -57,13 +56,12 @@ class KarateTest(unittest.TestCase):
         target = np.loadtxt(os.path.join(self.source_dir, 'karate_res/LocallyLinearEmbedding.txt'))
         self.internal_model_test(model, target, mae_close=True)
 
-    # todo: reimplement test
-    #def test_node2vec(self):
+    # todo: check again
+    # def test_node2vec(self):
     #    model = node2vec(d=2, max_iter=1, walk_len=80, num_walks=10, con_size=10, ret_p=1, inout_p=1)
     #    target = np.loadtxt('karate_res/node2vec.txt')
     #    self.internal_model_test(model, target)
 
-    # todo: is mae_close a good approximation?
     def test_SDNE(self):
         model = SDNE(d=2, beta=5, alpha=1e-5, nu1=1e-6, nu2=1e-6, K=3,n_units=[50, 15,], rho=0.3, n_iter=50,
                      xeta=0.01,n_batch=100, modelfile=['enc_model.json', 'dec_model.json'],
@@ -80,5 +78,5 @@ class KarateTest(unittest.TestCase):
         if not mae_close:
             self.assertTrue(np.allclose(model.get_embedding(), target))
         else:
-            self.assertTrue(np.mean(target-model.get_embedding()) < .3)
+            self.assertTrue(abs(np.mean(target-model.get_embedding())) < .3)
 
