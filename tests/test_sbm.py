@@ -88,7 +88,7 @@ class SBMTest(unittest.TestCase):
                      n_batch=500,
                      modelfile=['enc_model.json', 'dec_model.json'],
                      weightfile=['enc_weights.hdf5', 'dec_weights.hdf5'])
-        target = np.loadtxt('smb_res/SDNE.txt')
+        target = np.loadtxt(os.path.join(self.source_dir, 'smb_res/SDNE.txt'))
         self.internal_model_test(model, target)
 
     def internal_model_test(self, model, target, verbose: bool = False, mae_close: bool = False):
