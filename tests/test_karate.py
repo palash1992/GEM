@@ -55,7 +55,7 @@ class KarateTest(unittest.TestCase):
     def test_LocallyLinearEmbedding(self):
         model = LocallyLinearEmbedding(d=2)
         target = np.loadtxt(os.path.join(self.source_dir, 'karate_res/LocallyLinearEmbedding.txt'))
-        self.internal_model_test(model, target)
+        self.internal_model_test(model, target, mae_close=True)
 
     # todo: reimplement test
     #def test_node2vec(self):
