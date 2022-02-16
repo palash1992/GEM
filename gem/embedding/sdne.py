@@ -22,9 +22,9 @@ import tensorflow as tf
 
 from tensorflow.keras.layers import Input, Dense, Lambda, Subtract
 from tensorflow.keras.models import Model, model_from_json
-import keras.regularizers as Reg
+import tensorflow.keras.regularizers as Reg
 from tensorflow.keras.optimizers import SGD, Adam
-from keras import backend as KBack
+from tensorflow.keras import backend as KBack
 
 from time import time
 
