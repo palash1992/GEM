@@ -217,7 +217,7 @@ def saveDynamicSBmGraph(file_perfix, dynamic_graphs):
     graph_files = ['%s_%d_graph.gpickle' % (file_perfix, i) for i in range(length)]
     info_files = ['%s_%d_node.pkl' % (file_perfix, i) for i in range(length)]
 
-    for i in xrange(length):
+    for i in range(length):
         # save graph
         nx.write_gpickle(dynamic_graphs[i][0], graph_files[i])
         # save additional node info
