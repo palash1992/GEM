@@ -39,7 +39,7 @@ class KarateTest(unittest.TestCase):
     def test_GraphFactorization(self):
         model = GraphFactorization(d=2, max_iter=50000, eta=1 * 10**-4, regu=1.0, data_set='karate')
         target = np.loadtxt(os.path.join(self.source_dir, 'karate_res/GraphFactorization.txt'))
-        self.internal_model_test(model, target)
+        self.internal_model_test(model, target, mae_close=True)
 
     def test_HOPE(self):
         model = HOPE(d=4, beta=0.01)
