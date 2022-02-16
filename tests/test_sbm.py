@@ -22,7 +22,7 @@ from gem.embedding.node2vec import node2vec
 from gem.embedding.sdne import SDNE
 
 
-from fit_model import fit_model
+from tests.fit_model import fit_model
 
 
 class SBMTest(unittest.TestCase):
@@ -30,8 +30,8 @@ class SBMTest(unittest.TestCase):
     def setUp(self) -> None:
         # File that contains the edges. Format: source target
         # Optionally, you can add weights as third column: source target weight
-        source_dir = os.path.dirname(os.path.abspath(__file__))
-        file_prefix = os.path.join(source_dir, 'data/sbm.gpickle')
+        self.source_dir = os.path.dirname(os.path.abspath(__file__))
+        file_prefix = os.path.join(self.source_dir, 'data/sbm.gpickle')
 
         # Load graph
         G = nx.read_gpickle(file_prefix)
@@ -44,11 +44,11 @@ class SBMTest(unittest.TestCase):
         G = H
         try:
             node_colors = pickle.load(
-                open(os.path.join(source_dir, 'data/sbm_node_labels.pickle'), 'rb')
+                open(os.path.join(self.source_dir, 'data/sbm_node_labels.pickle'), 'rb')
             )
         except UnicodeDecodeError:
             node_colors = pickle.load(
-                open(os.path.join(source_dir, 'data/sbm_node_labels.pickle'), 'rb'), encoding='latin1'
+                open(os.path.join(self.source_dir, 'data/sbm_node_labels.pickle'), 'rb'), encoding='latin1'
             )
         node_colors_arr = [None] * node_colors.shape[0]
         for idx in range(node_colors.shape[0]):
@@ -65,17 +65,17 @@ class SBMTest(unittest.TestCase):
 
     def test_HOPE(self):
         model = HOPE(d=256, beta=0.01)
-        target = np.loadtxt('smb_res/HOPE.txt')
+        target = np.loadtxt(os.path.join(self.source_dir, 'smb_res/HOPE.txt'))
         self.internal_model_test(model, target)
 
     def test_LaplacianEigenmaps(self):
         model = LaplacianEigenmaps(d=128)
-        target = np.loadtxt('smb_res/LaplacianEigenmaps.txt')
+        target = np.loadtxt(os.path.join(self.source_dir, 'smb_res/LaplacianEigenmaps.txt'))
         self.internal_model_test(model, target)
 
     def test_LocallyLinearEmbedding(self):
         model = LocallyLinearEmbedding(d=128)
-        target = np.loadtxt('smb_res/LocallyLinearEmbedding.txt')
+        target = np.loadtxt(os.path.join(self.source_dir, 'smb_res/LocallyLinearEmbedding.txt'))
         self.internal_model_test(model, target)
 
     # todo: currently failing

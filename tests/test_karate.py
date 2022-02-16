@@ -19,7 +19,7 @@ from gem.embedding.lle import LocallyLinearEmbedding
 from gem.embedding.node2vec import node2vec
 from gem.embedding.sdne import SDNE
 
-from fit_model import fit_model
+from tests.fit_model import fit_model
 
 
 class KarateTest(unittest.TestCase):
@@ -27,8 +27,8 @@ class KarateTest(unittest.TestCase):
     def setUp(self) -> None:
         # File that contains the edges. Format: source target
         # Optionally, you can add weights as third column: source target weight
-        source_dir = os.path.dirname(os.path.abspath(__file__))
-        edge_f = os.path.join(source_dir, 'data/karate.edgelist')
+        self.source_dir = os.path.dirname(os.path.abspath(__file__))
+        edge_f = os.path.join(self.source_dir, 'data/karate.edgelist')
         # Specify whether the edges are directed
         isDirected = True
 
@@ -44,17 +44,17 @@ class KarateTest(unittest.TestCase):
 
     def test_HOPE(self):
         model = HOPE(d=4, beta=0.01)
-        target = np.loadtxt('karate_res/HOPE.txt')
+        target = np.loadtxt(os.path.join(self.source_dir, 'karate_res/HOPE.txt'))
         self.internal_model_test(model, target)
 
     def test_LaplacianEigenmaps(self):
         model = LaplacianEigenmaps(d=2)
-        target = np.loadtxt('karate_res/LaplacianEigenmaps.txt')
+        target = np.loadtxt(os.path.join(self.source_dir, 'karate_res/LaplacianEigenmaps.txt'))
         self.internal_model_test(model, target)
 
     def test_LocallyLinearEmbedding(self):
         model = LocallyLinearEmbedding(d=2)
-        target = np.loadtxt('karate_res/LocallyLinearEmbedding.txt')
+        target = np.loadtxt(os.path.join(self.source_dir, 'karate_res/LocallyLinearEmbedding.txt'))
         self.internal_model_test(model, target)
 
     # todo: reimplement test
@@ -68,7 +68,7 @@ class KarateTest(unittest.TestCase):
         model = SDNE(d=2, beta=5, alpha=1e-5, nu1=1e-6, nu2=1e-6, K=3,n_units=[50, 15,], rho=0.3, n_iter=50,
                      xeta=0.01,n_batch=100, modelfile=['enc_model.json', 'dec_model.json'],
                      weightfile=['enc_weights.hdf5', 'dec_weights.hdf5'])
-        target = np.loadtxt('karate_res/SDNE.txt')
+        target = np.loadtxt(os.path.join(self.source_dir,'karate_res/SDNE.txt'))
         self.internal_model_test(model, target, mae_close=True)
 
     def internal_model_test(self, model, target, verbose: bool = False, mae_close: bool = False):
