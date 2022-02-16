@@ -98,6 +98,7 @@ class GraphFactorization(StaticGraphEmbedding):
                 raise Exception('graph/edge_f needed')
             if edge_f:
                 graph = graph_util.loadGraphFromEdgeListTxt(edge_f)
+            os.makedirs('gem/intermediate', exist_ok=True)
             graphFileName = 'gem/intermediate/%s_gf.graph' % self._data_set
             embFileName = 'gem/intermediate/%s_%d_gf.emb' % (self._data_set, self._d)
             # try:
