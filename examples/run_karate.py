@@ -29,7 +29,7 @@ if __name__ == '__main__':
     args = vars(parser.parse_args())
     try:
         run_n2v = bool(int(args["node2vec"]))
-    except KeyError or ValueError:
+    except (KeyError, ValueError):
         run_n2v = False
 
     # File that contains the edges. Format: source target

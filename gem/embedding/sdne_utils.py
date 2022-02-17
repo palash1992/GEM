@@ -124,7 +124,7 @@ def loadmodel(filename):
     model = None
     try:
         model = model_from_json(open(filename).read())
-    except FileNotFoundError or IOError:
+    except (FileNotFoundError, IOError):
         print('Error reading file: {0}. Cannot load previous model'.format(filename))
         exit()
     return model
@@ -133,7 +133,7 @@ def loadmodel(filename):
 def loadweights(model, filename):
     try:
         model.load_weights(filename)
-    except FileNotFoundError or IOError:
+    except (FileNotFoundError, IOError):
         print('Error reading file: {0}. Cannot load previous weights'.format(filename))
         exit()
 

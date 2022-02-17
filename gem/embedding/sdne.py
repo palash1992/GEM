@@ -232,7 +232,7 @@ class SDNE(StaticGraphEmbedding):
                 exit()
             try:
                 decoder.load_weights('decoder_weights_' + filesuffix + '.hdf5')
-            except FileNotFoundError or ReferenceError:
+            except (FileNotFoundError, ReferenceError):
                 print('Error reading file: {0}. Cannot load previous weights'.format('decoder_weights_'+filesuffix+'.hdf5'))
                 exit()
             if node_l is not None:
