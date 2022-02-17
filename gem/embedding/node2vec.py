@@ -46,7 +46,7 @@ class node2vec(StaticGraphEmbedding):
         args.append("-w")
         try:
             call(args)
-        except Exception as e:
+        except Exception as e:  # pragma: no cover
             print(str(e))
             raise FileNotFoundError('./node2vec not found. Please compile snap, place node2vec in the system path '
                                     'and grant executable permission')

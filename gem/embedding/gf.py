@@ -52,7 +52,7 @@ class GraphFactorization(StaticGraphEmbedding):
         super(GraphFactorization, self).__init__(*args, **kwargs)
 
     def _use_c_implementation(self, graph=None):
-        if sys.platform[0] == "w":
+        if sys.platform[0] == "w":  # pragma: no cover
             args = ["gem/c_exe/gf.exe"]
         else:
             args = ["gem/c_exe/gf"]
@@ -70,7 +70,8 @@ class GraphFactorization(StaticGraphEmbedding):
         args.append("%d" % self._max_iter)
         args.append("%d" % self._print_step)
         call(args)
-        try:
+        # this should be tested in future
+        try:  # pragma: no cover
             self._X = graph_util.loadEmbedding(emb_filename)
         except FileNotFoundError:
             self._X = np.random.randn(len(graph.nodes), self._d)
