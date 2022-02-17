@@ -1,9 +1,6 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 from sklearn.manifold import TSNE
-
-import sys
-sys.path.insert(0, './')
 from gem.utils import plot_util
 
 

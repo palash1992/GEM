@@ -58,6 +58,7 @@ def getPrecisionReport(prec_curv, edge_num):
             result_str += '\t-'
     return result_str[1:]
 
+
 # We define StabilityDeviation of nxd embeddings X1 and X2, 
 # nxn adjacenecy matrices S1 and S2 as:
 # StabDev = (||S1||_F * ||X2 - X1||_F) / (||X1||_F * ||S2 - S1||_F)
@@ -65,9 +66,11 @@ def getStabilityDev(X1, X2, S1, S2):
     n1,d = X1.shape
     return (np.linalg.norm(S1) * np.linalg.norm(X2[:n1,:]-X1)) / (np.linalg.norm(X1) * np.linalg.norm(S2[:n1,:n1]-S1))
 
+
 def getEmbeddingShift(X1, X2, S1, S2):
     n1,d = X1.shape
     return (np.linalg.norm(X2[:n1,:]-X1))/(n1*d)
+
 
 def getNodeAnomaly(X_dyn):
     T = len(X_dyn)

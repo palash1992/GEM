@@ -13,7 +13,7 @@ def evaluateStaticGraphReconstruction(digraph, graph_embedding,
     node_num = len(digraph.nodes)
     # evaluation
     if sample_ratio_e:
-        eval_edge_pairs = evaluation_util.getRandomEdgePairs(
+        eval_edge_pairs = evaluation_util.get_random_edge_pairs(
             node_num,
             sample_ratio_e,
             is_undirected
@@ -28,7 +28,7 @@ def evaluateStaticGraphReconstruction(digraph, graph_embedding,
             file_suffix,
             node_l
         )
-    predicted_edge_list = evaluation_util.getEdgeListFromAdjMtx(
+    predicted_edge_list = evaluation_util.get_edge_list_from_adj_mtrx(
         estimated_adj,
         is_undirected=is_undirected,
         edge_pairs=eval_edge_pairs

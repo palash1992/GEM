@@ -18,7 +18,7 @@ def evaluateStaticLinkPrediction(digraph, graph_embedding,
                                  is_undirected=True):
     node_num = len(digraph.nodes)
     # seperate train and test graph
-    train_digraph, test_digraph = evaluation_util.splitDiGraphToTrainTest(
+    train_digraph, test_digraph = evaluation_util.split_di_graph_to_train_test(
         digraph,
         train_ratio=train_ratio,
         is_undirected=is_undirected
@@ -49,7 +49,7 @@ def evaluateStaticLinkPrediction(digraph, graph_embedding,
 
     # evaluation
     if sample_ratio_e:
-        eval_edge_pairs = evaluation_util.getRandomEdgePairs(
+        eval_edge_pairs = evaluation_util.get_random_edge_pairs(
             node_num,
             sample_ratio_e,
             is_undirected
@@ -57,7 +57,7 @@ def evaluateStaticLinkPrediction(digraph, graph_embedding,
     else:
         eval_edge_pairs = None
     estimated_adj = graph_embedding.get_reconstructed_adj(X, node_l)
-    predicted_edge_list = evaluation_util.getEdgeListFromAdjMtx(
+    predicted_edge_list = evaluation_util.get_edge_list_from_adj_mtrx(
         estimated_adj,
         is_undirected=is_undirected,
         edge_pairs=eval_edge_pairs

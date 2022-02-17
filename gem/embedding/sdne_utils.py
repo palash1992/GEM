@@ -54,7 +54,7 @@ def batch_generator_sdne(X, beta, batch_size, shuffle):
         OutData = [a1, a2, X_ij.T]
         counter += 1
         yield InData, OutData
-        if (counter == number_of_batches):
+        if counter == number_of_batches:
             if shuffle:
                 np.random.shuffle(sample_index)
             counter = 0
@@ -67,9 +67,11 @@ def get_encoder(node_num, d, K, n_units, nu1, nu2, activation_fn):
     y = [None] * (K + 1)
     y[0] = x  # y[0] is assigned the input
     for i in range(K - 1):
-        y[i + 1] = Dense(n_units[i], activation=activation_fn,
+        y[i + 1] = Dense(n_units[i],
+                         activation=activation_fn,
                          kernel_regularizer=Reg.l1_l2(l1=nu1, l2=nu2))(y[i])
-    y[K] = Dense(d, activation=activation_fn,
+    y[K] = Dense(d,
+                 activation=activation_fn,
                  kernel_regularizer=Reg.l1_l2(l1=nu1, l2=nu2))(y[K - 1])
     # Encoder model
     encoder = Model(inputs=x, outputs=y[K])
@@ -116,13 +118,13 @@ def graphify(reconstruction):
     reconstruction = (reconstruction + reconstruction.T) / 2
     reconstruction -= np.diag(np.diag(reconstruction))
     return reconstruction
-    return reconstruction
 
 
 def loadmodel(filename):
+    model = None
     try:
         model = model_from_json(open(filename).read())
-    except:
+    except FileNotFoundError or IOError:
         print('Error reading file: {0}. Cannot load previous model'.format(filename))
         exit()
     return model
@@ -131,7 +133,7 @@ def loadmodel(filename):
 def loadweights(model, filename):
     try:
         model.load_weights(filename)
-    except:
+    except FileNotFoundError or IOError:
         print('Error reading file: {0}. Cannot load previous weights'.format(filename))
         exit()
 

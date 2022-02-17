@@ -1,26 +1,12 @@
-disp_avlbl = True
 import os
-if 'DISPLAY' not in os.environ:
-    disp_avlbl = False
-    import matplotlib
-    matplotlib.use('Agg')
+import sys
+import numpy as np
+from subprocess import call
 import matplotlib.pyplot as plt
 
-import networkx as nx
-import numpy as np
-import scipy.io as sio
-import pdb
-
-import sys
-sys.path.append('./')
-sys.path.append(os.path.realpath(__file__))
-
-from subprocess import call
-
-from .static_graph_embedding import StaticGraphEmbedding
-from gem.utils import graph_util, plot_util
+from gem.embedding.static_graph_embedding import StaticGraphEmbedding
+from gem.utils import graph_util
 from gem.evaluation import visualize_embedding as viz
-from time import time
 
 
 class GraphFactorization(StaticGraphEmbedding):
@@ -33,7 +19,7 @@ class GraphFactorization(StaticGraphEmbedding):
         kwargs (dict): keyword arguments, form updating the parameters
     
     Examples:
-        >>> from gemben.embedding.gf import GraphFactorization
+        >>> from gem.embedding.gf import GraphFactorization
         >>> edge_f = 'data/karate.edgelist'
         >>> G = graph_util.loadGraphFromEdgeListTxt(edge_f, directed=False)
         >>> G = G.to_directed()
@@ -99,15 +85,11 @@ class GraphFactorization(StaticGraphEmbedding):
             if edge_f:
                 graph = graph_util.loadGraphFromEdgeListTxt(edge_f)
             os.makedirs('gem/intermediate', exist_ok=True)
-            graphFileName = 'gem/intermediate/%s_gf.graph' % self._data_set
-            embFileName = 'gem/intermediate/%s_%d_gf.emb' % (self._data_set, self._d)
-            # try:
-                # f = open(graphFileName, 'r')
-                # f.close()
-            # except IOError:
-            graph_util.saveGraphToEdgeListTxt(graph, graphFileName)
-            args.append(graphFileName)
-            args.append(embFileName)
+            graph_filename = 'gem/intermediate/%s_gf.graph' % self._data_set
+            emb_filename = 'gem/intermediate/%s_%d_gf.emb' % (self._data_set, self._d)
+            graph_util.saveGraphToEdgeListTxt(graph, graph_filename)
+            args.append(graph_filename)
+            args.append(emb_filename)
             args.append("1")  # Verbose
             args.append("1")  # Weighted
             args.append("%d" % self._d)
@@ -115,27 +97,25 @@ class GraphFactorization(StaticGraphEmbedding):
             args.append("%f" % self._regu)
             args.append("%d" % self._max_iter)
             args.append("%d" % self._print_step)
-            t1 = time()
             try:
                 call(args)
             except Exception as e:
                 print(str(e))
                 c_flag = False
-                print('./gf not found. Reverting to Python implementation. Please compile gf, place node2vec in the path and grant executable permission')
+                print('./gf not found. Reverting to Python implementation. Please compile gf, place node2vec in '
+                      'the path and grant executable permission')
             if c_flag:
                 try:
-                    self._X = graph_util.loadEmbedding(embFileName)
+                    self._X = graph_util.loadEmbedding(emb_filename)
                 except FileNotFoundError:
                     self._X = np.random.randn(len(graph.nodes), self._d)
-                t2 = time()
                 try:
-                    call(["rm", embFileName])
+                    call(["rm", emb_filename])
                 except:
                     pass
-                return self._X, (t2 - t1)
+                return self._X
         if not graph:
             graph = graph_util.loadGraphFromEdgeListTxt(edge_f)
-        t1 = time()
         self._node_num = len(graph.nodes)
         self._X = 0.01 * np.random.randn(self._node_num, self._d)
         for iter_id in range(self._max_iter):
@@ -154,43 +134,10 @@ class GraphFactorization(StaticGraphEmbedding):
                 term2 = self._regu * self._X[i, :]
                 delPhi = term1 + term2
                 self._X[i, :] -= self._eta * delPhi
-        t2 = time()
-        return self._X, (t2 - t1)
+        return self._X
 
     def get_embedding(self):
         return self._X
 
     def get_edge_weight(self, i, j):
         return np.dot(self._X[i, :], self._X[j, :])
-
-    def get_reconstructed_adj(self, X=None, node_l=None):
-        if X is not None:
-            node_num = X.shape[0]
-            self._X = X
-        else:
-            node_num = self._node_num
-        adj_mtx_r = np.zeros((node_num, node_num))
-        for v_i in range(node_num):
-            for v_j in range(node_num):
-                if v_i == v_j:
-                    continue
-                adj_mtx_r[v_i, v_j] = self.get_edge_weight(v_i, v_j)
-        return adj_mtx_r
-
-
-if __name__ == '__main__':
-    # load Zachary's Karate graph
-    edge_f = 'data/karate.edgelist'
-    G = graph_util.loadGraphFromEdgeListTxt(edge_f, directed=False)
-    G = G.to_directed()
-    res_pre = 'results/testKarate'
-    graph_util.print_graph_stats(G)
-    t1 = time()
-    embedding = GraphFactorization(2, 100000, 1 * 10**-4, 1.0)
-    embedding.learn_embedding(graph=G, edge_f=None,
-                              is_weighted=True, no_python=True)
-    print ('Graph Factorization:\n\tTraining time: %f' % (time() - t1))
-
-    viz.plot_embedding2D(embedding.get_embedding(),
-                         di_graph=G, node_colors=None)
-    plt.show()

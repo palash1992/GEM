@@ -1,18 +1,11 @@
-try: import cPickle as pickle
-except: import pickle
+import pickle
 from time import time
 from argparse import ArgumentParser
 import importlib
 import json
-import cPickle
 import networkx as nx
 import itertools
-import pdb
-import sys
-sys.path.insert(0, './')
 
-from gem.utils      import graph_util, plot_util
-from gem.evaluation import visualize_embedding as viz
 from gem.evaluation.evaluate_graph_reconstruction import expGR
 from gem.evaluation.evaluate_link_prediction import expLP
 from gem.evaluation.evaluate_node_classification import expNC
@@ -88,7 +81,7 @@ def call_exps(params, data_set):
         open('gem/experiments/config/%s.conf' % data_set, 'r')
     )
     if bool(params["node_labels"]):
-        node_labels = cPickle.load(
+        node_labels = pickle.load(
             open('gem/data/%s/node_labels.pickle' % data_set, 'rb')
         )
     else:

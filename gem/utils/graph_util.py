@@ -1,11 +1,9 @@
-try: import cPickle as pickle
-except: import pickle
+import pickle
 import numpy as np
 import networkx as nx
 import random
 import itertools
 import time
-import pdb
 
 
 def transform_DiGraph_to_adj(di_graph):

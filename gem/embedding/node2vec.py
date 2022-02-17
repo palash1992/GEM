@@ -1,34 +1,13 @@
-disp_avlbl = True
-import os
-if 'DISPLAY' not in os.environ:
-    disp_avlbl = False
-    import matplotlib
-    matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-
-import matplotlib.pyplot as plt
-import networkx as nx
 import numpy as np
-import scipy.io as sio
-import scipy.sparse as sp
-import scipy.sparse.linalg as lg
-from time import time
-
-import sys
-sys.path.append('./')
-sys.path.append(os.path.dirname(os.path.realpath(__file__)))
-
 from subprocess import call
-
-from .static_graph_embedding import StaticGraphEmbedding
-from gem.utils import graph_util, plot_util
-from gem.evaluation import visualize_embedding as viz
+from gem.embedding.static_graph_embedding import StaticGraphEmbedding
+from gem.utils import graph_util
 
 
 class node2vec(StaticGraphEmbedding):
 
     def __init__(self, *hyper_dict, **kwargs):
-        ''' Initialize the node2vec class
+        """ Initialize the node2vec class
 
         Args:
             d: dimension of the embedding
@@ -38,7 +17,7 @@ class node2vec(StaticGraphEmbedding):
             con_size: context size
             ret_p: return weight
             inout_p: inout weight
-        '''
+        """
         hyper_params = {
             'method_name': 'node2vec_rw'
         }
@@ -77,50 +56,17 @@ class node2vec(StaticGraphEmbedding):
         args.append("-v")
         args.append("-dr")
         args.append("-w")
-        t1 = time()
         try:
             call(args)
         except Exception as e:
             print(str(e))
-            raise Exception('./node2vec not found. Please compile snap, place node2vec in the system path and grant executable permission')
+            raise Exception('./node2vec not found. Please compile snap, place node2vec in the system path '
+                            'and grant executable permission')
         self._X = graph_util.loadEmbedding('tempGraph.emb')
-        t2 = time()
-        return self._X, (t2 - t1)
+        return self._X
 
     def get_embedding(self):
         return self._X
 
     def get_edge_weight(self, i, j):
         return np.dot(self._X[i, :], self._X[j, :])
-
-    def get_reconstructed_adj(self, X=None, node_l=None):
-        if X is not None:
-            node_num = X.shape[0]
-            self._X = X
-        else:
-            node_num = self._node_num
-        adj_mtx_r = np.zeros((node_num, node_num))
-        for v_i in range(node_num):
-            for v_j in range(node_num):
-                if v_i == v_j:
-                    continue
-                adj_mtx_r[v_i, v_j] = self.get_edge_weight(v_i, v_j)
-        return adj_mtx_r
-
-
-if __name__ == '__main__':
-    # load Zachary's Karate graph
-    edge_f = 'data/karate.edgelist'
-    G = graph_util.loadGraphFromEdgeListTxt(edge_f, directed=False)
-    G = G.to_directed()
-    res_pre = 'results/testKarate'
-    graph_util.print_graph_stats(G)
-    t1 = time()
-    embedding = node2vec(2, 1, 80, 10, 10, 1, 1)
-    embedding.learn_embedding(graph=G, edge_f=None,
-                              is_weighted=True, no_python=True)
-    print('node2vec:\n\tTraining time: %f' % (time() - t1))
-
-    viz.plot_embedding2D(embedding.get_embedding(),
-                         di_graph=G, node_colors=None)
-    plt.show()

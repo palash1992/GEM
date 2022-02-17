@@ -1,9 +1,7 @@
-try: import cPickle as pickle
-except: import pickle
+import pickle
 from sklearn import model_selection as sk_ms
 from sklearn.multiclass import OneVsRestClassifier as oneVr
 from sklearn.linear_model import LogisticRegression as lr
-# from sklearn.svm import LinearSVC
 from sklearn.metrics import f1_score
 import numpy as np
 
