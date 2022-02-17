@@ -23,12 +23,12 @@ class HOPE(StaticGraphEmbedding):
     def learn_embedding(self, graph=None,
                         is_weighted=False, no_python=False):
         if not graph:
-            raise Exception('graph/edge_f needed')
+            raise ValueError('graph needed')
 
         A = nx.to_numpy_matrix(graph)
-        M_g = np.eye(len(graph.nodes)) - self._beta * A
-        M_l = self._beta * A
-        S = np.dot(np.linalg.inv(M_g), M_l)
+        m_g = np.eye(len(graph.nodes)) - self._beta * A
+        m_l = self._beta * A
+        S = np.dot(np.linalg.inv(m_g), m_l)
 
         u, s, vt = lg.svds(S, k=self._d // 2)
         X1 = np.dot(u, np.diag(np.sqrt(s)))

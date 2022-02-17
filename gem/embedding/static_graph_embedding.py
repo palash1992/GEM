@@ -1,8 +1,8 @@
-from abc import ABCMeta
+from abc import ABCMeta, ABC, abstractmethod
 import numpy as np
 
 
-class StaticGraphEmbedding:
+class StaticGraphEmbedding(ABC):
     __metaclass__ = ABCMeta
 
     def __init__(self, *args, **kwargs):
@@ -35,14 +35,6 @@ class StaticGraphEmbedding:
 
         return '%s_%d' % (self._method_name, self._d)
 
-    def learn_embedding(self, graph):
-        """Learning the graph embedding from the adjcency matrix.
-
-        Args:
-            graph: the graph to embed in networkx DiGraph format
-        """
-        pass
-
     def get_embedding(self):
         """ Returns the learnt embedding
 
@@ -52,17 +44,6 @@ class StaticGraphEmbedding:
         if self._X is None:
             raise ValueError("Embedding not learned yet")
         return self._X
-
-    def get_edge_weight(self, i, j):
-        """Compute the weight for edge between node i and node j
-
-        Args:
-            i, j: two node id in the graph for embedding
-        Returns:
-            A single number represent the weight of edge between node i and node j
-
-        """
-        pass
 
     def get_reconstructed_adj(self, X=None, node_l=None):
         """Compute the adjacency matrix from the learned embedding
@@ -82,3 +63,22 @@ class StaticGraphEmbedding:
                     continue
                 adj_mtx_r[v_i, v_j] = self.get_edge_weight(v_i, v_j)
         return adj_mtx_r
+
+    @abstractmethod
+    def learn_embedding(self, graph):
+        """Learning the graph embedding from the adjcency matrix.
+
+        Args:
+            graph: the graph to embed in networkx DiGraph format
+        """
+
+    @abstractmethod
+    def get_edge_weight(self, i, j):
+        """Compute the weight for edge between node i and node j
+
+        Args:
+            i, j: two node id in the graph for embedding
+        Returns:
+            A single number represent the weight of edge between node i and node j
+
+        """

@@ -80,7 +80,7 @@ class GraphFactorization(StaticGraphEmbedding):
     def learn_embedding(self, graph=None,
                         is_weighted=False, no_python=True):
         if not graph:
-            raise Exception('graph/edge_f needed')
+            raise ValueError('graph needed')
         if no_python:
             try:
                 self._use_c_implementation(graph)
@@ -89,14 +89,14 @@ class GraphFactorization(StaticGraphEmbedding):
                       'the path and grant executable permission')
         self._node_num = len(graph.nodes)
         self._X = 0.01 * np.random.randn(self._node_num, self._d)
-        for iter_id in range(self._max_iter):
+        for _ in range(self._max_iter):
             for i, j, w in graph.edges(data='weight', default=1):
                 if j <= i:
                     continue
                 term1 = -(w - np.dot(self._X[i, :], self._X[j, :])) * self._X[j, :]
                 term2 = self._regu * self._X[i, :]
-                delPhi = term1 + term2
-                self._X[i, :] -= self._eta * delPhi
+                del_phi = term1 + term2
+                self._X[i, :] -= self._eta * del_phi
         return self._X
 
     def get_edge_weight(self, i, j):

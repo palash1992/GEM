@@ -30,7 +30,7 @@ class node2vec(StaticGraphEmbedding):
         executable = os.path.abspath(os.path.join(current_dir, '../c_exe/node2vec'))
         args = [executable]
         if not graph:
-            raise Exception('graph needed')
+            raise ValueError('graph needed')
         graph_util.saveGraphToEdgeListTxtn2v(graph, 'tempGraph.graph')
         args.append("-i:tempGraph.graph")
         args.append("-o:tempGraph.emb")
@@ -48,8 +48,8 @@ class node2vec(StaticGraphEmbedding):
             call(args)
         except Exception as e:
             print(str(e))
-            raise Exception('./node2vec not found. Please compile snap, place node2vec in the system path '
-                            'and grant executable permission')
+            raise FileNotFoundError('./node2vec not found. Please compile snap, place node2vec in the system path '
+                                    'and grant executable permission')
         self._X = graph_util.loadEmbedding('tempGraph.emb')
         return self._X
 

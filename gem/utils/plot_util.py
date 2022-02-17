@@ -14,12 +14,7 @@ def plot(x_s, y_s, fig_n, x_lab, y_lab, file_save_path, title, legendLabels=None
     colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
     series = []
     plt.figure(fig_n)
-    i = 0
     for i in range(len(x_s)):
-        # n_points = len(x_s[i])
-        # n_points = int(n_points/10) + random.randint(1,100)
-        # x = x_s[i][::n_points]
-        # y = y_s[i][::n_points]
         x = x_s[i]
         y = y_s[i]
         series.append(plt.plot(x, y, color=colors[i], linewidth=2, marker=markers[i], markersize=8))
@@ -32,15 +27,17 @@ def plot(x_s, y_s, fig_n, x_lab, y_lab, file_save_path, title, legendLabels=None
     if show:
         plt.show()
 
+
 def plot_ts(ts_df, plot_title, eventDates, eventLabels=None, save_file_name=None, xLabel=None, yLabel=None, show=False):
-    ax = ts_df.plot(title=plot_title, marker = '*', markerfacecolor='red', markersize=10, linestyle = 'solid')
+    ax = ts_df.plot(title=plot_title, marker='*', markerfacecolor='red', markersize=10, linestyle='solid')
     colors = ['r', 'g', 'c', 'm', 'y', 'b', 'k']
     if not eventLabels:
         for eventDate in eventDates:
-            ax.axvline(eventDate, color='r', linestyle='--', lw=2) # Show event as a red vertical line
+            ax.axvline(eventDate, color='r', linestyle='--', lw=2)  # Show event as a red vertical line
     else:
         for idx in range(len(eventDates)):
-            ax.axvline(eventDates[idx], color=colors[idx], linestyle='--', lw=2, label=eventLabels[idx]) # Show event as a red vertical line
+            # Show event as a red vertical line
+            ax.axvline(eventDates[idx], color=colors[idx], linestyle='--', lw=2, label=eventLabels[idx])
             ax.legend()
     if xLabel:
         ax.set_xlabel(xLabel, fontweight='bold')

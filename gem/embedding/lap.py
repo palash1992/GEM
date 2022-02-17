@@ -21,18 +21,18 @@ class LaplacianEigenmaps(StaticGraphEmbedding):
     def learn_embedding(self, graph=None,
                         is_weighted=False, no_python=False):
         if not graph:
-            raise Exception('graph/edge_f needed')
+            raise ValueError('graph needed')
         graph = graph.to_undirected()
-        L_sym = nx.normalized_laplacian_matrix(graph)
+        l_sym = nx.normalized_laplacian_matrix(graph)
 
-        w, v = lg.eigs(L_sym, k=self._d + 1, which='SM')
+        w, v = lg.eigs(l_sym, k=self._d + 1, which='SM')
         idx = np.argsort(w)  # sort eigenvalues
         w = w[idx]
         v = v[:, idx]
         self._X = v[:, 1:]
 
         p_d_p_t = np.dot(v, np.dot(np.diag(w), v.T))
-        eig_err = np.linalg.norm(p_d_p_t - L_sym)
+        eig_err = np.linalg.norm(p_d_p_t - l_sym)
         print('Laplacian matrix recon. error (low rank): %f' % eig_err)
         return self._X.real
 

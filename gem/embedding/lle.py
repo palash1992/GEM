@@ -23,13 +23,13 @@ class LocallyLinearEmbedding(StaticGraphEmbedding):
     def learn_embedding(self, graph=None,
                         is_weighted=False, no_python=False):
         if not graph:
-            raise Exception('graph needed')
+            raise ValueError('graph needed')
         graph = graph.to_undirected()
         A = nx.to_scipy_sparse_matrix(graph)
         normalize(A, norm='l1', axis=1, copy=False)
-        I_n = sp.eye(len(graph.nodes))
-        I_min_A = I_n - A
-        u, s, vt = lg.svds(I_min_A, k=self._d + 1, which='SM')
+        i_n = sp.eye(len(graph.nodes))
+        i_min_A = i_n - A
+        u, s, vt = lg.svds(i_min_A, k=self._d + 1, which='SM')
         self._X = vt.T
         self._X = self._X[:, 1:]
         return self._X.real

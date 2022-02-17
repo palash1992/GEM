@@ -42,11 +42,12 @@ class SDNE(StaticGraphEmbedding):
             weightfile: Files containing previous encoder and decoder weights
         """
         super(SDNE, self).__init__(*args, **kwargs)
+        self.learned = False
 
     def learn_embedding(self, graph=None,
                         is_weighted=False, no_python=False):
         if not graph:
-            raise Exception('graph needed')
+            raise ValueError('graph needed')
         sparse = nx.to_scipy_sparse_matrix(graph)
         sparse = (sparse + sparse.T) / 2
         self._node_num = len(graph.nodes)
@@ -109,7 +110,6 @@ class SDNE(StaticGraphEmbedding):
         # Model
         self._model = Model(inputs=x_in, outputs=[x_diff1, x_diff2, y_diff])
         sgd = SGD(lr=self._xeta, decay=1e-5, momentum=0.99, nesterov=True)
-        # adam = Adam(lr=self._xeta, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
         self._model.compile(
             optimizer=sgd,
             loss=[weighted_mse_x, weighted_mse_x, weighted_mse_y],
@@ -150,9 +150,12 @@ class SDNE(StaticGraphEmbedding):
             )
             # Save the embedding
             np.savetxt('embedding_' + self._savefilesuffix + '.txt', self._Y)
+        self.learned = True
         return self._Y
 
     def get_embedding(self, filesuffix=None):
+        if not self.learned:
+            raise ValueError("Embedding not learned yet")
         return self._Y if filesuffix is None else np.loadtxt(
             'embedding_' + filesuffix + '.txt'
         )
