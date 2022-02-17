@@ -1,4 +1,9 @@
-from setuptools import setup, find_packages
+try:
+    from setuptools import setup, find_packages
+except ImportError:
+    from ez_setup import use_setuptools
+    use_setuptools()
+    from setuptools import setup, find_packages
 
 
 
@@ -39,8 +44,7 @@ def setup_package():
         keywords=KEYWORDS,
         install_requires=INSTALL_REQUIRES,
         packages=find_packages(),
-        package_dir={DISTNAME: 'gem'},
-        package_data={DISTNAME: get_package_data('datasets')},
+        include_package_data=True,
         license=LICENSE,
         long_description=LONG_DESCRIPTION,
         classifiers=['Intended Audience :: Science/Research',
