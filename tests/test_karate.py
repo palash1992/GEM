@@ -56,7 +56,7 @@ class KarateTest(unittest.TestCase):
 
     def test_node2vec(self):
         model = node2vec(d=2, max_iter=1, walk_len=80, num_walks=10, con_size=10, ret_p=1, inout_p=1)
-        target = np.loadtxt('karate_res/node2vec.txt')
+        target = np.loadtxt(os.path.join(self.source_dir, 'karate_res/node2vec.txt'))
         self.internal_model_test(model, target, mae_close=True)
 
     def test_SDNE(self):
