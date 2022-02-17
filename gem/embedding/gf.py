@@ -6,18 +6,17 @@ import matplotlib.pyplot as plt
 
 from gem.embedding.static_graph_embedding import StaticGraphEmbedding
 from gem.utils import graph_util
-from gem.evaluation import visualize_embedding as viz
 
 
 class GraphFactorization(StaticGraphEmbedding):
 
     """`Graph Factorization`_.
     Graph Factorization factorizes the adjacency matrix with regularization.
-    
+
     Args:
         hyper_dict (object): Hyper parameters.
         kwargs (dict): keyword arguments, form updating the parameters
-    
+
     Examples:
         >>> from gem.embedding.gf import GraphFactorization
         >>> edge_f = 'data/karate.edgelist'

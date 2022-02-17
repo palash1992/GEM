@@ -3,7 +3,6 @@ import numpy as np
 import scipy.sparse.linalg as lg
 
 from gem.embedding.static_graph_embedding import StaticGraphEmbedding
-from gem.utils import graph_util
 
 
 class LaplacianEigenmaps(StaticGraphEmbedding):

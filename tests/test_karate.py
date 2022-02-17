@@ -1,16 +1,14 @@
-'''
-Run the graph embedding methods on Karate graph and evaluate them on 
-graph reconstruction and visualization. Please copy the 
+"""
+Run the graph embedding methods on Karate graph and evaluate them on
+graph reconstruction and visualization. Please copy the
 gem/data/karate.edgelist to the working directory
-'''
+"""
 import os
 import unittest
 
-import matplotlib.pyplot as plt
 import numpy as np
 
 from gem.utils import graph_util
-from gem.evaluation import visualize_embedding as viz
 
 from gem.embedding.gf import GraphFactorization
 from gem.embedding.hope import HOPE
@@ -62,10 +60,10 @@ class KarateTest(unittest.TestCase):
         self.internal_model_test(model, target, mae_close=True)
 
     def test_SDNE(self):
-        model = SDNE(d=2, beta=5, alpha=1e-5, nu1=1e-6, nu2=1e-6, K=3,n_units=[50, 15,], rho=0.3, n_iter=50,
-                     xeta=0.01,n_batch=100, modelfile=['enc_model.json', 'dec_model.json'],
+        model = SDNE(d=2, beta=5, alpha=1e-5, nu1=1e-6, nu2=1e-6, K=3, n_units=[50, 15,], rho=0.3, n_iter=50,
+                     xeta=0.01, n_batch=100, modelfile=['enc_model.json', 'dec_model.json'],
                      weightfile=['enc_weights.hdf5', 'dec_weights.hdf5'])
-        target = np.loadtxt(os.path.join(self.source_dir,'karate_res/SDNE.txt'))
+        target = np.loadtxt(os.path.join(self.source_dir, 'karate_res/SDNE.txt'))
         self.internal_model_test(model, target, mae_close=True)
 
     def internal_model_test(self, model, target, verbose: bool = False, mae_close: bool = False):
@@ -78,4 +76,3 @@ class KarateTest(unittest.TestCase):
             self.assertTrue(np.allclose(model.get_embedding(), target))
         else:
             self.assertTrue(abs(np.mean(target-model.get_embedding())) < .3)
-

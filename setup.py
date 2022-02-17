@@ -113,6 +113,7 @@ def write_version_py(filename='gem/version.py'):
     finally:
         a.close()
 
+
 def setup_package():
     write_version_py()
     setup(

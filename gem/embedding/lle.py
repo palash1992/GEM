@@ -5,7 +5,6 @@ import scipy.sparse.linalg as lg
 from sklearn.preprocessing import normalize
 
 from gem.embedding.static_graph_embedding import StaticGraphEmbedding
-from gem.utils import graph_util
 
 
 class LocallyLinearEmbedding(StaticGraphEmbedding):
@@ -20,8 +19,6 @@ class LocallyLinearEmbedding(StaticGraphEmbedding):
             d: dimension of the embedding
         """
         super(LocallyLinearEmbedding, self).__init__(*args, **kwargs)
-
-
 
     def learn_embedding(self, graph=None,
                         is_weighted=False, no_python=False):

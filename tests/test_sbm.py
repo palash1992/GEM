@@ -1,18 +1,14 @@
-'''
-Run the graph embedding methods on Karate graph and evaluate them on 
-graph reconstruction and visualization. Please copy the 
+"""
+Run the graph embedding methods on Karate graph and evaluate them on
+graph reconstruction and visualization. Please copy the
 gem/data/karate.edgelist to the working directory
-'''
+"""
 import os.path
 import unittest
 
-import matplotlib.pyplot as plt
-from time import time
 import networkx as nx
 import pickle
 import numpy as np
-
-from gem.evaluation import visualize_embedding as viz
 
 from gem.embedding.gf import GraphFactorization
 from gem.embedding.hope import HOPE
@@ -83,9 +79,8 @@ class SBMTest(unittest.TestCase):
         self.internal_model_test(model, target, delta=.1)
 
     def test_SDNE(self):
-        model = SDNE(d=128, beta=5, alpha=1e-5, nu1=1e-6, nu2=1e-6, K=3, n_units=[500, 300, ], rho=0.3, n_iter=30, xeta=0.001,
-                     n_batch=500,
-                     modelfile=['enc_model.json', 'dec_model.json'],
+        model = SDNE(d=128, beta=5, alpha=1e-5, nu1=1e-6, nu2=1e-6, K=3, n_units=[500, 300, ], rho=0.3, n_iter=30,
+                     xeta=0.001, n_batch=500, modelfile=['enc_model.json', 'dec_model.json'],
                      weightfile=['enc_weights.hdf5', 'dec_weights.hdf5'])
         target = np.loadtxt(os.path.join(self.source_dir, 'smb_res/SDNE.txt'))
         self.internal_model_test(model, target, delta=1)

@@ -1,13 +1,12 @@
 import numpy as np
 import networkx as nx
 
-from tensorflow.keras.layers import Input, Dense, Lambda, Subtract
+from tensorflow.keras.layers import Input, Lambda, Subtract
 from tensorflow.keras.models import Model, model_from_json
-from tensorflow.keras.optimizers import SGD, Adam
+from tensorflow.keras.optimizers import SGD
 from tensorflow.keras import backend as KBack
 
 from gem.embedding.static_graph_embedding import StaticGraphEmbedding
-from gem.utils import graph_util
 from gem.embedding.sdne_utils import get_encoder, get_decoder, get_autoencoder, batch_generator_sdne, \
     model_batch_predictor, saveweights, savemodel, graphify
 
