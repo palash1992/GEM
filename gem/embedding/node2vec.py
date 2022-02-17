@@ -1,3 +1,4 @@
+import os
 import numpy as np
 from subprocess import call
 from gem.embedding.static_graph_embedding import StaticGraphEmbedding
