@@ -9,35 +9,24 @@ from gem.utils import graph_util
 
 
 class LocallyLinearEmbedding(StaticGraphEmbedding):
+    hyper_params = {
+        'method_name': 'lle_svd'
+    }
 
-    def __init__(self, *hyper_dict, **kwargs):
-        ''' Initialize the LocallyLinearEmbedding class
+    def __init__(self, *args, **kwargs):
+        """ Initialize the LocallyLinearEmbedding class
 
         Args:
             d: dimension of the embedding
-        '''
-        hyper_params = {
-            'method_name': 'lle_svd'
-        }
-        hyper_params.update(kwargs)
-        for key in hyper_params.keys():
-            self.__setattr__('_%s' % key, hyper_params[key])
-        for dictionary in hyper_dict:
-            for key in dictionary:
-                self.__setattr__('_%s' % key, dictionary[key])
+        """
+        super(LocallyLinearEmbedding, self).__init__(*args, **kwargs)
 
-    def get_method_name(self):
-        return self._method_name
 
-    def get_method_summary(self):
-        return '%s_%d' % (self._method_name, self._d)
 
-    def learn_embedding(self, graph=None, edge_f=None,
+    def learn_embedding(self, graph=None,
                         is_weighted=False, no_python=False):
-        if not graph and not edge_f:
-            raise Exception('graph/edge_f needed')
         if not graph:
-            graph = graph_util.loadGraphFromEdgeListTxt(edge_f)
+            raise Exception('graph needed')
         graph = graph.to_undirected()
         A = nx.to_scipy_sparse_matrix(graph)
         normalize(A, norm='l1', axis=1, copy=False)
@@ -47,9 +36,6 @@ class LocallyLinearEmbedding(StaticGraphEmbedding):
         self._X = vt.T
         self._X = self._X[:, 1:]
         return self._X.real
-
-    def get_embedding(self):
-        return self._X
 
     def get_edge_weight(self, i, j):
         return np.exp(

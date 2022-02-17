@@ -7,35 +7,23 @@ from gem.utils import graph_util
 
 class HOPE(StaticGraphEmbedding):
 
-    def __init__(self, *hyper_dict, **kwargs):
+    hyper_params = {
+        'method_name': 'hope_gsvd'
+    }
+
+    def __init__(self, *args, **kwargs):
         """ Initialize the HOPE class
 
         Args:
             d: dimension of the embedding
             beta: higher order coefficient
         """
-        hyper_params = {
-            'method_name': 'hope_gsvd'
-        }
-        hyper_params.update(kwargs)
-        for key in hyper_params.keys():
-            self.__setattr__('_%s' % key, hyper_params[key])
-        for dictionary in hyper_dict:
-            for key in dictionary:
-                self.__setattr__('_%s' % key, dictionary[key])
+        super(HOPE, self).__init__(*args, **kwargs)
 
-    def get_method_name(self):
-        return self._method_name
-
-    def get_method_summary(self):
-        return '%s_%d' % (self._method_name, self._d)
-
-    def learn_embedding(self, graph=None, edge_f=None,
+    def learn_embedding(self, graph=None,
                         is_weighted=False, no_python=False):
-        if not graph and not edge_f:
-            raise Exception('graph/edge_f needed')
         if not graph:
-            graph = graph_util.loadGraphFromEdgeListTxt(edge_f)
+            raise Exception('graph/edge_f needed')
 
         A = nx.to_numpy_matrix(graph)
         M_g = np.eye(len(graph.nodes)) - self._beta * A
@@ -50,9 +38,6 @@ class HOPE(StaticGraphEmbedding):
         p_d_p_t = np.dot(u, np.dot(np.diag(s), vt))
         eig_err = np.linalg.norm(p_d_p_t - S)
         print('SVD error (low rank): %f' % eig_err)
-        return self._X
-
-    def get_embedding(self):
         return self._X
 
     def get_edge_weight(self, i, j):

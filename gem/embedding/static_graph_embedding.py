@@ -5,13 +5,18 @@ import numpy as np
 class StaticGraphEmbedding:
 	__metaclass__ = ABCMeta
 
-	def __init__(self, d):
+	def __init__(self, *args, **kwargs):
 		"""Initialize the Embedding class
-
-		Args:
-			d: dimension of embedding
 		"""
-		pass
+		self._method_name = None
+		self._d = None
+		self._X = None
+		self.hyper_params.update(kwargs)
+		for key in self.hyper_params.keys():
+			self.__setattr__('_%s' % key, self.hyper_params[key])
+		for dictionary in args:
+			for key in dictionary:
+				self.__setattr__('_%s' % key, dictionary[key])
 
 	def get_method_name(self):
 		""" Returns the name for the embedding method
@@ -19,7 +24,7 @@ class StaticGraphEmbedding:
 		Return:
 			The name of embedding
 		"""
-		return ''
+		return self._method_name
 
 	def get_method_summary(self):
 		""" Returns the summary for the embedding include method name and paramater setting
@@ -27,7 +32,8 @@ class StaticGraphEmbedding:
 		Return:
 			A summary string of the method
 		"""
-		return ''
+
+		return '%s_%d' % (self._method_name, self._d)
 
 	def learn_embedding(self, graph):
 		"""Learning the graph embedding from the adjcency matrix.
@@ -43,7 +49,9 @@ class StaticGraphEmbedding:
 		Return:
 			A numpy array of size #nodes * d
 		"""
-		pass
+		if self._X is None:
+			raise ValueError("Embedding not learned yet")
+		return self._X
 
 	def get_edge_weight(self, i, j):
 		"""Compute the weight for edge between node i and node j

@@ -6,8 +6,11 @@ from gem.utils import graph_util
 
 
 class node2vec(StaticGraphEmbedding):
+    hyper_params = {
+        'method_name': 'node2vec_rw'
+    }
 
-    def __init__(self, *hyper_dict, **kwargs):
+    def __init__(self, *args, **kwargs):
         """ Initialize the node2vec class
 
         Args:
@@ -19,31 +22,15 @@ class node2vec(StaticGraphEmbedding):
             ret_p: return weight
             inout_p: inout weight
         """
-        hyper_params = {
-            'method_name': 'node2vec_rw'
-        }
-        hyper_params.update(kwargs)
-        for key in hyper_params.keys():
-            self.__setattr__('_%s' % key, hyper_params[key])
-        for dictionary in hyper_dict:
-            for key in dictionary:
-                self.__setattr__('_%s' % key, dictionary[key])
+        super(node2vec, self).__init__(*args, **kwargs)
 
-    def get_method_name(self):
-        return self._method_name
-
-    def get_method_summary(self):
-        return '%s_%d' % (self._method_name, self._d)
-
-    def learn_embedding(self, graph=None, edge_f=None,
+    def learn_embedding(self, graph=None,
                         is_weighted=False, no_python=False):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         executable = os.path.abspath(os.path.join(current_dir, '../c_exe/node2vec'))
         args = [executable]
-        if not graph and not edge_f:
-            raise Exception('graph/edge_f needed')
-        if edge_f:
-            graph = graph_util.loadGraphFromEdgeListTxt(edge_f)
+        if not graph:
+            raise Exception('graph needed')
         graph_util.saveGraphToEdgeListTxtn2v(graph, 'tempGraph.graph')
         args.append("-i:tempGraph.graph")
         args.append("-o:tempGraph.emb")
@@ -64,9 +51,6 @@ class node2vec(StaticGraphEmbedding):
             raise Exception('./node2vec not found. Please compile snap, place node2vec in the system path '
                             'and grant executable permission')
         self._X = graph_util.loadEmbedding('tempGraph.emb')
-        return self._X
-
-    def get_embedding(self):
         return self._X
 
     def get_edge_weight(self, i, j):

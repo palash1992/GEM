@@ -13,8 +13,16 @@ from gem.embedding.sdne_utils import get_encoder, get_decoder, get_autoencoder, 
 
 
 class SDNE(StaticGraphEmbedding):
+    hyper_params = {
+        'method_name': 'sdne',
+        'actfn': 'relu',
+        'modelfile': None,
+        'weightfile': None,
+        'savefilesuffix': None
 
-    def __init__(self, *hyper_dict, **kwargs):
+    }
+
+    def __init__(self, *args, **kwargs):
         """ Initialize the SDNE class
 
         Args:
@@ -34,55 +42,12 @@ class SDNE(StaticGraphEmbedding):
             modelfile: Files containing previous encoder and decoder models
             weightfile: Files containing previous encoder and decoder weights
         """
-        # init common ptrs
-        self._node_num = None
-        self._num_iter = None
-        self._encoder = None
-        self._decoder = None
-        self._autoencoder = None
-        self._model = None
-        self._n_iter = None
-        self._method_name = None
-        self._d = None
-        self._K = None
-        self._n_units = None
-        self._nu1 = None
-        self._nu2 = None
-        self._actfn = None
-        self._n_batch = None
-        self._xeta = None
-        self._alpha = None
-        self._beta = None
-        self._weightfile = None
-        self._modelfile = None
-        self._savefilesuffix = None
-        hyper_params = {
-            'method_name': 'sdne',
-            'actfn': 'relu',
-            'modelfile': None,
-            'weightfile': None,
-            'savefilesuffix': None
+        super(SDNE, self).__init__(*args, **kwargs)
 
-        }
-        hyper_params.update(kwargs)
-        for key in hyper_params.keys():
-            self.__setattr__('_%s' % key, hyper_params[key])
-        for dictionary in hyper_dict:
-            for key in dictionary:
-                self.__setattr__('_%s' % key, dictionary[key])
-
-    def get_method_name(self):
-        return self._method_name
-
-    def get_method_summary(self):
-        return '%s_%d' % (self._method_name, self._d)
-
-    def learn_embedding(self, graph=None, edge_f=None,
+    def learn_embedding(self, graph=None,
                         is_weighted=False, no_python=False):
-        if not graph and not edge_f:
-            raise Exception('graph/edge_f needed')
         if not graph:
-            graph = graph_util.loadGraphFromEdgeListTxt(edge_f)
+            raise Exception('graph needed')
         sparse = nx.to_scipy_sparse_matrix(graph)
         sparse = (sparse + sparse.T) / 2
         self._node_num = len(graph.nodes)
