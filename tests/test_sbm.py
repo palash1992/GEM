@@ -75,7 +75,7 @@ class SBMTest(unittest.TestCase):
 
     def test_node2vec(self):
         model = node2vec(d=182, max_iter=1, walk_len=80, num_walks=10, con_size=10, ret_p=1, inout_p=1, data_set='sbm')
-        target = np.loadtxt('smb_res/node2vec.txt')
+        target = np.loadtxt(os.path.join(self.source_dir, 'smb_res/node2vec.txt'))
         self.internal_model_test(model, target, delta=.1)
 
     def test_SDNE(self):
