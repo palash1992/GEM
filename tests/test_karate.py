@@ -56,11 +56,10 @@ class KarateTest(unittest.TestCase):
         target = np.loadtxt(os.path.join(self.source_dir, 'karate_res/LocallyLinearEmbedding.txt'))
         self.internal_model_test(model, target, mae_close=True)
 
-    # todo: check again
-    # def test_node2vec(self):
-    #    model = node2vec(d=2, max_iter=1, walk_len=80, num_walks=10, con_size=10, ret_p=1, inout_p=1)
-    #    target = np.loadtxt('karate_res/node2vec.txt')
-    #    self.internal_model_test(model, target)
+    def test_node2vec(self):
+        model = node2vec(d=2, max_iter=1, walk_len=80, num_walks=10, con_size=10, ret_p=1, inout_p=1)
+        target = np.loadtxt('karate_res/node2vec.txt')
+        self.internal_model_test(model, target, mae_close=True)
 
     def test_SDNE(self):
         model = SDNE(d=2, beta=5, alpha=1e-5, nu1=1e-6, nu2=1e-6, K=3,n_units=[50, 15,], rho=0.3, n_iter=50,

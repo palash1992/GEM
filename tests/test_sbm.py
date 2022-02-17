@@ -77,11 +77,10 @@ class SBMTest(unittest.TestCase):
         target = np.loadtxt(os.path.join(self.source_dir, 'smb_res/LocallyLinearEmbedding.txt'))
         self.internal_model_test(model, target)
 
-    # todo: currently failing
-    # def test_node2vec(self):
-    #    model = node2vec(d=182, max_iter=1, walk_len=80, num_walks=10, con_size=10, ret_p=1, inout_p=1, data_set='sbm')
-    #    target = np.loadtxt('smb_res/node2vec.txt')
-    #    self.internal_model_test(model, target)
+    def test_node2vec(self):
+        model = node2vec(d=182, max_iter=1, walk_len=80, num_walks=10, con_size=10, ret_p=1, inout_p=1, data_set='sbm')
+        target = np.loadtxt('smb_res/node2vec.txt')
+        self.internal_model_test(model, target, delta=.1)
 
     def test_SDNE(self):
         model = SDNE(d=128, beta=5, alpha=1e-5, nu1=1e-6, nu2=1e-6, K=3, n_units=[500, 300, ], rho=0.3, n_iter=30, xeta=0.001,
@@ -89,7 +88,7 @@ class SBMTest(unittest.TestCase):
                      modelfile=['enc_model.json', 'dec_model.json'],
                      weightfile=['enc_weights.hdf5', 'dec_weights.hdf5'])
         target = np.loadtxt(os.path.join(self.source_dir, 'smb_res/SDNE.txt'))
-        self.internal_model_test(model, target, delta=1e-1)
+        self.internal_model_test(model, target, delta=1)
 
     def internal_model_test(self, model, target, verbose: bool = False, delta: float = 1e-3):
         MAP, prec_curv, err, err_baseline = fit_model(self.G, model)
