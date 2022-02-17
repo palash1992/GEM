@@ -29,7 +29,7 @@ if __name__ == '__main__':
     args = vars(parser.parse_args())
     try:
         run_n2v = bool(int(args["node2vec"]))
-    except (KeyError, ValueError):
+    except (KeyError, ValueError, TypeError):
         run_n2v = False
 
     # File that contains the edges. Format: source target
@@ -53,8 +53,7 @@ if __name__ == '__main__':
             node2vec(d=2, max_iter=1, walk_len=80, num_walks=10, con_size=10, ret_p=1, inout_p=1)
         )
     models.append(SDNE(d=2, beta=5, alpha=1e-5, nu1=1e-6, nu2=1e-6, K=3, n_units=[50, 15, ],
-                       rho=0.3, n_iter=50, xeta=0.01, n_batch=100,
-                       modelfile=['enc_model.json', 'dec_model.json'],
+                       rho=0.3, n_iter=50, xeta=0.01, n_batch=100, modelfile=['enc_model.json', 'dec_model.json'],
                        weightfile=['enc_weights.hdf5', 'dec_weights.hdf5']))
 
     # For each model, learn the embedding and evaluate on graph reconstruction and visualization
@@ -62,7 +61,7 @@ if __name__ == '__main__':
         print('Num nodes: %d, num edges: %d' % (G.number_of_nodes(), G.number_of_edges()))
         t1 = time()
         # Learn embedding - accepts a networkx graph or file with edge list
-        Y, t = embedding.learn_embedding(graph=G, edge_f=None, is_weighted=True, no_python=True)
+        Y = embedding.learn_embedding(graph=G, edge_f=None, is_weighted=True, no_python=True)
         print(embedding.get_method_name()+':\n\tTraining time: %f' % (time() - t1))
         # Evaluate on graph reconstruction
         MAP, prec_curv, err, err_baseline = gr.evaluateStaticGraphReconstruction(G, embedding, Y, None)
@@ -71,5 +70,6 @@ if __name__ == '__main__':
         # ---------------------------------------------------------------------------------
         # Visualize
         viz.plot_embedding2D(embedding.get_embedding(), di_graph=G, node_colors=None)
+        plt.title(embedding.get_method_name())
         plt.show()
         plt.clf()

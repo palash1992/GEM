@@ -1,5 +1,4 @@
-try: import cPickle as pickle
-except: import pickle
+import pickle
 from gem.evaluation import metrics
 from gem.utils import evaluation_util, graph_util
 import networkx as nx
@@ -44,51 +43,4 @@ def evaluateStaticGraphReconstruction(digraph, graph_embedding,
     else:
         err = None
         err_baseline = None
-    return (MAP, prec_curv, err, err_baseline)
-
-
-def expGR(digraph, graph_embedding,
-          X, n_sampled_nodes, rounds,
-          res_pre, m_summ,
-          is_undirected=True):
-    print('\tGraph Reconstruction')
-    summ_file = open('%s_%s.grsumm' % (res_pre, m_summ), 'w')
-    summ_file.write('Method\t%s\n' % metrics.getMetricsHeader())
-    if len(digraph.nodes) <= n_sampled_nodes:
-        rounds = 1
-    MAP = [None] * rounds
-    prec_curv = [None] * rounds
-    err = [None] * rounds
-    err_b = [None] * rounds
-    n_nodes = [None] * rounds
-    n_edges = [None] * rounds
-    for round_id in range(rounds):
-        sampled_digraph, node_l = graph_util.sample_graph(
-            digraph,
-            n_sampled_nodes=n_sampled_nodes
-        )
-        n_nodes[round_id] = len(sampled_digraph.nodes)
-        n_edges[round_id] = len(sampled_digraph.edges)
-        print('\t\tRound: %d, n_nodes: %d, n_edges:%d\n' % (round_id,
-                                                            n_nodes[round_id],
-                                                            n_edges[round_id]))
-        sampled_X = X[node_l]
-        MAP[round_id], prec_curv[round_id], err[round_id], err_b[round_id] = \
-            evaluateStaticGraphReconstruction(sampled_digraph, graph_embedding,
-                                              sampled_X, node_l,
-                                              is_undirected=is_undirected)
-    try:
-        summ_file.write('Err: %f/%f\n' % (np.mean(err), np.std(err)))
-        summ_file.write('Err_b: %f/%f\n' % (np.mean(err_b), np.std(err_b)))
-    except TypeError:
-        pass
-    summ_file.write('%f/%f\t%s\n' % (np.mean(MAP), np.std(MAP),
-                                     metrics.getPrecisionReport(prec_curv[0],
-                                                                n_edges[0])))
-    pickle.dump([n_nodes,
-                 n_edges,
-                 MAP,
-                 prec_curv,
-                 err,
-                 err_b],
-                open('%s_%s.gr' % (res_pre, m_summ), 'wb'))
+    return MAP, prec_curv, err, err_baseline
