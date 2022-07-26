@@ -7,7 +7,7 @@ except ImportError:
 
 
 
-VERSION = '2.0.0'
+VERSION = '2.0.1'
 DISTNAME = 'nxt_gem'
 MAINTAINER = 'Jan Ernsting'
 MAINTAINER_EMAIL = 'j.ernsting@uni-muenster.de'
