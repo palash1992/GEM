@@ -55,8 +55,7 @@ def setup_package():
                      'Topic :: Software Development',
                      'Topic :: Scientific/Engineering',
                      'Topic :: Scientific/Engineering :: Artificial Intelligence',
-                     'Topic :: Scientific/Engineering :: Graph Analysis',
-                     'Programming Language :: Python :: 2', ],
+                     'Programming Language :: Python :: 3', ],
         )
 
 
