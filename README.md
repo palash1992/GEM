@@ -56,17 +56,17 @@ In case of Python 3, make sure it was compiled with `./configure --enable-shared
 ## Install
 The package uses setuptools, which is a common way of installing python modules. To install in your home directory, use:
 ```bash
-    python setup.py install --user
+python setup.py install --user
 ```
 
 To install for all users on Unix/Linux:
 ```bash 
-    sudo python setup.py install
+sudo python setup.py install
 ```
 
 Or installing via pipwith git: 
 ```bash 
-    pip install git+https://github.com/jernsting/nxt_gem.git
+pip install git+https://github.com/jernsting/nxt_gem.git
 ```
 
 ## Usage

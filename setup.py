@@ -47,6 +47,7 @@ def setup_package():
         include_package_data=True,
         license=LICENSE,
         long_description=LONG_DESCRIPTION,
+        long_description_content_type="text/markdown",
         classifiers=['Intended Audience :: Science/Research',
                      'Intended Audience :: Developers',
                      'License :: OSI Approved',
