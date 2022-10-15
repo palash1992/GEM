@@ -1,11 +1,9 @@
-try: import cPickle as pickle
-except: import pickle
+import pickle
 import numpy as np
 import networkx as nx
 import random
 import itertools
 import time
-import pdb
 
 
 def transform_DiGraph_to_adj(di_graph):
@@ -217,7 +215,7 @@ def saveDynamicSBmGraph(file_perfix, dynamic_graphs):
     graph_files = ['%s_%d_graph.gpickle' % (file_perfix, i) for i in range(length)]
     info_files = ['%s_%d_node.pkl' % (file_perfix, i) for i in range(length)]
 
-    for i in xrange(length):
+    for i in range(length):
         # save graph
         nx.write_gpickle(dynamic_graphs[i][0], graph_files[i])
         # save additional node info

@@ -1,8 +1,8 @@
 import numpy as np
 
-from keras.layers import Input, Dense
-from keras.models import Model, model_from_json
-import keras.regularizers as Reg
+from tensorflow.keras.layers import Input, Dense
+from tensorflow.keras.models import Model, model_from_json
+import tensorflow.keras.regularizers as Reg
 
 
 def model_batch_predictor(model, X, batch_size):
@@ -54,7 +54,7 @@ def batch_generator_sdne(X, beta, batch_size, shuffle):
         OutData = [a1, a2, X_ij.T]
         counter += 1
         yield InData, OutData
-        if (counter == number_of_batches):
+        if counter == number_of_batches:
             if shuffle:
                 np.random.shuffle(sample_index)
             counter = 0
@@ -67,12 +67,14 @@ def get_encoder(node_num, d, K, n_units, nu1, nu2, activation_fn):
     y = [None] * (K + 1)
     y[0] = x  # y[0] is assigned the input
     for i in range(K - 1):
-        y[i + 1] = Dense(n_units[i], activation=activation_fn,
-                         W_regularizer=Reg.l1_l2(l1=nu1, l2=nu2))(y[i])
-    y[K] = Dense(d, activation=activation_fn,
-                 W_regularizer=Reg.l1_l2(l1=nu1, l2=nu2))(y[K - 1])
+        y[i + 1] = Dense(n_units[i],
+                         activation=activation_fn,
+                         kernel_regularizer=Reg.l1_l2(l1=nu1, l2=nu2))(y[i])
+    y[K] = Dense(d,
+                 activation=activation_fn,
+                 kernel_regularizer=Reg.l1_l2(l1=nu1, l2=nu2))(y[K - 1])
     # Encoder model
-    encoder = Model(input=x, output=y[K])
+    encoder = Model(inputs=x, outputs=y[K])
     return encoder
 
 
@@ -87,25 +89,25 @@ def get_decoder(node_num, d, K,
     for i in range(K - 1, 0, -1):
         y_hat[i] = Dense(n_units[i - 1],
                          activation=activation_fn,
-                         W_regularizer=Reg.l1_l2(l1=nu1, l2=nu2))(y_hat[i + 1])
+                         kernel_regularizer=Reg.l1_l2(l1=nu1, l2=nu2))(y_hat[i + 1])
     y_hat[0] = Dense(node_num, activation=activation_fn,
-                     W_regularizer=Reg.l1_l2(l1=nu1, l2=nu2))(y_hat[1])
+                     kernel_regularizer=Reg.l1_l2(l1=nu1, l2=nu2))(y_hat[1])
     # Output
     x_hat = y_hat[0]  # decoder's output is also the actual output
     # Decoder Model
-    decoder = Model(input=y, output=x_hat)
+    decoder = Model(inputs=y, outputs=x_hat)
     return decoder
 
 
 def get_autoencoder(encoder, decoder):
     # Input
-    x = Input(shape=(encoder.layers[0].input_shape[1],))
+    x = Input(shape=(encoder.layers[0].input_shape[0][1],))
     # Generate embedding
     y = encoder(x)
     # Generate reconstruction
     x_hat = decoder(y)
     # Autoencoder Model
-    autoencoder = Model(input=x, output=[x_hat, y])
+    autoencoder = Model(inputs=x, outputs=[x_hat, y])
     return autoencoder
 
 
@@ -116,13 +118,13 @@ def graphify(reconstruction):
     reconstruction = (reconstruction + reconstruction.T) / 2
     reconstruction -= np.diag(np.diag(reconstruction))
     return reconstruction
-    return reconstruction
 
 
 def loadmodel(filename):
+    model = None
     try:
         model = model_from_json(open(filename).read())
-    except:
+    except (FileNotFoundError, IOError):
         print('Error reading file: {0}. Cannot load previous model'.format(filename))
         exit()
     return model
@@ -131,7 +133,7 @@ def loadmodel(filename):
 def loadweights(model, filename):
     try:
         model.load_weights(filename)
-    except:
+    except (FileNotFoundError, IOError):
         print('Error reading file: {0}. Cannot load previous weights'.format(filename))
         exit()
 
