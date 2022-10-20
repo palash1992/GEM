@@ -59,7 +59,7 @@ sudo python setup.py install
 
 Or installing via pipwith git: 
 ```bash 
-pip install git+https://github.com/jernsting/nxt_gem.git
+pip install git+https://github.com/palash1992/GEM.git
 ```
 
 ## Usage
