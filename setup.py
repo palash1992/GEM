@@ -6,15 +6,14 @@ except ImportError:
     from setuptools import setup, find_packages
 
 
-
-VERSION = '2.0.1'
-DISTNAME = 'nxt_gem'
-MAINTAINER = 'Jan Ernsting'
-MAINTAINER_EMAIL = 'j.ernsting@uni-muenster.de'
-DESCRIPTION = 'nxt_gem: A Python module for Graph Embedding Methods'
+VERSION = '1.0.0'
+DISTNAME = 'gem'
+MAINTAINER = 'Palash Goyal'
+MAINTAINER_EMAIL = 'palashgo@usc.edu'
+DESCRIPTION = 'GEM: A Python module for Graph Embedding Methods'
 LONG_DESCRIPTION = open('README.md').read()
-URL = 'https://github.com/jernsting/nxt_gem'
-DOWNLOAD_URL = 'https://github.com/jernsting/nxt_gem/archive/' + VERSION + '.tar.gz'
+URL = 'https://github.com/palash1992/GEM'
+DOWNLOAD_URL = 'https://github.com/palash1992/GEM'
 KEYWORDS = ['graph embedding', 'network analysis',
             'network embedding', 'data mining', 'machine learning']
 LICENSE = 'BSD'

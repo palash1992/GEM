@@ -1,6 +1,4 @@
-[![Python application](https://github.com/jernsting/GEM/actions/workflows/lint_and_test.yml/badge.svg)](https://github.com/jernsting/GEM/actions/workflows/lint_and_test.yml)
-[![Coverage Status](https://coveralls.io/repos/github/jernsting/GEM/badge.svg?branch=master)](https://coveralls.io/github/jernsting/GEM?branch=master)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jernsting_GEM&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jernsting_GEM)
+[![Python application](https://github.com/palash1992/GEM/actions/workflows/lint_and_test.yml/badge.svg)](https://github.com/palash1992/GEM/actions/workflows/lint_and_test.yml)
 
 # GEM: Graph Embedding Methods
 Many physical systems in the world involve interactions between different entities and can be represented as graphs. Understanding the structure and analyzing properties of graphs are hence paramount to developing insights into the physical systems. Graph embedding, which aims to represent a graph in a low dimensional vector space, takes a step in this direction. The embeddings can be used for various tasks on graphs such as visualization, clustering, classification and prediction.
@@ -59,7 +57,7 @@ sudo python setup.py install
 
 Or installing via pipwith git: 
 ```bash 
-pip install git+https://github.com/jernsting/nxt_gem.git
+pip install git+https://github.com/palash1992/GEM.git
 ```
 
 ## Usage
