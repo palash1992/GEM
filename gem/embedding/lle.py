@@ -25,7 +25,7 @@ class LocallyLinearEmbedding(StaticGraphEmbedding):
         if not graph:
             raise ValueError('graph needed')
         graph = graph.to_undirected()
-        A = nx.to_scipy_sparse_matrix(graph)
+        A = nx.to_scipy_sparse_array(graph)
         normalize(A, norm='l1', axis=1, copy=False)
         i_n = sp.eye(len(graph.nodes))
         i_min_A = i_n - A
