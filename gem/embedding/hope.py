@@ -25,7 +25,7 @@ class HOPE(StaticGraphEmbedding):
         if not graph:
             raise ValueError('graph needed')
 
-        A = nx.to_numpy_matrix(graph)
+        A = nx.to_numpy_array(graph)
         m_g = np.eye(len(graph.nodes)) - self._beta * A
         m_l = self._beta * A
         S = np.dot(np.linalg.inv(m_g), m_l)
